@@ -36,7 +36,7 @@ namespace API
 
             services.AddScoped<IApiHelper, ApiHelper>();
 
-            services.AddScoped<IStockProcessor, StockProcessor>();
+            services.AddScoped<IStockService, StockService>();
 
         }
 
