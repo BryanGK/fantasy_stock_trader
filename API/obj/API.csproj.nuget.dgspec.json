@@ -14,7 +14,7 @@
         "outputPath": "/Users/bryankrauss/Documents/sdmm/fantasy_stock_trader/API/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/bryankrauss/.config/NuGet/NuGet.Config"
+          "/Users/bryankrauss/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -99,7 +99,7 @@
         "outputPath": "/Users/bryankrauss/Documents/sdmm/fantasy_stock_trader/Core/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/bryankrauss/.config/NuGet/NuGet.Config"
+          "/Users/bryankrauss/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -151,7 +151,7 @@
         "outputPath": "/Users/bryankrauss/Documents/sdmm/fantasy_stock_trader/Infrastructure/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/bryankrauss/.config/NuGet/NuGet.Config"
+          "/Users/bryankrauss/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
