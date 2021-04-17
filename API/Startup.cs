@@ -32,7 +32,7 @@ namespace API
             services.AddControllers();
             services.AddSpaStaticFiles(config =>
             {
-                config.RootPath = "clinet/build";
+                config.RootPath = "client/build";
             });
 
             services.AddScoped<IApiHelper, ApiHelper>();
