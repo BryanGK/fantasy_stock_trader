@@ -1167,7 +1167,7 @@
       "outputPath": "/Users/bryankrauss/Documents/sdmm/fantasy_stock_trader/API/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/bryankrauss/.nuget/NuGet/NuGet.Config"
+        "/Users/bryankrauss/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
