@@ -7,3 +7,12 @@
     display: flex;
     justify-content: center;
 }
+
+.login-form input {
+    margin: 5px 0;
+}
+
+.login-form button {
+    margin: 10px 0 5px 0;
+    width: 100%;
+}
