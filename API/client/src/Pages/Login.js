@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Form, Button, Card } from 'react-bootstrap';
-
+import { Form, Button, Card, Modal } from 'react-bootstrap';
+import CreateAccountModal from '../Components/CreateAccountModal'
 import '../Styles/Login.css';
 
 function Login() {
+
+    const [displayModal, setDisplayModal] = useState(false);
+
+    const handleModalShow = () => setDisplayModal(true);
+    const handleModalClose = () => setDisplayModal(false);
+
     return (
         <div>
             <h1 className="login-header">Login</h1>
@@ -25,14 +31,22 @@ function Login() {
                                     Login
                                 </Button>
                             </Link>
-                            <Link to="/home">
-                                <Button variant="secondary" type="submit">
-                                    Sign Up
+                            <Button
+                                variant="secondary"
+                                type="button"
+                                onClick={handleModalShow}>
+                                Sign Up
                                 </Button>
-                            </Link>
                         </Form>
                     </Card.Body>
                 </Card>
+                <Modal
+                    show={displayModal}
+                    onHide={handleModalClose}
+                    centered>
+                    <CreateAccountModal
+                        handleModalClose={handleModalClose} />
+                </Modal>
             </div>
         </div>
     )

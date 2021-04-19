@@ -1,26 +1,51 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Modal, Button, Form, Col, Row } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
-function CreateAccountModal() {
+function CreateAccountModal({ handleModalClose }) {
     return (
-        <div className="modal-dialog modal-dialog-centered">
-            <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title" id="staticBackdropLabel">Modal title</h5>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div className="modal-body">
-                            This is the body of the modal.
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary">Understood</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div>
+            <Form>
+                <Modal.Header closeButton>
+                    <Modal.Title>Create New Account</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form.Group as={Row} controlid="formUsername">
+                        <Form.Label column sm={2}>
+                            Username
+                        </Form.Label>
+                        <Col sm={10}>
+                            <Form.Control type="text" placeholder="Select a username" />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} controlid="formEmail">
+                        <Form.Label column sm={2}>
+                            Email
+                        </Form.Label>
+                        <Col sm={10}>
+                            <Form.Control type="email" placeholder="Email" />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} controlid="formPassword">
+                        <Form.Label column sm={2}>
+                            Password
+                        </Form.Label>
+                        <Col sm={10}>
+                            <Form.Control type="password" placeholder="Password" />
+                        </Col>
+                    </Form.Group>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleModalClose}>
+                        Close
+                </Button>
+                    <LinkContainer to="/home">
+                        <Button variant="primary" onClick={handleModalClose}>
+                            Create Account
+                    </Button>
+                    </LinkContainer>
+                </Modal.Footer>
+            </Form>
         </div>
     )
 }

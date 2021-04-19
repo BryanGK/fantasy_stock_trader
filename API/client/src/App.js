@@ -9,20 +9,20 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './Styles/App.css';
 
 function App() {
-  return (
-    <Router>
-      <div className="App">
-        <NavBar />
-        <Switch>
-          <Route path="/" exact component={Welcome} />
-          <Route path="/login" exact component={Login} />
-          <Route path="/home" component={Home} />
-          <Route path="/report" component={Report} />
-        </Switch>
-        <Footer />
-      </div>
-    </Router>
-  );
+    return (
+        <Router>
+            <div className="App">
+                <NavBar />
+                <Switch>
+                    <Route path="/" exact component={Welcome} />
+                    <Route path="/login" exact component={Login} />
+                    <Route path="/home" component={Home} />
+                    <Route path="/report" component={Report} />
+                </Switch>
+                <Footer />
+            </div>
+        </Router>
+    );
 }
 
 export default App;
