@@ -1,3 +1,8 @@
 .home-header {
     margin: 20px 0;
 }
+
+.chart-container {
+    display: flex;
+    justify-content: center;
+}
