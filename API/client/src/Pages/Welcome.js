@@ -1,14 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 
 function Welcome() {
     return (
         <div>
             <h1>Welcome</h1>
             <Link to="/login">
-                <button type="button" className="btn btn-primary">
+                <Button variant="primary">
                     Start Trading
-                </button>
+                </Button>
             </Link>
         </div>
     )

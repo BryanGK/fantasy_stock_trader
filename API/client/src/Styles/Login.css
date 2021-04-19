@@ -4,15 +4,16 @@
 }
 
 .login-form {
-    display: flex;
-    justify-content: center;
-}
-
-.login-form input {
-    margin: 5px 0;
+    text-align: justify;
 }
 
 .login-form button {
-    margin: 10px 0 5px 0;
+    display: block;
     width: 100%;
+    margin-top: 10px;
+}
+
+.login-form-card {
+    width: 80%;
+    max-width: 300px;
 }
