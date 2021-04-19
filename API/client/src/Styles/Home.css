@@ -6,3 +6,13 @@
     display: flex;
     justify-content: center;
 }
+
+.stock-search-container {
+    display: flex;
+    justify-content: center;
+
+}
+
+.search-stock {
+    width: 50%;
+}
