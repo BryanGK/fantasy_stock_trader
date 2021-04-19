@@ -1,3 +1,7 @@
+.login-header {
+    margin: 20px 0;
+}
+
 .login-form-container {
     display: flex;
     justify-content: center;

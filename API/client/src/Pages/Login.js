@@ -7,6 +7,7 @@ import '../Styles/Login.css';
 function Login() {
     return (
         <div>
+            <h1 className="login-header">Login</h1>
             <div className="container login-form-container">
                 <Card className="login-form-card">
                     <Card.Body>
