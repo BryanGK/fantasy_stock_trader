@@ -7,7 +7,7 @@ namespace API.Services
 {
     public interface IStockService
     {
-        Task<StockModel> GetStock();
+        Task<QuoteModel> GetStock();
     }
 
     public class StockService : IStockService
@@ -19,7 +19,7 @@ namespace API.Services
             _client = apiHelper.InitializeClient();
         }
 
-        public  Task<StockModel> GetStock()
+        public  Task<QuoteModel> GetStock()
         {
             throw new NotImplementedException();
         }
