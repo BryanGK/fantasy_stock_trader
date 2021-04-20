@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Services;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -9,13 +10,28 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers
 {
     [Route("api/[controller]")]
+
     public class StocksController : Controller
     {
-        // GET: api/values
-        [HttpGet]
-        public IEnumerable<string> Get()
+        public StocksController(IStockService stockService)
         {
-            return new string[] { "value1", "value2" };
+            _stockService = stockService;
+        }
+
+        private readonly IStockService _stockService;
+
+        [Route("quote/{symbol}")]
+        [HttpGet]
+        public async Task<IActionResult> Get(string symbol)
+        {
+            try
+            {
+                return Ok(await _stockService.GetStockQuote(symbol));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
         }
 
         // GET api/values/5
