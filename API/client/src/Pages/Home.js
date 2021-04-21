@@ -1,12 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SummaryChart from '../Components/SummaryChart';
-import StockSearch from '../Components/StockSearch';
+import { Button, FormControl, InputGroup } from 'react-bootstrap';
+import axios from 'axios';
 import '../Styles/Home.css';
+import CompanyCard from '../Components/CompanyCard';
 
 function Home() {
+    const [search, setSearch] = useState('');
+    const [companyData, setCompanyData] = useState();
+    const [companyLogo, setCompanyLogo] = useState('');
+
+    const handleChange = e => setSearch(e.target.value);
+
     const handleSearch = e => {
-        e.preventDefault();
-        console.log("search");
+        getCompanyData(search);
+    }
+
+    const getCompanyData = async () => {
+        axios.get(`api/stocks/logo/${search}`)
+            .then(response => {
+                console.log(response.data);
+                setCompanyLogo(response.data);
+            })
+        axios.get(`api/stocks/company/${search}`)
+            .then(response => {
+                console.log(response.data);
+                setCompanyData(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            })
     }
 
     return (
@@ -16,8 +39,33 @@ function Home() {
                 <SummaryChart />
             </div>
             <div className="stock-search-container">
-                <StockSearch
-                    handleSearch={handleSearch}
+                <div className="row search-stock">
+                    <InputGroup>
+                        <FormControl
+                            type="text"
+                            placeholder="Search Stocks"
+                            value={search}
+                            onChange={handleChange}
+                            onKeyPress={e => {
+                                if (e.key === "Enter") {
+                                    handleSearch();
+                                }
+                            }}
+                        />
+                        <InputGroup.Append>
+                            <Button
+                                type="submit"
+                                onClick={handleSearch}>
+                                Search
+                    </Button>
+                        </InputGroup.Append>
+                    </InputGroup>
+                </div>
+            </div>
+            <div className="container company-card-container">
+                <CompanyCard
+                    companyData={companyData}
+                    companyLogo={companyLogo}
                 />
             </div>
         </div>

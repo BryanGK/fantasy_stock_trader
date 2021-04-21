@@ -1,0 +1,17 @@
+.company-card-container p {
+    text-align: justify;
+}
+
+.company-card-container {
+    margin: 60px auto;
+}
+
+.company-title, .company-info {
+    text-align: left;
+} 
+
+.company-logo {
+    height: 50px;
+    width: 50px !important;
+    margin-right: 10px;
+}
