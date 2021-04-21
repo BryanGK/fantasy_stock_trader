@@ -22,7 +22,7 @@ namespace API.Controllers
 
         [Route("quote/{symbol}")]
         [HttpGet]
-        public async Task<IActionResult> Get(string symbol)
+        public async Task<IActionResult> GetStockQuote(string symbol)
         {
             try
             {
@@ -34,17 +34,46 @@ namespace API.Controllers
             }
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [Route("company/{symbol}")]
+        [HttpGet]
+        public async Task<IActionResult> GetCompanyData(string symbol)
         {
-            return "value";
+            try
+            {
+                return Ok(await _stockService.GetCompanyData(symbol));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
         }
 
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [Route("news/{symbol}")]
+        [HttpGet]
+        public async Task<IActionResult> GetCompanyNews(string symbol)
         {
+            try
+            {
+                return Ok(await _stockService.GetCompanyNews(symbol));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [Route("logo/{symbol}")]
+        [HttpGet]
+        public async Task<IActionResult> GetCompanyLogo(string symbol)
+        {
+            try
+            {
+                return Ok(await _stockService.GetCompanyLogo(symbol));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
         }
 
         // PUT api/values/5
