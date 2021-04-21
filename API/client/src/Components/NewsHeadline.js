@@ -1,13 +1,17 @@
 import React from 'react';
-import { ListGroupItem } from 'react-bootstrap';
+import { Card, ListGroupItem } from 'react-bootstrap';
 import '../Styles/NewsHeadline.css';
 
 function NewsHeadline({ companyNews }) {
 
     return companyNews.map(item => {
         return (
-            <div className="company-news">
-                <ListGroupItem key={Math.random()}>{item.headline}</ListGroupItem>
+            <div key={Math.random()} className="company-news">
+                <ListGroupItem>
+                    <Card.Title>{item.headline}</Card.Title>
+                    <Card.Text>{item.summary}</Card.Text>
+                    <Card.Link href={item.url} target="_blank" rel="noopener noreferrer">Read Full Article</Card.Link>
+                </ListGroupItem>
             </div>
         )
     })
