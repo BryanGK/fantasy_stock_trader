@@ -9,6 +9,8 @@ function Home() {
     const [search, setSearch] = useState('');
     const [companyData, setCompanyData] = useState();
     const [companyLogo, setCompanyLogo] = useState('');
+    const [companyNews, setComanyNews] = useState([]);
+    const [stockQuote, setStockQuote] = useState();
 
     const handleChange = e => setSearch(e.target.value);
 
@@ -17,10 +19,21 @@ function Home() {
     }
 
     const getCompanyData = async () => {
+        axios.get(`/api/stocks/news/${search}`)
+            .then(response => {
+                console.log(response.data);
+                setComanyNews(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            })
         axios.get(`api/stocks/logo/${search}`)
             .then(response => {
                 console.log(response.data);
                 setCompanyLogo(response.data);
+            })
+            .catch(error => {
+                console.log(error);
             })
         axios.get(`api/stocks/company/${search}`)
             .then(response => {
@@ -66,6 +79,7 @@ function Home() {
                 <CompanyCard
                     companyData={companyData}
                     companyLogo={companyLogo}
+                    companyNews={companyNews}
                 />
             </div>
         </div>
