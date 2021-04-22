@@ -6,39 +6,38 @@ import '../Styles/Home.css';
 import CompanyCard from '../Components/CompanyCard';
 
 function Home() {
-    const [search, setSearch] = useState('');
-    const [companyData, setCompanyData] = useState();
+    const [company, setCompany] = useState('');
+    const [companyInfo, setCompanyInfo] = useState();
     const [companyLogo, setCompanyLogo] = useState('');
-    const [companyNews, setComanyNews] = useState([]);
+    const [companyNews, setCompanyNews] = useState([]);
     const [stockQuote, setStockQuote] = useState();
 
-    const handleChange = e => setSearch(e.target.value);
+    const handleChange = e => setCompany(e.target.value);
 
-    const handleSearch = e => {
-        getCompanyData(search);
+    const handleSearch = async () => {
+        getCompanyData(company);
     }
 
     const getCompanyData = async () => {
-        axios.get(`/api/stocks/news/${search}`)
+        axios.get(`/api/stocks/quote/${company}`)
             .then(response => {
                 console.log(response.data);
-                setComanyNews(response.data);
+                setStockQuote(response.data);
             })
-            .catch(error => {
-                console.log(error);
-            })
-        axios.get(`api/stocks/logo/${search}`)
+        // axios.get(`/api/stocks/news/${company}`)
+        //     .then(response => {
+        //         console.log(response.data);
+        //         setCompanyNews(response.data);
+        //     })
+        axios.get(`api/stocks/logo/${company}`)
             .then(response => {
                 console.log(response.data);
                 setCompanyLogo(response.data);
             })
-            .catch(error => {
-                console.log(error);
-            })
-        axios.get(`api/stocks/company/${search}`)
+        axios.get(`api/stocks/company/${company}`)
             .then(response => {
                 console.log(response.data);
-                setCompanyData(response.data);
+                setCompanyInfo(response.data);
             })
             .catch(error => {
                 console.log(error);
@@ -57,7 +56,7 @@ function Home() {
                         <FormControl
                             type="text"
                             placeholder="Search Stocks"
-                            value={search}
+                            value={company}
                             onChange={handleChange}
                             onKeyPress={e => {
                                 if (e.key === "Enter") {
@@ -77,7 +76,7 @@ function Home() {
             </div>
             <div className="container company-card-container">
                 <CompanyCard
-                    companyData={companyData}
+                    companyInfo={companyInfo}
                     companyLogo={companyLogo}
                     companyNews={companyNews}
                 />
