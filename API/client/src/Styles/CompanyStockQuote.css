@@ -1,3 +1,18 @@
 .stock-report {
-    width: 500px;
+    width: 100%;
 }
+
+.quote-logo {
+    width: 50px;
+    margin-right: 10px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.stock-report .card-title {
+    text-align: justify;    
+}
+

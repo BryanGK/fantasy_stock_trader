@@ -17,10 +17,18 @@ function Home() {
     const handleChange = e => setCompany(e.target.value);
 
     const handleSearch = async () => {
+        setInitialState();
         getCompanyData(company);
     }
 
     const toggleCompanyInfo = () => {
+        setDisplayCompanyInfo(prevState => !prevState);
+        if (!companyInfo) {
+            getCompanyInfo();
+        }
+    }
+
+    const getCompanyInfo = () => {
         axios.get(`/api/stocks/news/${company}`)
             .then(response => {
                 console.log(response.data);
@@ -37,12 +45,15 @@ function Home() {
             .catch(error => {
                 console.log(error);
             });
-        setDisplayCompanyInfo(prevState => !prevState);
+    }
+
+    const setInitialState = () => {
+        setCompanyNews([]);
+        setCompanyInfo();
+        setDisplayCompanyInfo(false);
     }
 
     const getCompanyData = async () => {
-        setCompanyNews([]);
-        setCompanyInfo();
         axios.get(`/api/stocks/quote/${company}`)
             .then(response => {
                 console.log(response.data);
