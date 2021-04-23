@@ -16,3 +16,9 @@
 .search-stock {
     width: 50%;
 }
+
+.company-stock-quote {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}

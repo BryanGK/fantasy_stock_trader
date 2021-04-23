@@ -9,7 +9,7 @@ namespace API.Models
 
         public string primaryExchange { get; set; }
 
-        public double lastestPrice { get; set; }
+        public double latestPrice { get; set; }
 
         public double previousClose { get; set; }
 

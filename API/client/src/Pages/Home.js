@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import SummaryChart from '../Components/SummaryChart';
+import CompanyStockQuote from '../Components/CompanyStockQuote';
+import CompanyCard from '../Components/CompanyCard';
 import { Button, FormControl, InputGroup } from 'react-bootstrap';
 import axios from 'axios';
 import '../Styles/Home.css';
-import CompanyCard from '../Components/CompanyCard';
-import CompanyStockQuote from '../Components/CompanyStockQuote';
 
 function Home() {
     const [company, setCompany] = useState('');
@@ -12,6 +12,7 @@ function Home() {
     const [companyLogo, setCompanyLogo] = useState('');
     const [companyNews, setCompanyNews] = useState([]);
     const [stockQuote, setStockQuote] = useState();
+    const [displayCompanyInfo, setDisplayCompanyInfo] = useState(false);
 
     const handleChange = e => setCompany(e.target.value);
 
@@ -19,22 +20,15 @@ function Home() {
         getCompanyData(company);
     }
 
-    const getCompanyData = async () => {
-        axios.get(`/api/stocks/quote/${company}`)
+    const toggleCompanyInfo = () => {
+        axios.get(`/api/stocks/news/${company}`)
             .then(response => {
                 console.log(response.data);
-                setStockQuote(response.data);
+                setCompanyNews(response.data);
             })
-        // axios.get(`/api/stocks/news/${company}`)
-        //     .then(response => {
-        //         console.log(response.data);
-        //         setCompanyNews(response.data);
-        //     })
-        axios.get(`api/stocks/logo/${company}`)
-            .then(response => {
-                console.log(response.data);
-                setCompanyLogo(response.data);
-            })
+            .catch(error => {
+                console.log(error);
+            });
         axios.get(`api/stocks/company/${company}`)
             .then(response => {
                 console.log(response.data);
@@ -42,7 +36,29 @@ function Home() {
             })
             .catch(error => {
                 console.log(error);
+            });
+        setDisplayCompanyInfo(prevState => !prevState);
+    }
+
+    const getCompanyData = async () => {
+        setCompanyNews([]);
+        setCompanyInfo();
+        axios.get(`/api/stocks/quote/${company}`)
+            .then(response => {
+                console.log(response.data);
+                setStockQuote(response.data);
             })
+            .catch(error => {
+                console.log(error);
+            });
+        axios.get(`api/stocks/logo/${company}`)
+            .then(response => {
+                console.log(response.data);
+                setCompanyLogo(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }
 
     return (
@@ -76,14 +92,20 @@ function Home() {
                 </div>
             </div>
             <div className="container company-stock-quote">
-                <CompanyStockQuote />
+                <CompanyStockQuote
+                    stockQuote={stockQuote}
+                    companyLogo={companyLogo}
+                    toggleCompanyInfo={toggleCompanyInfo}
+                />
             </div>
             <div className="container company-card-container">
-                <CompanyCard
+                {displayCompanyInfo ?
+                    <CompanyCard
                     companyInfo={companyInfo}
                     companyLogo={companyLogo}
                     companyNews={companyNews}
-                />
+                    />
+                    : null}
             </div>
         </div>
     )
