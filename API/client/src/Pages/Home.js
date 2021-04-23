@@ -4,6 +4,7 @@ import { Button, FormControl, InputGroup } from 'react-bootstrap';
 import axios from 'axios';
 import '../Styles/Home.css';
 import CompanyCard from '../Components/CompanyCard';
+import CompanyStockQuote from '../Components/CompanyStockQuote';
 
 function Home() {
     const [company, setCompany] = useState('');
@@ -73,6 +74,9 @@ function Home() {
                         </InputGroup.Append>
                     </InputGroup>
                 </div>
+            </div>
+            <div className="container company-stock-quote">
+                <CompanyStockQuote />
             </div>
             <div className="container company-card-container">
                 <CompanyCard
