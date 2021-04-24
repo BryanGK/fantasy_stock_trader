@@ -16,9 +16,15 @@ function Home() {
 
     const handleChange = e => setCompany(e.target.value);
 
-    const handleSearch = async () => {
+    const handleSearch = () => {
         setInitialState();
-        getCompanyData(company);
+        getCompanyQuote(company);
+    }
+
+    const setInitialState = () => {
+        setCompanyNews([]);
+        setCompanyInfo();
+        setDisplayCompanyInfo(false);
     }
 
     const toggleCompanyInfo = () => {
@@ -47,13 +53,7 @@ function Home() {
             });
     }
 
-    const setInitialState = () => {
-        setCompanyNews([]);
-        setCompanyInfo();
-        setDisplayCompanyInfo(false);
-    }
-
-    const getCompanyData = async () => {
+    const getCompanyQuote = async () => {
         axios.get(`/api/stocks/quote/${company}`)
             .then(response => {
                 console.log(response.data);
