@@ -21,7 +21,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(string username) // Body of Post { username: "Bryan", password: "123" }
+        public async Task<IActionResult> Post(string username, string password) // Body of Post { username: "Bryan", password: "123" }
          {
             // Get user in database where username is: "Bryan"
             // If user does not exist
@@ -33,11 +33,11 @@ namespace API.Controllers
 
             try
             {
-                return Ok(await _authService.GetUserDb(username));
+                return Ok(await _authService.GetUserDb(username, password));
             }
             catch (Exception e)
             {
-                return StatusCode(500, $"{e.Message} {e.StackTrace}- Something's not right.");
+                return StatusCode(500, $"{e.Message} {e.StackTrace} - Something's not right.");
             }
         }
     }
