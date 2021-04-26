@@ -21,7 +21,9 @@ namespace API.Services
             await using var conn = new NpgsqlConnection(connString);
             await conn.OpenAsync();
 
-            await using var cmd = new NpgsqlCommand($"SELECT id, username, password FROM users WHERE username = '{username}';", conn);
+            await using var cmd = new NpgsqlCommand($"SELECT id, username, password FROM users WHERE username = (@p);", conn);
+            cmd.Parameters.AddWithValue("p", username);
+            cmd.ExecuteNonQuery();
             await using var reader = await cmd.ExecuteReaderAsync();
 
             while (reader.Read())
