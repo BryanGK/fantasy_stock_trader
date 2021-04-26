@@ -7,30 +7,32 @@ namespace API.Services
 {
     public interface IAuthService
     {
-        Task<UserModel> GetUserDb();
+        Task<string> GetUserDb();
     }
 
     public class AuthService : IAuthService
     {
-        public async Task<UserModel> GetUserDb()
+        public async Task<string> GetUserDb()
         {
-            var connString = "Host=myserver;Username=mylogin;Password=mypass;Database=mydatabase";
+            Console.WriteLine("AuthService hit again");
+            var connString = "Host=localhost;Port=5432;Username=bryankrauss;Password=password123;Database=fantasy_stock_users";
 
             await using var conn = new NpgsqlConnection(connString);
             await conn.OpenAsync();
 
-            // Insert some data
-            await using (var cmd = new NpgsqlCommand("INSERT INTO data (some_field) VALUES (@p)", conn))
-            {
-                cmd.Parameters.AddWithValue("p", "Hello world");
-                await cmd.ExecuteNonQueryAsync();
-            }
-
             // Retrieve all rows
-            await using (var cmd = new NpgsqlCommand("SELECT some_field FROM data", conn))
-            await using (var reader = await cmd.ExecuteReaderAsync())
-                while (await reader.ReadAsync())
-                    Console.WriteLine(reader.GetString(0));
+            await using var cmd = new NpgsqlCommand("SELECT * FROM users;", conn);
+            await using var reader = await cmd.ExecuteReaderAsync();
+
+            while (reader.Read())
+            {
+                //Console.WriteLine(reader.GetString(reader.GetOrdinal("username")));
+                var username = reader.GetString(reader.GetOrdinal("password"));
+                Console.WriteLine(username);
+                return username;
+            }
+            
+            return "Bad news bears.";
         }
     }
 }

@@ -11,12 +11,12 @@ namespace API.Controllers
 
     public class StocksController : Controller
     {
+        private readonly IStockService _stockService;
+
         public StocksController(IStockService stockService)
         {
             _stockService = stockService;
         }
-
-        private readonly IStockService _stockService;
 
         [Route("quote/{symbol}")]
         [HttpGet]

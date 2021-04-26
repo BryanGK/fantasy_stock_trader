@@ -13,10 +13,12 @@ namespace API.Controllers
 
     public class AuthController : Controller
     {
-        public AuthController()
-        {
-        }
+        private readonly IAuthService _authService;
 
+        public AuthController(IAuthService authService)
+        {
+            _authService = authService;
+        }
 
         [HttpPost]
         public async Task<IActionResult> Post() // Body of Post { username: "Bryan", password: "123" }
@@ -31,11 +33,11 @@ namespace API.Controllers
 
             try
             {
-                return Ok();
+                return Ok(await _authService.GetUserDb());
             }
             catch (Exception e)
             {
-                return StatusCode(403, $"{e.Message} - Access Forbidden");
+                return StatusCode(403, $"{e.Message} {e.StackTrace}- Access Forbidden");
             }
         }
     }
