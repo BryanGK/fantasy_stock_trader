@@ -28,7 +28,15 @@ namespace API.Controllers
             // return user id to client
             // else
             // return 403 forbidden
-            throw new NotImplementedException();
+
+            try
+            {
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return StatusCode(403, $"{e.Message} - Access Forbidden");
+            }
         }
     }
 }
