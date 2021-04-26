@@ -28,7 +28,6 @@ namespace API.Services
                 user.Id = reader.GetString(reader.GetOrdinal("id"));
                 user.Username = reader.GetString(reader.GetOrdinal("username"));
                 user.Password = reader.GetString(reader.GetOrdinal("password"));
-                Console.WriteLine(reader);
                 return user;
             }
 
