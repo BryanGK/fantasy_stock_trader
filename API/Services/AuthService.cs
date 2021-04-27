@@ -8,6 +8,8 @@ namespace API.Services
     public interface IAuthService
     {
         Task<UserModel> GetUserDb(string username, string password);
+
+        Task<bool> DoesUserExist(string username);
     }
 
     public class AuthService : IAuthService
@@ -25,7 +27,6 @@ namespace API.Services
             cmd.Parameters.AddWithValue("p", username);
             cmd.ExecuteNonQuery();
             await using var reader = await cmd.ExecuteReaderAsync();
-
             while (reader.Read())
             {
                 user.Id = reader.GetString(reader.GetOrdinal("id"));
@@ -34,6 +35,31 @@ namespace API.Services
                 return user;
             }
 
+
+            throw new Exception();
+        }
+
+        public async Task<bool> DoesUserExist(string username)
+        {
+            var connString = "Host=localhost;Port=5432;Username=bryankrauss;Password=password123;Database=fantasy_stock_users";
+
+            await using var conn = new NpgsqlConnection(connString);
+            await conn.OpenAsync();
+
+            await using var cmd = new NpgsqlCommand($"SELECT * FROM users WHERE EXISTS (SELECT * FROM users WHERE username = (@p));");
+            cmd.Parameters.AddWithValue("p", username);
+            cmd.ExecuteNonQuery();
+            await using var reader = await cmd.ExecuteReaderAsync();
+
+            while (reader.Read())
+            {
+                if (reader.HasRows)
+                {
+                    return true;
+                }
+
+                return false;
+            }
 
             throw new Exception();
         }
