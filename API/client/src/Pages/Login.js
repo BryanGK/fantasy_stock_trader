@@ -3,13 +3,37 @@ import { Link } from 'react-router-dom';
 import { Form, Button, Card, Modal } from 'react-bootstrap';
 import CreateAccountModal from '../Components/CreateAccountModal'
 import '../Styles/Login.css';
+import axios from 'axios';
 
 function Login() {
-
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
     const [displayModal, setDisplayModal] = useState(false);
 
     const handleModalShow = () => setDisplayModal(true);
+
     const handleModalClose = () => setDisplayModal(false);
+
+    const handleUsername = e => setUsername(e.target.value)
+
+    const handlePassword = e => setPassword(e.target.value)
+
+    const postLogin = () => {
+        axios({
+            method: 'post',
+            url: 'api/auth',
+            data: {
+                Username: username,
+                Password: password
+            }
+        })
+            .then(response => {
+                console.log(response.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
 
     return (
         <div>
@@ -19,15 +43,26 @@ function Login() {
                     <Card.Body>
                         <Form className="login-form">
                             <Form.Group controlId="formBasicEmail">
-                                <Form.Label>Email address</Form.Label>
-                                <Form.Control type="email" placeholder="Enter email" />
+                                <Form.Label>Username</Form.Label>
+                                <Form.Control
+                                    onChange={handleUsername}
+                                    value={username}
+                                    type="text"
+                                    placeholder="Enter Username" />
                             </Form.Group>
                             <Form.Group controlId="formBasicPassword">
                                 <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" placeholder="Password" />
+                                <Form.Control
+                                    onChange={handlePassword}
+                                    value={password}
+                                    type="password"
+                                    placeholder="Password" />
                             </Form.Group>
                             <Link to="/home">
-                                <Button variant="primary" type="submit">
+                                <Button
+                                    onClick={postLogin}
+                                    variant="primary"
+                                    type="submit">
                                     Login
                                 </Button>
                             </Link>
