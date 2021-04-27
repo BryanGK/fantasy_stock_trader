@@ -14,6 +14,7 @@ namespace API.Services
 
     public class AuthService : IAuthService
     {
+
         public async Task<UserModel> GetUserDb(string username, string password)
         {
             UserModel user = new UserModel();
@@ -46,22 +47,12 @@ namespace API.Services
             await using var conn = new NpgsqlConnection(connString);
             await conn.OpenAsync();
 
-            await using var cmd = new NpgsqlCommand($"SELECT * FROM users WHERE EXISTS (SELECT * FROM users WHERE username = (@p));");
+            await using var cmd = new NpgsqlCommand("SELECT * FROM users WHERE EXISTS (SELECT * FROM users WHERE username = (@p));", conn);
             cmd.Parameters.AddWithValue("p", username);
             cmd.ExecuteNonQuery();
             await using var reader = await cmd.ExecuteReaderAsync();
 
-            while (reader.Read())
-            {
-                if (reader.HasRows)
-                {
-                    return true;
-                }
-
-                return false;
-            }
-
-            throw new Exception();
+            return reader.HasRows;
         }
     }
 }
