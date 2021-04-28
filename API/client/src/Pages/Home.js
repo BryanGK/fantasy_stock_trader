@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import SummaryChart from '../Components/SummaryChart';
 import CompanyStockQuote from '../Components/CompanyStockQuote';
 import CompanyCard from '../Components/CompanyCard';
@@ -6,8 +6,11 @@ import { Button, FormControl, InputGroup } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import '../Styles/Home.css';
+import { useLogin, useLoginUpdate } from '../AuthContext';
 
 function Home() {
+    const isAuth = useLogin()
+
     const [company, setCompany] = useState('');
     const [companyInfo, setCompanyInfo] = useState();
     const [companyLogo, setCompanyLogo] = useState('');

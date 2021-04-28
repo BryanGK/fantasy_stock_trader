@@ -6,25 +6,23 @@ import Login from './Pages/Login';
 import Report from './Pages/Report';
 import Footer from './Components/Footer';
 import ProtectedRoute from "./ProtectedRoute";
-import PageRoutes from './PageRoutes';
 import { AuthProvider } from './AuthContext';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useLogin } from './AuthContext';
-import './Styles/App.css';
 
-
-function App() {
-
+function PageRoutes() {
+    const isAuth = useLogin();
     return (
-        <div className="App">
-            <NavBar />
-            <AuthProvider>
-                <PageRoutes />
-            </AuthProvider>
-            <Footer />
-        </div>
+        <Router>
+            <Switch>
+                <Route path="/" exact component={Welcome} />
+                <Route path="/login" exact component={Login} />
+                <ProtectedRoute path="/home" component={Home} isAuth={isAuth} />
+                <ProtectedRoute path="/report" component={Report} isAuth={isAuth} />
+            </Switch>
+        </Router>
 
-    );
+    )
 }
 
-export default App;
+export default PageRoutes
