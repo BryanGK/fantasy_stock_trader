@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import '../Styles/Report.css';
 
 function Report() {
@@ -9,4 +10,4 @@ function Report() {
     )
 }
 
-export default Report
+export default withRouter(Report);

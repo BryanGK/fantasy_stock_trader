@@ -5,6 +5,7 @@ import Home from './Pages/Home';
 import Login from './Pages/Login';
 import Report from './Pages/Report';
 import Footer from './Components/Footer';
+import ProtectedRoute from "./ProtectedRoute";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './Styles/App.css';
 
@@ -16,8 +17,8 @@ function App() {
                 <Switch>
                     <Route path="/" exact component={Welcome} />
                     <Route path="/login" exact component={Login} />
-                    <Route path="/home" component={Home} />
-                    <Route path="/report" component={Report} />
+                    <ProtectedRoute path="/home" component={Home} isAuth />
+                    <ProtectedRoute path="/report" component={Report} isAuth />
                 </Switch>
                 <Footer />
             </div>
