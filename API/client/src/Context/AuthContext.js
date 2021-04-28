@@ -1,4 +1,5 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const AuthContext = React.createContext();
 const AuthUpdateContext = React.createContext();
@@ -12,11 +13,12 @@ export function useLoginUpdate() {
 }
 
 export function AuthProvider({ children }) {
-    const [isAuth, setIsAuth] = useState(true);
+    const history = useHistory();
+    const [isAuth, setIsAuth] = useState(false);
 
-    const userLogin = () => {
+    useEffect(() => {
 
-    }
+    }, [history])
 
     return (
         <AuthContext.Provider value={isAuth}>

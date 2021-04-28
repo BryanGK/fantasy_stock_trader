@@ -4,6 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import '../Styles/Navbar.css';
 
 function NavBar() {
+
     return (
         <div>
             <Navbar className="navbar-link" bg="primary" variant="dark">
@@ -13,12 +14,16 @@ function NavBar() {
                 <Nav>
                     <Nav.Item>
                         <LinkContainer to="/home">
-                            <Nav.Link>Home</Nav.Link>
+                            <Nav.Link>
+                                Home
+                                </Nav.Link>
                         </LinkContainer>
                     </Nav.Item>
                     <Nav.Item>
                         <LinkContainer to="/report">
-                            <Nav.Link>Report</Nav.Link>
+                            <Nav.Link>
+                                Report
+                                </Nav.Link>
                         </LinkContainer>
                     </Nav.Item>
                 </Nav>
