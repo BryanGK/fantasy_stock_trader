@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useHistory, Redirect } from 'react-router-dom';
+import { Link, useHistory, Redirect, withRouter } from 'react-router-dom';
 import { Form, Button, Card, Modal } from 'react-bootstrap';
 import CreateAccountModal from '../Components/CreateAccountModal';
 import { useLogin, useLoginUpdate } from '../Context/AuthContext';
@@ -33,7 +33,7 @@ function Login() {
             }
         })
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 checkReturnData(response.data)
 
             })
@@ -43,7 +43,10 @@ function Login() {
     }
 
     const checkReturnData = (data) => {
+        // const userData = JSON.parse(localStorage.getItem('userData'))
+        // console.log(userData);
         if (data) {
+            localStorage.setItem('userData', JSON.stringify(data));
             userLogin(true);
             history.push("/home");
         }
@@ -105,4 +108,4 @@ function Login() {
     )
 }
 
-export default Login;
+export default withRouter(Login);

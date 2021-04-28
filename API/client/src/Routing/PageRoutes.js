@@ -8,9 +8,10 @@ import Footer from '../Components/Footer';
 import ProtectedRoute from "./ProtectedRoute";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useLogin } from '../Context/AuthContext';
+import { useHistory } from 'react-router-dom';
 
 function PageRoutes() {
-
+    const history = useHistory();
     const isAuth = useLogin();
 
     return (

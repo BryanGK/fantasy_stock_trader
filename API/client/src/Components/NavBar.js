@@ -1,9 +1,11 @@
 import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import { useHistory } from 'react-router-dom';
 import '../Styles/Navbar.css';
 
 function NavBar() {
+    const history = useHistory();
 
     return (
         <div>
@@ -13,18 +15,16 @@ function NavBar() {
                 </LinkContainer>
                 <Nav>
                     <Nav.Item>
-                        <LinkContainer to="/home">
-                            <Nav.Link>
-                                Home
+                        <Nav.Link
+                            onClick={() => history.push("/home")}>
+                            Home
                                 </Nav.Link>
-                        </LinkContainer>
                     </Nav.Item>
                     <Nav.Item>
-                        <LinkContainer to="/report">
-                            <Nav.Link>
-                                Report
+                        <Nav.Link
+                            onClick={() => history.push("/report")}>
+                            Report
                                 </Nav.Link>
-                        </LinkContainer>
                     </Nav.Item>
                 </Nav>
             </Navbar>
