@@ -6,6 +6,8 @@ import { useLogin, useLoginUpdate } from '../Context/AuthContext';
 import '../Styles/Login.css';
 import axios from 'axios';
 
+
+
 function Login() {
     const isAuth = useLogin();
     const history = useHistory();
@@ -24,17 +26,12 @@ function Login() {
     const handlePassword = e => setPassword(e.target.value)
 
     const postLogin = () => {
-        axios({
-            method: 'post',
-            url: 'api/auth',
-            data: {
-                Username: username,
-                Password: password
-            }
+        axios.post('/api/auth', {
+            username: username,
+            password: password
         })
             .then(response => {
                 checkReturnData(response.data)
-
             })
             .catch(err => {
                 console.log(err);
