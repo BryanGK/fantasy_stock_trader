@@ -6,8 +6,6 @@ import { useLogin, useLoginUpdate } from '../Context/AuthContext';
 import '../Styles/Login.css';
 import axios from 'axios';
 
-
-
 function Login() {
     const isAuth = useLogin();
     const history = useHistory();
@@ -15,6 +13,7 @@ function Login() {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
     const [displayModal, setDisplayModal] = useState(false);
 
     const handleModalShow = () => setDisplayModal(true);
@@ -25,13 +24,29 @@ function Login() {
 
     const handlePassword = e => setPassword(e.target.value)
 
+    const handleEmail = e => setEmail(e.target.value);
+
     const postLogin = () => {
         axios.post('/api/auth', {
             username: username,
             password: password
         })
             .then(response => {
-                checkReturnData(response.data)
+                checkReturnData(response.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
+    const postCreateAccount = () => {
+        axios.post('api/user', {
+            username: username,
+            password: password,
+            email: email
+        })
+            .then(response => {
+                checkReturnData(response.data);
             })
             .catch(err => {
                 console.log(err);
@@ -44,6 +59,7 @@ function Login() {
             userLogin(true);
             history.push("/home");
         }
+        return;
     }
 
     if (isAuth) {
@@ -95,6 +111,10 @@ function Login() {
                     onHide={handleModalClose}
                     centered>
                     <CreateAccountModal
+                        postCreateAccount={postCreateAccount}
+                        handleUsername={handleUsername}
+                        handlePassword={handlePassword}
+                        handleEmail={handleEmail}
                         handleModalClose={handleModalClose} />
                 </Modal>
             </div>

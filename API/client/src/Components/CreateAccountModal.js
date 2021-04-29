@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, Button, Form, Col, Row } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
-function CreateAccountModal({ handleModalClose }) {
+function CreateAccountModal({ handleModalClose, handleUsername, handlePassword, handleEmail, postCreateAccount }) {
     return (
         <div>
             <Form>
@@ -15,7 +15,10 @@ function CreateAccountModal({ handleModalClose }) {
                             Username
                         </Form.Label>
                         <Col sm={10}>
-                            <Form.Control type="text" placeholder="Select a username" />
+                            <Form.Control
+                                onChange={handleUsername}
+                                type="text"
+                                placeholder="Select a username" />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlid="formEmail">
@@ -23,7 +26,10 @@ function CreateAccountModal({ handleModalClose }) {
                             Email
                         </Form.Label>
                         <Col sm={10}>
-                            <Form.Control type="email" placeholder="Email" />
+                            <Form.Control
+                                onChange={handleEmail}
+                                type="email"
+                                placeholder="Email" />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlid="formPassword">
@@ -31,7 +37,10 @@ function CreateAccountModal({ handleModalClose }) {
                             Password
                         </Form.Label>
                         <Col sm={10}>
-                            <Form.Control type="password" placeholder="Password" />
+                            <Form.Control
+                                onChange={handlePassword}
+                                type="password"
+                                placeholder="Password" />
                         </Col>
                     </Form.Group>
                 </Modal.Body>
@@ -40,7 +49,9 @@ function CreateAccountModal({ handleModalClose }) {
                         Close
                 </Button>
                     <LinkContainer to="/home">
-                        <Button variant="primary" onClick={handleModalClose}>
+                        <Button
+                            variant="primary"
+                            onClick={postCreateAccount}>
                             Create Account
                     </Button>
                     </LinkContainer>
