@@ -34,12 +34,14 @@ namespace API.Controllers
 
                 UserModel user = await _authService.GetUserDb(loginData.Username, loginData.Password);
 
-                if (user.Password == loginData.Password)
-                {
-                    return Ok(user);
-                }
-                else
-                    return StatusCode(403, "Invalid Password");
+                return Ok(user);
+
+                //if (user.Password == loginData.Password)
+                //{
+                //    return Ok(user);
+                //}
+                //else
+                //    return StatusCode(403, "Invalid Password");
             }
             catch (Exception e)
             {

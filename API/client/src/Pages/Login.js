@@ -39,7 +39,7 @@ function Login() {
     }
 
     const checkReturnData = (data) => {
-        if (data) {
+        if (data.username !== null) {
             localStorage.setItem('userData', JSON.stringify(data));
             userLogin(true);
             history.push("/home");

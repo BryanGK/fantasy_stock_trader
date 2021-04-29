@@ -24,16 +24,21 @@ namespace API.Services
             await using var conn = new NpgsqlConnection(connString);
             await conn.OpenAsync();
 
-            await using var cmd = new NpgsqlCommand($"SELECT id, username, password FROM users WHERE username = (@p);", conn);
+            await using var cmd = new NpgsqlCommand($"SELECT user_id, username, password, email FROM users WHERE username = (@p);", conn);
             cmd.Parameters.AddWithValue("p", username);
             cmd.ExecuteNonQuery();
             await using var reader = await cmd.ExecuteReaderAsync();
             while (reader.Read())
             {
-                user.Id = reader.GetString(reader.GetOrdinal("id"));
-                user.Username = reader.GetString(reader.GetOrdinal("username"));
-                user.Password = reader.GetString(reader.GetOrdinal("password"));
-                return user;
+                if (password == reader.GetString(reader.GetOrdinal("password")))
+                {
+                    user.User_Id = reader.GetGuid(reader.GetOrdinal("user_id"));
+                    user.Username = reader.GetString(reader.GetOrdinal("username"));
+                    user.Email = reader.GetString(reader.GetOrdinal("email"));
+                    return user;
+                }
+                else
+                    return user;
             }
 
 
