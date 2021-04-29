@@ -1,5 +1,4 @@
-import React, { useState, useContext, useEffect, createContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useContext, createContext } from 'react';
 
 const AuthContext = createContext();
 const AuthUpdateContext = createContext();
@@ -13,17 +12,10 @@ export function useLoginUpdate() {
 }
 
 export function AuthProvider({ children }) {
-    const history = useHistory();
-    const [isAuth, setIsAuth] = useState(false);
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    // const [userData1, setUserData] = useState(userData);
+    const [isAuth, setIsAuth] = useState(userData ? true : false);
     
-    useEffect(() => {
-        (() => {
-            const userData = JSON.parse(localStorage.getItem('userData'))
-            console.log(userData);
-            console.log("useEffect hits");
-        })();
-    }, [history]);
-
     return (
         <AuthContext.Provider value={isAuth}>
             <AuthUpdateContext.Provider value={setIsAuth}>

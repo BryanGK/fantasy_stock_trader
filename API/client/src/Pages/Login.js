@@ -33,7 +33,6 @@ function Login() {
             }
         })
             .then(response => {
-                // console.log(response.data);
                 checkReturnData(response.data)
 
             })
@@ -43,8 +42,6 @@ function Login() {
     }
 
     const checkReturnData = (data) => {
-        // const userData = JSON.parse(localStorage.getItem('userData'))
-        // console.log(userData);
         if (data) {
             localStorage.setItem('userData', JSON.stringify(data));
             userLogin(true);
