@@ -36,12 +36,6 @@ namespace API.Controllers
 
                 return Ok(user);
 
-                //if (user.Password == loginData.Password)
-                //{
-                //    return Ok(user);
-                //}
-                //else
-                //    return StatusCode(403, "Invalid Password");
             }
             catch (Exception e)
             {
