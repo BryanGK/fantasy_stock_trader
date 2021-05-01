@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+
+<hibernate-mapping
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns="urn:nhibernate-mapping-2.2"
+        namespace="API.Models"
+        assembly="fantasy_stock_users">
+    <class name="UserModel" schema="public" table="users">
+        <id name="User_Id" column="user_id" type="guid">
+            <generator>
+                <param name="sequence">public.users_id_seq</param>
+            </generator>
+        </id>
+        <property name="Username" column="username" type="string" />
+        <property name="Password" column="password" type="string" />
+        <property name="Email" column="email" type="string" />
+    </class>
+</hibernate-mapping>
