@@ -32,7 +32,7 @@ namespace API.Controllers
                     return StatusCode(403, "User not found");
                 }
 
-                UserModel user = await _authService.GetUserDb(loginData.Username, loginData.Password);
+                UserModel user = (UserModel)await _authService.GetUserDb(loginData.Username, loginData.Password);
 
                 return Ok(user);
 

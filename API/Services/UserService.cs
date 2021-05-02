@@ -10,8 +10,15 @@ namespace API.Services
         Task<UserModel> CreateUser(string username, string email, string password);
     }
 
-    public class UserService : IUserService, IAuthService
+    public class UserService : IUserService
     {
+
+        //private readonly IAuthService _authService;
+
+        //public AuthController(IAuthService authService)
+        //{
+        //    _authService = authService;
+        //}
 
         public async Task<UserModel> CreateUser(string username, string email, string password)
         {

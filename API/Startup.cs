@@ -1,35 +1,37 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using API.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
+using NHibernate.NetCore;
+using NHibernate;
 
 namespace API
 {
     public class Startup
     {
-
-        public Startup(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-
         private readonly IConfiguration _configuration;
 
+        public Startup(IConfiguration configuration, Microsoft.Extensions.Logging.ILoggerFactory factory)
+        {
+            _configuration = configuration;
+
+            factory.UseAsHibernateLoggerFactory();
+        }
+
+        [Obsolete]
         public void ConfigureServices(IServiceCollection services)
         {
+            var path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "hibernate.cfg.xml");
+
 
             services.AddControllers();
+
             services.AddSpaStaticFiles(config =>
             {
                 config.RootPath = "client/build";
@@ -42,6 +44,10 @@ namespace API
             services.AddScoped<IAuthService, AuthService>();
 
             services.AddScoped<IUserService, UserService>();
+
+            services.AddHibernate(path);
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
         }
 

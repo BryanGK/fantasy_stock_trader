@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<hibernate-configuration xmlns="urn:nhibernate-configuration-2.2">
+    <session-factory>
+        <property name="connection.connection_string">
+            server=localhost;
+            databse=fantasy_stock_users;
+            user id =bryankrauss;
+            password=password123;
+        </property>
+        <property name="connection-driver_class">NHibernate.Driver.NpgsqlDriver</property>
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+        <property name="adonet.batch_size">10</property>
+        <mapping assembly="NaturalReserveApi" />
+    </session-factory>
+</hibernate-configuration>
