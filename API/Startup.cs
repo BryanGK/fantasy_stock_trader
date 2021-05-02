@@ -29,7 +29,6 @@ namespace API
         {
             var path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "hibernate.cfg.xml");
 
-
             services.AddControllers();
 
             services.AddSpaStaticFiles(config =>

@@ -21,18 +21,18 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]UserLoginModel loginData)
+        public async Task<IActionResult> Post()
          {
             try
             {
-                var validUser = await _authService.DoesUserExist(loginData.Username);
+                //var validUser = await _authService.DoesUserExist(loginData.Username);
 
-                if (!validUser)
-                {
-                    return StatusCode(403, "User not found");
-                }
+                //if (!validUser)
+                //{
+                //    return StatusCode(403, "User not found");
+                //}
 
-                UserModel user = (UserModel)await _authService.GetUserDb(loginData.Username, loginData.Password);
+                UserModel user = (UserModel)await _authService.GetUserDb();
 
                 return Ok(user);
 

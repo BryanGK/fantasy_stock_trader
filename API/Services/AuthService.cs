@@ -10,7 +10,7 @@ namespace API.Services
 {
     public interface IAuthService
     {
-        Task<IEnumerable<UserModel>> GetUserDb(string username, string password);
+        Task<IEnumerable<UserModel>> GetUserDb();
 
         Task<bool> DoesUserExist(string username);
     }
@@ -21,11 +21,11 @@ namespace API.Services
         private readonly IAuthService _authService;
         private readonly ISessionFactory _factory;
 
-        public AuthService(IAuthService authService)
-        {
-            _authService = authService;
+        //public AuthService(IAuthService authService)
+        //{
+        //    _authService = authService;
 
-        }
+        //}
 
         public AuthService(ISessionFactory factory)
         {
@@ -33,7 +33,7 @@ namespace API.Services
 
         }
 
-        public async Task<IEnumerable<UserModel>> GetUserDb(string username, string password)
+        public async Task<IEnumerable<UserModel>> GetUserDb()
         {
             //UserModel user = new UserModel();
 
