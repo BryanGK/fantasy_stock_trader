@@ -17,11 +17,11 @@ namespace API
     {
         private readonly IConfiguration _configuration;
 
-        public Startup(IConfiguration configuration, Microsoft.Extensions.Logging.ILoggerFactory factory)
+        public Startup(IConfiguration configuration)
         {
+
             _configuration = configuration;
 
-            factory.UseAsHibernateLoggerFactory();
         }
 
         [Obsolete]

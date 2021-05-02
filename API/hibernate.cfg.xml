@@ -7,10 +7,11 @@
             user id =bryankrauss;
             password=password123;
         </property>
-        <property name="connection-driver_class">NHibernate.Driver.NpgsqlDriver</property>
+        <property name="dialect">NHibernate.Dialect.PostgreSQL83Dialect</property>
+        <property name="connection.driver_class">NHibernate.Driver.NpgsqlDriver</property>
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
         <property name="adonet.batch_size">10</property>
-        <mapping assembly="NaturalReserveApi" />
+        <mapping assembly="API" />
     </session-factory>
 </hibernate-configuration>

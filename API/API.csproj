@@ -14,6 +14,7 @@
     <PackageReference Include="NHibernate" Version="5.3.8" />
     <PackageReference Include="Npgsql" Version="5.0.4" />
     <PackageReference Include="NHibernate.NetCore" Version="5.0.6" />
+    <PackageReference Include="NHibernate.Extensions.Logging" Version="2.1.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,7 +31,9 @@
     <None Remove="Mappings\UserModel.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mappings\UserModel.hbm.xml" />
+    <EmbeddedResource Include="Mappings\UserModel.hbm.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Update="hibernate.cfg.xml">
