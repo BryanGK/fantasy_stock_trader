@@ -17,20 +17,11 @@ namespace API.Services
 
     public class AuthService : IAuthService
     {
-
-        private readonly IAuthService _authService;
         private readonly ISessionFactory _factory;
-
-        //public AuthService(IAuthService authService)
-        //{
-        //    _authService = authService;
-
-        //}
 
         public AuthService(ISessionFactory factory)
         {
             _factory = factory;
-
         }
 
         public IEnumerable<UserModel> GetUserDb(string username)
