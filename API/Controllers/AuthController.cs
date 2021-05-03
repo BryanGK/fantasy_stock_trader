@@ -20,12 +20,12 @@ namespace API.Controllers
             _authService = authService;
         }
 
-        [HttpGet]
-        public ActionResult<IEnumerable<UserModel>> Get()
+        [HttpPost]
+        public ActionResult<IEnumerable<UserModel>> Post([FromBody]UserModel userData)
          {
             try
             {
-                return Ok(_authService.GetUserDb());
+                return Ok(_authService.GetUserDb(userData.Username));
 
             }
             catch (Exception e)
