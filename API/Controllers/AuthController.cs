@@ -20,21 +20,12 @@ namespace API.Controllers
             _authService = authService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Post()
+        [HttpGet]
+        public ActionResult<IEnumerable<UserModel>> Get()
          {
             try
             {
-                //var validUser = await _authService.DoesUserExist(loginData.Username);
-
-                //if (!validUser)
-                //{
-                //    return StatusCode(403, "User not found");
-                //}
-
-                UserModel user = (UserModel)await _authService.GetUserDb();
-
-                return Ok(user);
+                return Ok(_authService.GetUserDb());
 
             }
             catch (Exception e)

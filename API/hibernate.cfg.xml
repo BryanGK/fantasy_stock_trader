@@ -3,7 +3,7 @@
     <session-factory>
         <property name="connection.connection_string">
             server=localhost;
-            databse=fantasy_stock_users;
+            database=fantasy_stock_users;
             user id=bryankrauss;
             password=password123;
         </property>

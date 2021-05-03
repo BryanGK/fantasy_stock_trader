@@ -10,7 +10,7 @@ namespace API.Services
 {
     public interface IAuthService
     {
-        Task<IEnumerable<UserModel>> GetUserDb();
+        IEnumerable<UserModel> GetUserDb();
 
         Task<bool> DoesUserExist(string username);
     }
@@ -33,7 +33,7 @@ namespace API.Services
 
         }
 
-        public async Task<IEnumerable<UserModel>> GetUserDb()
+        public IEnumerable<UserModel> GetUserDb()
         {
             //UserModel user = new UserModel();
 
