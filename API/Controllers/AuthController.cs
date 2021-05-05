@@ -25,7 +25,7 @@ namespace API.Controllers
          {
             try
             {
-                return Ok(_authService.GetUserDb(userData.Username, userData.Password));
+                return Ok(_authService.GetUserByName(userData.Username, userData.Password));
             }
             catch (Exception e)
             {

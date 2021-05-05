@@ -10,7 +10,9 @@ namespace API.Services
 {
     public interface IAuthService
     {
-        UserSession GetUserDb(string username, string password);
+        UserSession GetUserByName(string username, string password);
+
+        UserSession GetUserById(Guid userId);
     }
 
     public class AuthService : IAuthService
@@ -22,10 +24,9 @@ namespace API.Services
             _factory = factory;
         }
 
-        public UserSession GetUserDb(string username, string password)
+        public UserSession GetUserByName(string username, string password)
         {
             using (var session = _factory.OpenSession())
-
             {
                 var user = session.Query<LoginModel>().FirstOrDefault(x => x.Username == username);
 
@@ -45,6 +46,22 @@ namespace API.Services
             }
 
             throw new Exception();
+        }
+
+        public UserSession GetUserById(Guid userId)
+        {
+            using (var session = _factory.OpenSession())
+            {
+                var user = session.Get<LoginModel>(userId);
+
+                var userSession = new UserSession()
+                {
+                    User_Id = user.User_Id,
+                    Session_Id = Guid.NewGuid()
+                };
+
+                return userSession;
+            }
         }
     }
 }

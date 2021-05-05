@@ -3,8 +3,10 @@ namespace API.Models
 {
     public class CreateUserModel
     {
-        public string Username { get; set; }
+        public virtual Guid User_Id { get; set; }
 
-        public string Password { get; set; }
+        public virtual string Username { get; set; }
+
+        public virtual string Password { get; set; }
     }
 }

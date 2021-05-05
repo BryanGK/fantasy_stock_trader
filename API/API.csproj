@@ -29,11 +29,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Mappings\LoginModel.hbm.xml" />
+    <None Remove="Mappings\CreateUserModel.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mappings\LoginModel.hbm.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Mappings\CreateUserModel.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Update="hibernate.cfg.xml">

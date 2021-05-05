@@ -42,7 +42,7 @@ namespace API
 
             services.AddScoped<IAuthService, AuthService>();
 
-            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICreateUserService, CreateUserService>();
 
             services.AddHibernate(path);
 

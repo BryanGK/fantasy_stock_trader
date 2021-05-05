@@ -11,23 +11,28 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
 
-    public class UserController : Controller
+    public class CreateUserController : Controller
     {
-        private readonly IUserService _userService;
+        private readonly ICreateUserService _createUserService;
 
-        public UserController(IUserService userService)
+        private readonly IAuthService _authService;
+
+        public CreateUserController(ICreateUserService createUserService, IAuthService authService)
         {
-            _userService = userService;
+            _createUserService = createUserService;
+            _authService = authService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] LoginModel userData)
+        public ActionResult<UserSession> Post([FromBody] CreateUserModel userData)
          {
             try
             {
-                var newUser = await _userService.CreateUser(userData.Username, userData.Password);
+                var newUserId = _createUserService.User(userData.Username, userData.Password);
+               
+                var user = _authService.GetUserById(newUserId);
 
-                return Ok(newUser);
+                return Ok(user);
             }
             catch (Exception e)
             {
