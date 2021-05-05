@@ -7,7 +7,7 @@ namespace API.Services
 {
     public interface IUserService
     {
-        Task<UserModel> CreateUser(string username, string email, string password);
+        Task<LoginModel> CreateUser(string username, string password);
     }
 
     public class UserService : IUserService
@@ -20,7 +20,7 @@ namespace API.Services
         //    _authService = authService;
         //}
 
-        public async Task<UserModel> CreateUser(string username, string email, string password)
+        public async Task<LoginModel> CreateUser(string username, string password)
         {
 
             var existingUser = await DoesUserExist(username);
@@ -35,11 +35,10 @@ namespace API.Services
 
                 await using var cmd = new NpgsqlCommand($"INSERT INTO users (username, email, password) VALUES ((@u), (@e), (@p));", conn);
                 cmd.Parameters.AddWithValue("u", username);
-                cmd.Parameters.AddWithValue("e", email);
                 cmd.Parameters.AddWithValue("p", password);
                 cmd.ExecuteNonQuery();
 
-                UserModel user = new();
+                LoginModel user = new();
 
                 user = await GetUserDb(username, password);
 
@@ -69,7 +68,7 @@ namespace API.Services
 
         }
 
-        public async Task<UserModel> GetUserDb(string username, string password)
+        public async Task<LoginModel> GetUserDb(string username, string password)
         {
 
             var connString = "Host=localhost;Port=5432;Username=bryankrauss;Password=password123;Database=fantasy_stock_users";
@@ -85,11 +84,10 @@ namespace API.Services
 
             while (reader.Read())
             {
-                UserModel user = new();
+                LoginModel user = new();
 
                 user.User_Id = reader.GetGuid(reader.GetOrdinal("user_id"));
                 user.Username = reader.GetString(reader.GetOrdinal("username"));
-                user.Email = reader.GetString(reader.GetOrdinal("email"));
                 return user;
             }
 

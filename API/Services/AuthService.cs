@@ -10,9 +10,7 @@ namespace API.Services
 {
     public interface IAuthService
     {
-        IEnumerable<UserModel> GetUserDb(string username);
-
-        Task<bool> DoesUserExist(string username);
+        LoginModel GetUserDb(string username, string password);
     }
 
     public class AuthService : IAuthService
@@ -24,33 +22,18 @@ namespace API.Services
             _factory = factory;
         }
 
-        public IEnumerable<UserModel> GetUserDb(string username)
+        public LoginModel GetUserDb(string username, string password)
         {
             using (var session = _factory.OpenSession())
 
             {
-                var query = session.Query<UserModel>()
-                                   .Where(c => c.Username == username)
-                                   .ToList();
+                var query = session.Query<LoginModel>()
+                                   .FirstOrDefault(a => a.Username == username);
+                                   
                 return query;
             }
 
             throw new Exception();
-        }
-
-        public async Task<bool> DoesUserExist(string username)
-        {
-            var connString = "Host=localhost;Port=5432;Username=bryankrauss;Password=password123;Database=fantasy_stock_users";
-
-            await using var conn = new NpgsqlConnection(connString);
-            await conn.OpenAsync();
-
-            await using var cmd = new NpgsqlCommand("SELECT * FROM users WHERE EXISTS (SELECT * FROM users WHERE username = (@p));", conn);
-            cmd.Parameters.AddWithValue("p", username);
-            cmd.ExecuteNonQuery();
-            await using var reader = await cmd.ExecuteReaderAsync();
-
-            return reader.HasRows;
         }
     }
 }

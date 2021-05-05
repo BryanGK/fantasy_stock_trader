@@ -28,10 +28,10 @@
     <Folder Include="Mappings\" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Mappings\UserModel.hbm.xml" />
+    <None Remove="Mappings\LoginModel.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mappings\UserModel.hbm.xml">
+    <EmbeddedResource Include="Mappings\LoginModel.hbm.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

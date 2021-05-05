@@ -21,11 +21,11 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]UserModel userData)
+        public async Task<IActionResult> Post([FromBody] LoginModel userData)
          {
             try
             {
-                var newUser = await _userService.CreateUser(userData.Username, userData.Email, userData.Password);
+                var newUser = await _userService.CreateUser(userData.Username, userData.Password);
 
                 return Ok(newUser);
             }

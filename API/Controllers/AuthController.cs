@@ -21,11 +21,11 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public ActionResult<IEnumerable<UserModel>> Post([FromBody]UserModel userData)
+        public ActionResult<LoginModel> Post([FromBody] LoginModel userData)
          {
             try
             {
-                return Ok(_authService.GetUserDb(userData.Username));
+                return Ok(_authService.GetUserDb(userData.Username, userData.Password));
             }
             catch (Exception e)
             {
