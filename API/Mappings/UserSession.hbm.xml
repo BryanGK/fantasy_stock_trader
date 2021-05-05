@@ -6,9 +6,8 @@
         xmlns="urn:nhibernate-mapping-2.2"
         namespace="API.Models"
         assembly="API">
-    <class name="LoginModel" table="users">
+    <class name="UserSession" table="users">
         <id name="User_Id" column="user_id" type="guid"><generator class="native" /></id>
-        <property name="Username" column="username" type="string" />
-        <property name="Password" column="password" type="string" />
+        <id name="Session_Id" column="user_id" type="guid"><generator class="native" /></id>
     </class>
 </hibernate-mapping>

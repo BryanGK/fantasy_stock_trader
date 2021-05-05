@@ -10,7 +10,7 @@ namespace API.Services
 {
     public interface IAuthService
     {
-        LoginModel GetUserDb(string username, string password);
+        UserSession GetUserDb(string username, string password);
     }
 
     public class AuthService : IAuthService
@@ -22,15 +22,26 @@ namespace API.Services
             _factory = factory;
         }
 
-        public LoginModel GetUserDb(string username, string password)
+        public UserSession GetUserDb(string username, string password)
         {
             using (var session = _factory.OpenSession())
 
             {
-                var query = session.Query<LoginModel>()
-                                   .FirstOrDefault(a => a.Username == username);
-                                   
-                return query;
+                var user = session.Query<LoginModel>().FirstOrDefault(x => x.Username == username);
+
+                if (user == null)
+                    throw new Exception("User does not exist");
+
+                if (user.Password != password)
+                    throw new Exception("Password does not match");
+
+                var userSession = new UserSession()
+                {
+                    User_Id = user.User_Id,
+                    Session_Id = Guid.NewGuid()
+                };
+
+                return userSession;
             }
 
             throw new Exception();
