@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import SummaryChart from '../Components/SummaryChart';
 import CompanyStockQuote from '../Components/CompanyStockQuote';
 import CompanyCard from '../Components/CompanyCard';
-import { Button, FormControl, InputGroup } from 'react-bootstrap';
+import { Button, FormControl, InputGroup, Modal } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import '../Styles/Home.css';
+import BuyStockModal from '../Components/BuyStockModal';
 
 function Home() {
 
@@ -16,7 +17,14 @@ function Home() {
     const [stockQuote, setStockQuote] = useState();
     const [displayCompanyInfo, setDisplayCompanyInfo] = useState(false);
 
+    const [holdings, setHoldings] = useState([]);
+    const [displayModal, setDisplayModal] = useState(false);
+
     const handleChange = e => setCompany(e.target.value);
+
+    const handleModalShow = () => setDisplayModal(true);
+
+    const handleModalClose = () => setDisplayModal(false);
 
     const handleSearch = () => {
         setInitialState();
@@ -109,6 +117,7 @@ function Home() {
                     stockQuote={stockQuote}
                     companyLogo={companyLogo}
                     toggleCompanyInfo={toggleCompanyInfo}
+                    handleModalShow={handleModalShow}
                 />
             </div>
             <div className="container company-card-container">
@@ -119,6 +128,17 @@ function Home() {
                     companyNews={companyNews}
                     />
                     : null}
+            </div>
+            <div className="constainer buy-stock-modal">
+                <Modal
+                    show={displayModal}
+                    onHide={handleModalClose}
+                    centered>
+                    <BuyStockModal
+                        handleModalClose={handleModalClose}
+                        stockQuote={stockQuote}
+                    />
+                </Modal>
             </div>
         </div>
     )

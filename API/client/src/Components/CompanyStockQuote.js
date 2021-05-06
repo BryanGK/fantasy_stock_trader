@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, Button } from 'react-bootstrap';
 import '../Styles/CompanyStockQuote.css';
 
-function CompanyStockQuote({ stockQuote, companyLogo, toggleCompanyInfo }) {
+function CompanyStockQuote({ stockQuote, companyLogo, toggleCompanyInfo, handleModalShow }) {
     if (!stockQuote)
         return null;
 
@@ -21,7 +21,11 @@ function CompanyStockQuote({ stockQuote, companyLogo, toggleCompanyInfo }) {
                             variant="info"
                             onClick={toggleCompanyInfo}>
                             Company Info</Button>
-                        <Button variant="primary">Buy Stock</Button>
+                        <Button
+                            variant="primary"
+                            onClick={handleModalShow}>
+                            Buy Stock
+                            </Button>
                     </div>
                 </Card.Body>
             </Card>
