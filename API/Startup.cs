@@ -4,12 +4,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
-using Microsoft.Extensions.Configuration;
+using System.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NHibernate.NetCore;
 using NHibernate;
+using Microsoft.Extensions.Configuration;
 
 namespace API
 {
@@ -19,15 +20,12 @@ namespace API
 
         public Startup(IConfiguration configuration)
         {
-
             _configuration = configuration;
-
         }
 
         [Obsolete]
         public void ConfigureServices(IServiceCollection services)
         {
-            var path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "hibernate.cfg.xml");
 
             services.AddControllers();
 
@@ -44,7 +42,15 @@ namespace API
 
             services.AddScoped<ICreateUserService, CreateUserService>();
 
-            services.AddHibernate(path);
+            var config = new NHibernate.Cfg.Configuration();
+            var server = _configuration["Database:Server"];
+            var database = _configuration["Database:Database"];
+            var userId = _configuration["Database:UserId"];
+            var password = _configuration["Database:Password"];
+
+            config.SetProperty(NHibernate.Cfg.Environment.ConnectionString, $"server={server};database={database};user id={userId};password={password}");
+
+            services.AddHibernate(config);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 

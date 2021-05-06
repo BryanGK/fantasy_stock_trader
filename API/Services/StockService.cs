@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using API.Models;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 
 namespace API.Services
@@ -21,15 +22,17 @@ namespace API.Services
     public class StockService : IStockService
     {
         private readonly HttpClient _client;
+        private readonly IConfiguration _configuration;
 
-        public StockService(IApiHelper apiHelper)
+        public StockService(IApiHelper apiHelper, IConfiguration configuration)
         {
             _client = apiHelper.InitializeClient();
+            _configuration = configuration;
         }
 
         public async Task<QuoteModel> GetStockQuote(string symbol)
         {
-            var response = await _client.GetAsync($"https://cloud.iexapis.com/stable/stock/{symbol}/quote?token=pk_20caca1edd3b4f539ae575748c1416c2");
+            var response = await _client.GetAsync($"https://cloud.iexapis.com/stable/stock/{symbol}/quote?token=" + _configuration["IEX:ApiKey"]);
 
             if (response.IsSuccessStatusCode)
             {
@@ -43,7 +46,7 @@ namespace API.Services
 
         public async Task<CompanyModel> GetCompanyData(string symbol)
         {
-            var response = await _client.GetAsync($"https://cloud.iexapis.com/stable/stock/{symbol}/company?token=pk_20caca1edd3b4f539ae575748c1416c2");
+            var response = await _client.GetAsync($"https://cloud.iexapis.com/stable/stock/{symbol}/company?token=" + _configuration["IEX:ApiKey"]);
 
             if (response.IsSuccessStatusCode)
             {
@@ -57,7 +60,7 @@ namespace API.Services
 
         public async Task<List<NewsModel>> GetCompanyNews(string symbol)
         {
-            var response = await _client.GetAsync($"https://cloud.iexapis.com/stable/stock/{symbol}/news?token=pk_20caca1edd3b4f539ae575748c1416c2");
+            var response = await _client.GetAsync($"https://cloud.iexapis.com/stable/stock/{symbol}/news?token=" + _configuration["IEX:ApiKey"]);
 
             if (response.IsSuccessStatusCode)
             {
@@ -71,7 +74,7 @@ namespace API.Services
 
         public async Task<LogoModel> GetCompanyLogo(string symbol)
         {
-            var response = await _client.GetAsync($"https://cloud.iexapis.com/stable/stock/{symbol}/logo?token=pk_20caca1edd3b4f539ae575748c1416c2");
+            var response = await _client.GetAsync($"https://cloud.iexapis.com/stable/stock/{symbol}/logo?token=" + _configuration["IEX:ApiKey"]);
 
             if (response.IsSuccessStatusCode)
             {
