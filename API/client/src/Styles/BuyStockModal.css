@@ -1,0 +1,9 @@
+.current-price, .quantity, .total-price, .funds {
+    position: absolute !important;
+    right: 0 !important;
+}
+
+#current-price, .quantity, .total-price, .funds {
+    text-align: end !important;
+}
+
