@@ -42,7 +42,7 @@ namespace API
 
             services.AddScoped<ICreateUserService, CreateUserService>();
 
-            var config = new NHibernate.Cfg.Configuration();
+            var config = new NHibernate.Cfg.Configuration.Configure();
             var server = _configuration["Database:Server"];
             var database = _configuration["Database:Database"];
             var userId = _configuration["Database:UserId"];
