@@ -13,7 +13,6 @@ function Login() {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [email, setEmail] = useState('');
     const [displayModal, setDisplayModal] = useState(false);
 
     const handleModalShow = () => setDisplayModal(true);
@@ -23,8 +22,6 @@ function Login() {
     const handleUsername = e => setUsername(e.target.value)
 
     const handlePassword = e => setPassword(e.target.value)
-
-    const handleEmail = e => setEmail(e.target.value);
 
     const postLogin = () => {
         axios.post('/api/auth', {
@@ -40,10 +37,9 @@ function Login() {
     }
 
     const postCreateAccount = () => {
-        axios.post('api/user', {
+        axios.post('api/createuser', {
             username: username,
-            password: password,
-            email: email
+            password: password
         })
             .then(response => {
                 checkReturnData(response.data);
@@ -114,7 +110,6 @@ function Login() {
                         postCreateAccount={postCreateAccount}
                         handleUsername={handleUsername}
                         handlePassword={handlePassword}
-                        handleEmail={handleEmail}
                         handleModalClose={handleModalClose} />
                 </Modal>
             </div>

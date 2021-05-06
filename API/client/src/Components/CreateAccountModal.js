@@ -21,17 +21,6 @@ function CreateAccountModal({ handleModalClose, handleUsername, handlePassword, 
                                 placeholder="Select a username" />
                         </Col>
                     </Form.Group>
-                    <Form.Group as={Row} controlid="formEmail">
-                        <Form.Label column sm={2}>
-                            Email
-                        </Form.Label>
-                        <Col sm={10}>
-                            <Form.Control
-                                onChange={handleEmail}
-                                type="email"
-                                placeholder="Email" />
-                        </Col>
-                    </Form.Group>
                     <Form.Group as={Row} controlid="formPassword">
                         <Form.Label column sm={2}>
                             Password
