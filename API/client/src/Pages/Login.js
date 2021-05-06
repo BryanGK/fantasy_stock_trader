@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useHistory, Redirect, withRouter } from 'react-router-dom';
 import { Form, Button, Card, Modal } from 'react-bootstrap';
 import CreateAccountModal from '../Components/CreateAccountModal';
-import { useLogin, useLoginUpdate } from '../Context/AuthContext';
+import { useLogin, useLoginUpdate, useUserUpdate } from '../Context/AuthContext';
 import '../Styles/Login.css';
 import axios from 'axios';
 
@@ -10,6 +10,7 @@ function Login() {
     const isAuth = useLogin();
     const history = useHistory();
     const userLogin = useLoginUpdate();
+    const currentUser = useUserUpdate();
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
