@@ -23,7 +23,6 @@ namespace API
             _configuration = configuration;
         }
 
-        [Obsolete]
         public void ConfigureServices(IServiceCollection services)
         {
 
@@ -51,8 +50,6 @@ namespace API
             config.SetProperty(NHibernate.Cfg.Environment.ConnectionString, $"server={server};database={database};user id={userId};password={password}");
 
             services.AddHibernate(config);
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
         }
 
