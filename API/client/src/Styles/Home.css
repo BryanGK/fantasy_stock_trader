@@ -7,10 +7,15 @@
     justify-content: center;
 }
 
+.wallet-info {
+    justify-content: center;
+}
+
 .stock-search-container {
     display: flex;
     justify-content: center;
-
+    max-width: 800px;
+    margin: auto;
 }
 
 .search-stock {

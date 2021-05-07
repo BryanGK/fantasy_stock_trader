@@ -1,7 +1,8 @@
 import React from 'react';
 import { Chart } from 'react-google-charts';
 
-function SummaryChart() {
+function SummaryChart({ stockHoldings }) {
+
     return (
         <div className="summary-chart">
             <Chart
@@ -9,14 +10,7 @@ function SummaryChart() {
                 height={'300px'}
                 chartType="PieChart"
                 loader={<div>Loading Chart</div>}
-                data={[
-                    ['Stock', 'Value'],
-                    ['APPL', 20],
-                    ['TSLA', 25],
-                    ['GOOG', 30],
-                    ['NFLX', 35],
-                    ['GME', 100]
-                ]}
+                data={stockHoldings}
                 options={{
                     title: 'Current Holdings',
                     is3D: true,
