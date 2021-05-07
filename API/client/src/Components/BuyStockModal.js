@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
 import '../Styles/BuyStockModal.css';
 
-function BuyStockModal({ handleModalClose, stockQuote }) {
+function BuyStockModal({ handleModalClose, stockQuote, handleQuantity }) {
     if (!stockQuote)
         return null;
 
@@ -40,6 +40,7 @@ function BuyStockModal({ handleModalClose, stockQuote }) {
                         </Form.Label>
                         <Col sm={3} className="quantity">
                             <Form.Control
+                                onChange={handleQuantity}
                                 id="quantity"
                                 placeholder="0"
                             >

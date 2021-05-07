@@ -8,15 +8,19 @@ import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import '../Styles/Home.css';
 import BuyStockModal from '../Components/BuyStockModal';
+import { useCurrentUser } from '../Context/AuthContext';
 
 function Home() {
 
+    const currentUser = useCurrentUser();
+    const [displayModal, setDisplayModal] = useState(false);
     const [company, setCompany] = useState('');
     const [companyInfo, setCompanyInfo] = useState();
     const [companyLogo, setCompanyLogo] = useState('');
     const [companyNews, setCompanyNews] = useState([]);
     const [stockQuote, setStockQuote] = useState();
     const [displayCompanyInfo, setDisplayCompanyInfo] = useState(false);
+    const [quantity, setQuantity] = useState();
 
     const [wallet, setWallet] = useState({
         holdings: 0,
@@ -34,23 +38,33 @@ function Home() {
         ['GOOG', 20],
     ]);
 
-    useEffect(() => {
-        setStockHoldings(() => {
-
+    const buyStock = () => {
+        axios.post('/api/buystock/', {
+            stock: stockQuote.symbol,
+            price: stockQuote.latestPrice,
+            quantity: quantity,
         })
-        setWallet(() => {
 
-        })
-    }, [])
+    }
+
+    // useEffect(() => {
+    //     setStockHoldings(() => {
+
+    //     })
+    //     setWallet(() => {
+
+    //     })
+    // }, [])
 
 
-    const [displayModal, setDisplayModal] = useState(false);
 
     const handleChange = e => setCompany(e.target.value);
 
     const handleModalShow = () => setDisplayModal(true);
 
     const handleModalClose = () => setDisplayModal(false);
+
+    const handleQuantity = e => setQuantity(e.target.value);
 
     const handleSearch = () => {
         setInitialState();
@@ -113,8 +127,13 @@ function Home() {
             <h1 className="home-header">Home</h1>
             <div className="container chart-container">
                 <div className="row wallet-info">
-                    <SummaryChart stockHoldings={stockHoldings} />
-                    <UserWallet wallet={wallet} />
+                    <SummaryChart
+                        stockHoldings={stockHoldings}
+                    />
+                    <UserWallet
+                        wallet={wallet}
+
+                    />
                 </div>
             </div>
             <div className="stock-search-container">
@@ -165,6 +184,7 @@ function Home() {
                     centered>
                     <BuyStockModal
                         handleModalClose={handleModalClose}
+                        handleQuantity={handleQuantity}
                         stockQuote={stockQuote}
                     />
                 </Modal>

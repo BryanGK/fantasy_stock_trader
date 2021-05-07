@@ -33,12 +33,16 @@
   <ItemGroup>
     <None Remove="Mappings\LoginModel.hbm.xml" />
     <None Remove="Mappings\CreateUserModel.hbm.xml" />
+    <None Remove="Mappings\LoginModel %28copy%29.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mappings\LoginModel.hbm.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Mappings\CreateUserModel.hbm.xml" />
+    <EmbeddedResource Include="Mappings\TransModel.hbm.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Update="hibernate.cfg.xml">

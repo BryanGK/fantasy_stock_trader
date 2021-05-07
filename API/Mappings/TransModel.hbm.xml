@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+
+<hibernate-mapping
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns="urn:nhibernate-mapping-2.2"
+        namespace="API.Models"
+        assembly="API">
+    <class name="TransModel" table="transactions">
+        <id name="TransactionId" column="transaction_id" type="guid"><generator class="native" /></id>
+        <property name="UserId" column="user_id" type="guid" />
+        <property name="Stock" column="stock" type="string" />
+        <property name="Price" column="price" type="decimal" />
+        <property name="Quantity" column="quantity" type="int" />
+        <property name="CreatedOn" column="created_on" type="string" />
+    </class>
+</hibernate-mapping>
