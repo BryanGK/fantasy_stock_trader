@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using API.Models;
 using NHibernate;
 
@@ -7,7 +8,7 @@ namespace API.Services
 
     public interface ITransService
     {
-        UserWallet Buy(TransModel transModel);
+        UserWalletModel Buy(TransModel transModel);
     }
 
     public class TransService : ITransService
@@ -20,7 +21,7 @@ namespace API.Services
             _sessionFactory = sessionFactory;
         }
 
-        public UserWallet Buy(TransModel transModel)
+        public UserWalletModel Buy(TransModel transModel)
         {
             using (var session = _sessionFactory.OpenSession())
             {
@@ -33,7 +34,11 @@ namespace API.Services
                     Quantity = transModel.Quantity,
                 };
 
+                session.Save(transaction);
 
+                var wallet = session.Query<UserWalletModel>().FirstOrDefault(x => x.UserId == transModel.UserId);
+
+                return wallet;
             }
         }
     }

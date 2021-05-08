@@ -37,12 +37,30 @@ namespace API.Services
 
                     var createSuccess = session.Save(createUser);
 
+
+                    //Wallet(user);
+
                     return (Guid)createSuccess;
 
                 }
             }
 
             throw new Exception("Error creating user account");
+        }
+
+        public void Wallet(LoginModel user)
+        {
+            using (var session = _sessionFactory.OpenSession())
+            {
+                Console.WriteLine($"THIS IS USER ID: {user.User_Id}");
+
+                var wallet = new UserWalletModel()
+                {
+                    Cash = 100000,
+                };
+                Console.WriteLine($"THIS IS USER ID: {user.User_Id}");
+                session.Save(wallet, user.User_Id);
+            }
         }
     }
 }

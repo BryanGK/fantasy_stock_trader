@@ -1,7 +1,7 @@
 ﻿using System;
 namespace API.Models
 {
-    public class UserWallet
+    public class UserWalletModel
     {
         public Guid UserId { get; set; }
 
