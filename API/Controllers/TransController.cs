@@ -22,11 +22,11 @@ namespace API.Controllers
 
         [Route("buy")]
         [HttpPost]
-        public ActionResult<UserSession> Post([FromBody] LoginModel userData)
+        public ActionResult<UserSession> Post([FromBody] TransModel userData)
          {
             try
             {
-                return Ok(_authService.GetUserByName(userData.Username, userData.Password));
+                throw new NotImplementedException();
             }
             catch (Exception e)
             {
