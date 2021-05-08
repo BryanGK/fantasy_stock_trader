@@ -14,19 +14,21 @@ namespace API.Controllers
     public class TransController : Controller
     {
         private readonly IAuthService _authService;
+        private readonly ITransService _transService;
 
-        public TransController(IAuthService authService)
+        public TransController(IAuthService authService, ITransService transService)
         {
             _authService = authService;
+            _transService = transService;
         }
 
         [Route("buy")]
         [HttpPost]
-        public ActionResult<UserSession> Post([FromBody] TransModel userData)
+        public ActionResult<UserWallet> Post([FromBody] TransModel userData)
          {
             try
             {
-                throw new NotImplementedException();
+                return Ok(_transService.Buy(userData));
             }
             catch (Exception e)
             {
