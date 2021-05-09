@@ -3,8 +3,10 @@ namespace API.Models
 {
     public class UserWalletModel
     {
-        public Guid UserId { get; set; }
+        public virtual Guid Wallet_Id { get; set; }
 
-        public decimal Cash { get; set; }
+        public virtual Guid User_Id { get; set; }
+
+        public virtual decimal Cash { get; set; }
     }
 }

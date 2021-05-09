@@ -29,7 +29,7 @@ namespace API.Controllers
             try
             {
                 var newUserId = _createUserService.User(userData.Username, userData.Password);
-               
+
                 var user = _authService.GetUserById(newUserId);
 
                 return Ok(user);

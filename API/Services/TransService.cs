@@ -36,7 +36,7 @@ namespace API.Services
 
                 session.Save(transaction);
 
-                var wallet = session.Query<UserWalletModel>().FirstOrDefault(x => x.UserId == transModel.UserId);
+                var wallet = session.Query<UserWalletModel>().FirstOrDefault(x => x.User_Id == transModel.UserId);
 
                 return wallet;
             }
