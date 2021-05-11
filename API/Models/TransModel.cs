@@ -13,6 +13,5 @@ namespace API.Models
 
         public virtual int Quantity { get; set; }
 
-        public virtual string CreatedOn { get; set; }
     }
 }

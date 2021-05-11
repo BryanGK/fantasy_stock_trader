@@ -41,6 +41,8 @@ namespace API
 
             services.AddScoped<ICreateUserService, CreateUserService>();
 
+            services.AddScoped<ITransService, TransService>();
+
             var config = new NHibernate.Cfg.Configuration().Configure();
             var server = _configuration["Database:Server"];
             var database = _configuration["Database:Database"];

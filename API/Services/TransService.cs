@@ -27,7 +27,6 @@ namespace API.Services
             {
                 var transaction = new TransModel()
                 {
-                    TransactionId = Guid.NewGuid(),
                     UserId = transModel.UserId,
                     Stock = transModel.Stock,
                     Price = transModel.Price,
