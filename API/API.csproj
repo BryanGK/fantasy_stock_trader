@@ -28,23 +28,6 @@
     <Folder Include="Services\" />
     <Folder Include="Models\" />
     <Folder Include="Controllers\" />
-    <Folder Include="Mappings\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Mappings\LoginModel.hbm.xml" />
-    <None Remove="Mappings\CreateUserModel.hbm.xml" />
-    <None Remove="Mappings\LoginModel %28copy%29.hbm.xml" />
-    <None Remove="Mappings\UserWalletModel.hbm.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Mappings\LoginModel.hbm.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Mappings\CreateUserModel.hbm.xml" />
-    <EmbeddedResource Include="Mappings\TransModel.hbm.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Mappings\UserWalletModel.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Update="hibernate.cfg.xml">

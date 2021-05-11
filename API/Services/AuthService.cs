@@ -12,7 +12,7 @@ namespace API.Services
     {
         UserSession GetUserByName(string username, string password);
 
-        UserSession GetUserById(Guid userId);
+        UserSession GetUserById(string userId);
     }
 
     public class AuthService : IAuthService
@@ -28,8 +28,9 @@ namespace API.Services
         {
             using (var session = _factory.OpenSession())
             {
+                Console.WriteLine($"THIS IS USER BEFORE CALL: {username}");
                 var user = session.Query<LoginModel>().FirstOrDefault(x => x.Username == username);
-
+                Console.WriteLine($"THIS IS USER: {user}");
                 if (user == null)
                     throw new Exception("User does not exist");
 
@@ -48,7 +49,7 @@ namespace API.Services
             throw new Exception();
         }
 
-        public UserSession GetUserById(Guid userId)
+        public UserSession GetUserById(string userId)
         {
             using (var session = _factory.OpenSession())
             {

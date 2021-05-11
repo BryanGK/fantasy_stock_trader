@@ -9,8 +9,8 @@ namespace API.Services
 {
     public interface ICreateUserService
     {
-        Guid User(string username, string password);
-        Guid Wallet(Guid userId);
+        string User(string username, string password);
+        string Wallet(string userId);
     }
 
     public class CreateUserService : ICreateUserService
@@ -23,7 +23,7 @@ namespace API.Services
             _sessionFactory = sessionFactory;
         }
 
-        public Guid User(string username, string password)
+        public string User(string username, string password)
         {
 
             var createUser = new CreateUserModel()
@@ -40,7 +40,7 @@ namespace API.Services
                 {
                     var createSuccess = session.Save(createUser);
 
-                    var userId = Wallet((Guid)createSuccess);
+                    var userId = Wallet(createSuccess.ToString());
 
                     return userId;
                 }
@@ -49,7 +49,7 @@ namespace API.Services
             throw new Exception("Error creating user account");
         }
 
-        public Guid Wallet(Guid userId)
+        public string Wallet(string userId)
         {
             var wallet = new UserWalletModel()
             {
