@@ -39,11 +39,18 @@ function Home() {
     ]);
 
     const buyStock = () => {
-        axios.post('/api/buystock/', {
+        axios.post('/api/trans/buy', {
+            userId: currentUser.userId,
             stock: stockQuote.symbol,
             price: stockQuote.latestPrice,
             quantity: quantity,
         })
+            .then(response => {
+                setWallet(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            })
 
     }
 
@@ -186,6 +193,7 @@ function Home() {
                         handleModalClose={handleModalClose}
                         handleQuantity={handleQuantity}
                         stockQuote={stockQuote}
+                        buyStock={buyStock}
                     />
                 </Modal>
             </div>

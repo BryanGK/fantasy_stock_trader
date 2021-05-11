@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
 import '../Styles/BuyStockModal.css';
 
-function BuyStockModal({ handleModalClose, stockQuote, handleQuantity }) {
+function BuyStockModal({ handleModalClose, stockQuote, handleQuantity, buyStock }) {
     if (!stockQuote)
         return null;
 
@@ -82,6 +82,10 @@ function BuyStockModal({ handleModalClose, stockQuote, handleQuantity }) {
                 <Modal.Footer>
                     <Button
                         variant="primary"
+                        onClick={() => {
+                            buyStock();
+                            handleModalClose();
+                        }}
                     >
                         Buy Stock
                         </Button>
