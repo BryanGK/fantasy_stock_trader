@@ -1,5 +1,5 @@
 ﻿using System;
-namespace API.Models
+namespace Core.Mappings
 {
     public class CreateUserModel
     {

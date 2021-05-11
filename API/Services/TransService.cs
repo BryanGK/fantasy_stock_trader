@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using API.Models;
+using Core.Mappings;
 using NHibernate;
 
 namespace API.Services
@@ -8,7 +9,7 @@ namespace API.Services
 
     public interface ITransService
     {
-        UserWalletModel Buy(TransactionInputModel transModel);
+        UserWalletModel Buy(Models.TransactionInputModel transModel);
     }
 
     public class TransService : ITransService
@@ -21,11 +22,11 @@ namespace API.Services
             _sessionFactory = sessionFactory;
         }
 
-        public UserWalletModel Buy(TransactionInputModel transModel)
+        public UserWalletModel Buy(Models.TransactionInputModel transModel)
         {
             using (var session = _sessionFactory.OpenSession())
             {
-                var transaction = new TransactionInputModel()
+                var transaction = new Models.TransactionInputModel()
                 {
                     UserId = transModel.UserId,
                     Stock = transModel.Stock,

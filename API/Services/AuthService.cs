@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Models;
+using Core.Mappings;
 using NHibernate;
 using Npgsql;
 
@@ -39,8 +40,8 @@ namespace API.Services
 
                 var userSession = new UserSession()
                 {
-                    User_Id = user.User_Id,
-                    Session_Id = Guid.NewGuid()
+                    UserId = user.User_Id,
+                    SessionId = Guid.NewGuid()
                 };
 
                 return userSession;
@@ -57,8 +58,8 @@ namespace API.Services
 
                 var userSession = new UserSession()
                 {
-                    User_Id = user.User_Id,
-                    Session_Id = Guid.NewGuid()
+                    UserId = user.User_Id,
+                    SessionId = Guid.NewGuid()
                 };
 
                 return userSession;

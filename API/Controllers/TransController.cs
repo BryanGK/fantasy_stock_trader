@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Models;
 using API.Services;
+using Core.Mappings;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -24,7 +25,7 @@ namespace API.Controllers
 
         [Route("buy")]
         [HttpPost]
-        public ActionResult<UserWalletModel> Post([FromBody] TransactionInputModel userData)
+        public ActionResult<UserWalletModel> Post([FromBody] Models.TransactionInputModel userData)
          {
             try
             {

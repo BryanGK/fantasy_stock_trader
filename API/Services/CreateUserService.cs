@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using API.Models;
+using Core.Mappings;
 using NHibernate;
 using Npgsql;
 

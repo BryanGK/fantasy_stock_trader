@@ -1,7 +1,7 @@
 ﻿using System;
-namespace Core.Mappings
+namespace API.Models
 {
-    public class TransModel
+    public class TransactionInputModel
     {
         public virtual Guid TransactionId { get; set; }
 

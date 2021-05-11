@@ -1,10 +1,10 @@
 ﻿using System;
-namespace API.Models
+namespace Core.Mappings
 {
     public class UserSession
     {
-        public Guid User_Id { get; set; }
+        public virtual Guid UserId { get; set; }
 
-        public Guid Session_Id { get; set; }
+        public virtual Guid SessionId { get; set; }
     }
 }
