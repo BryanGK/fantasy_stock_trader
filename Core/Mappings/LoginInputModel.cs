@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Core.Mappings
 {
-    public class LoginModel
+    public class LoginInputModel
     {
         public virtual Guid User_Id { get; set; }
 

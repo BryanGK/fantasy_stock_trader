@@ -22,7 +22,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public ActionResult<UserSession> Post([FromBody] LoginModel userData)
+        public ActionResult<UserSession> Post([FromBody] LoginInputModel userData)
          {
             try
             {

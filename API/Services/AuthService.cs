@@ -30,7 +30,7 @@ namespace API.Services
             using (var session = _factory.OpenSession())
             {
                 Console.WriteLine($"THIS IS USER BEFORE CALL: {username}");
-                var user = session.Query<LoginModel>().FirstOrDefault(x => x.Username == username);
+                var user = session.Query<LoginInputModel>().FirstOrDefault(x => x.Username == username);
                 Console.WriteLine($"THIS IS USER: {user}");
                 if (user == null)
                     throw new Exception("User does not exist");
@@ -40,7 +40,7 @@ namespace API.Services
 
                 var userSession = new UserSession()
                 {
-                    UserId = user.User_Id,
+                    UserId = user.User_Id.ToString(),
                     SessionId = Guid.NewGuid()
                 };
 
@@ -54,11 +54,11 @@ namespace API.Services
         {
             using (var session = _factory.OpenSession())
             {
-                var user = session.Get<LoginModel>(userId);
-
+                var user = session.Get<AuthUserModel>(userId);
+                Console.WriteLine($"\nUSER ID {userId}\n");
                 var userSession = new UserSession()
                 {
-                    UserId = user.User_Id,
+                    UserId = user.UserId,
                     SessionId = Guid.NewGuid()
                 };
 

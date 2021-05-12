@@ -35,7 +35,7 @@ namespace API.Services
 
             using (var session = _sessionFactory.OpenSession())
             {
-                var user = session.Query<LoginModel>().FirstOrDefault(x => x.Username == username);
+                var user = session.Query<LoginInputModel>().FirstOrDefault(x => x.Username == username);
 
                 if (user == null)
                 {
