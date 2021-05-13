@@ -8,7 +8,7 @@ namespace Core.Services
 
     public interface ITransService
     {
-        UserWalletModel Buy(TransactionInputModel transModel);
+        UserWalletModel Buy(TransactionModel transModel);
     }
 
     public class TransService : ITransService
@@ -21,11 +21,11 @@ namespace Core.Services
             _sessionFactory = sessionFactory;
         }
 
-        public UserWalletModel Buy(TransactionInputModel transModel)
+        public UserWalletModel Buy(TransactionModel transModel)
         {
             using (var session = _sessionFactory.OpenSession())
             {
-                var transaction = new TransactionInputModel()
+                var transaction = new TransactionModel()
                 {
                     UserId = transModel.UserId,
                     Stock = transModel.Stock,

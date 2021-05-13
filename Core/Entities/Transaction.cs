@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Core.Entities
 {
-    public class TransactionInputModel
+    public class TransactionModel
     {
         public virtual Guid TransactionId { get; set; }
 

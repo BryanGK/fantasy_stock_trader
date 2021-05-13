@@ -6,29 +6,17 @@
 
   <ItemGroup>
     <None Remove="Mappings\CreateUserModel.hbm.xml" />
-    <None Remove="Mappings\LoginModel.hbm.xml" />
     <None Remove="Mappings\TransModel.hbm.xml" />
     <None Remove="Mappings\UserWalletModel.hbm.xml" />
-    <None Remove="Mappings\UserSession.hbm.xml" />
-    <None Remove="Mappings\AuthUserModel.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mappings\CreateUserModel.hbm.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Mappings\LoginModel.hbm.xml">
+    <EmbeddedResource Include="Mappings\User.hbm.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Mappings\Transaction.hbm.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Mappings\UserWalletModel.hbm.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Mappings\UserSession.hbm.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Mappings\AuthUserModel.hbm.xml">
+    <EmbeddedResource Include="Mappings\Wallet.hbm.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

@@ -25,7 +25,7 @@ namespace API.Controllers
 
         [Route("buy")]
         [HttpPost]
-        public ActionResult<UserWalletModel> Post([FromBody] TransactionInputModel userData)
+        public ActionResult<UserWalletModel> Post([FromBody] TransactionModel userData)
          {
             try
             {
