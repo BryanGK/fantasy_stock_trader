@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using API.Models;
+using Core.Entities;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 
-namespace API.Services
+namespace Core.Services
 {
     public interface IStockService
     {

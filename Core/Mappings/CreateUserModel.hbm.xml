@@ -4,7 +4,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns:xsd="http://www.w3.org/2001/XMLSchema"
         xmlns="urn:nhibernate-mapping-2.2"
-        namespace="Core.Mappings"
+        namespace="Core.Entities"
         assembly="Core">
     <class name="CreateUserModel" table="users">
         <id name="User_Id" column="user_id" type="guid"><generator class="native" /></id>

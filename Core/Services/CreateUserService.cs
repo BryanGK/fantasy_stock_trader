@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
-using API.Models;
-using Core.Mappings;
+using Core.Entities;
 using NHibernate;
-using Npgsql;
 
-namespace API.Services
+namespace Core.Services
 {
     public interface ICreateUserService
     {

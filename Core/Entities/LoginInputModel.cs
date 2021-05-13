@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Core.Mappings
+namespace Core.Entities
 {
     public class LoginInputModel
     {

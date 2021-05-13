@@ -4,9 +4,9 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns:xsd="http://www.w3.org/2001/XMLSchema"
         xmlns="urn:nhibernate-mapping-2.2"
-        namespace="Core.Mappings"
+        namespace="Core.Entities"
         assembly="Core">
-    <class name="TransModel" table="transactions">
+    <class name="TransactionInputModel" table="transactions">
         <id name="TransactionId" column="transaction_id" type="guid"><generator class="native" /></id>
         <property name="UserId" column="user_id" type="guid" />
         <property name="Stock" column="stock" type="string" />
