@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using API.Services;
+using Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860

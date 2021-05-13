@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Models;
-using API.Services;
-using Core.Mappings;
+using Core.Entities;
+using Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
 

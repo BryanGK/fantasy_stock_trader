@@ -1,5 +1,4 @@
 using System;
-using API.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using NHibernate.NetCore;
 using NHibernate;
 using Microsoft.Extensions.Configuration;
+using Core.Services;
 
 namespace API
 {
