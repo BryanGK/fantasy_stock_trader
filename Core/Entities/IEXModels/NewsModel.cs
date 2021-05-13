@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Core.Entities
+namespace Core.Entities.IEXModels
 {
     public class NewsModel
     {

@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Core.Entities
+namespace Core.Entities.IEXModels
 {
     public class QuoteModel
     {

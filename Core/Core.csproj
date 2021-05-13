@@ -36,6 +36,7 @@
     <Folder Include="Mappings\" />
     <Folder Include="Entities\" />
     <Folder Include="Services\" />
+    <Folder Include="Entities\IEXModels\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Mappings\UserSession.hbm.xml">
