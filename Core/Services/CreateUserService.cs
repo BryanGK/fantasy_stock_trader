@@ -29,13 +29,14 @@ namespace Core.Services
                 Username = username,
                 Password = password
             };
-
+            Console.WriteLine($"{username}, {password}");
             using (var session = _sessionFactory.OpenSession())
             {
-                var user = session.Query<LoginInputModel>().FirstOrDefault(x => x.Username == username);
+                var user = session.Query<UserModel>().FirstOrDefault(x => x.Username == username);
 
                 if (user == null)
                 {
+
                     var createSuccess = session.Save(createUser);
 
                     var userId = Wallet(createSuccess.ToString());

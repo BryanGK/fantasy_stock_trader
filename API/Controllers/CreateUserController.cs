@@ -30,7 +30,7 @@ namespace API.Controllers
             try
             {
                 var newUserId = _createUserService.User(userData.Username, userData.Password);
-
+                Console.WriteLine($"newuserID: {newUserId}");
                 var user = _loginService.GetUserById(newUserId);
 
                 return Ok(user);

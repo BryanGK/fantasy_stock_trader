@@ -47,13 +47,14 @@ namespace Core.Services
 
         public UserSession GetUserById(string userId)
         {
+            Guid userIdGuid = Guid.Parse(userId);
+
             using (var session = _factory.OpenSession())
             {
-                var user = session.Get<AuthUserModel>(userId);
-                Console.WriteLine($"\nUSER ID {userId}\n");
+                var user = session.Get<UserModel>(userIdGuid);
                 var userSession = new UserSession()
                 {
-                    UserId = user.UserId,
+                    UserId = user.User_Id.ToString(),
                     SessionId = Guid.NewGuid()
                 };
 
