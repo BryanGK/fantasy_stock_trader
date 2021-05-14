@@ -6,7 +6,7 @@
         xmlns="urn:nhibernate-mapping-2.2"
         namespace="Core.Entities"
         assembly="Core">
-    <class name="CreateUserModel" table="users">
+    <class name="UserModel" table="users">
         <id name="User_Id" column="user_id" type="guid"><generator class="native" /></id>
         <property name="Username" column="username" type="string" />
         <property name="Password" column="password" type="string" />

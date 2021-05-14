@@ -24,7 +24,7 @@ namespace Core.Services
         public string User(string username, string password)
         {
 
-            var createUser = new CreateUserModel()
+            var createUser = new UserModel()
             {
                 Username = username,
                 Password = password

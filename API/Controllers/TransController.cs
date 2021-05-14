@@ -14,12 +14,12 @@ namespace API.Controllers
 
     public class TransController : Controller
     {
-        private readonly IAuthService _authService;
+        private readonly ILoginService _loginService;
         private readonly ITransService _transService;
 
-        public TransController(IAuthService authService, ITransService transService)
+        public TransController(ILoginService loginService, ITransService transService)
         {
-            _authService = authService;
+            _loginService = loginService;
             _transService = transService;
         }
 

@@ -1,7 +1,8 @@
 ﻿using System;
+
 namespace Core.Entities
 {
-    public class CreateUserModel
+    public class UserModel
     {
         public virtual Guid User_Id { get; set; }
 

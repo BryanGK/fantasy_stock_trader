@@ -5,18 +5,18 @@ using NHibernate;
 
 namespace Core.Services
 {
-    public interface IAuthService
+    public interface ILoginService
     {
         UserSession GetUserByName(string username, string password);
 
         UserSession GetUserById(string userId);
     }
 
-    public class AuthService : IAuthService
+    public class LoginService : ILoginService
     {
         private readonly ISessionFactory _factory;
 
-        public AuthService(ISessionFactory factory)
+        public LoginService(ISessionFactory factory)
         {
             _factory = factory;
         }
@@ -25,9 +25,8 @@ namespace Core.Services
         {
             using (var session = _factory.OpenSession())
             {
-                Console.WriteLine($"THIS IS USER BEFORE CALL: {username}");
-                var user = session.Query<LoginInputModel>().FirstOrDefault(x => x.Username == username);
-                Console.WriteLine($"THIS IS USER: {user}");
+                var user = session.Query<UserModel>().FirstOrDefault(x => x.Username == username);
+
                 if (user == null)
                     throw new Exception("User does not exist");
 

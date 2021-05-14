@@ -25,7 +25,7 @@ function Login() {
     const handlePassword = e => setPassword(e.target.value)
 
     const postLogin = () => {
-        axios.post('/api/auth', {
+        axios.post('/api/login', {
             username: username,
             password: password
         })

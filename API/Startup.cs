@@ -37,7 +37,7 @@ namespace API
 
             services.AddScoped<IStockService, StockService>();
 
-            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<ILoginService, LoginService>();
 
             services.AddScoped<ICreateUserService, CreateUserService>();
 

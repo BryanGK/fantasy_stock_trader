@@ -16,22 +16,22 @@ namespace API.Controllers
     {
         private readonly ICreateUserService _createUserService;
 
-        private readonly IAuthService _authService;
+        private readonly ILoginService _loginService;
 
-        public CreateUserController(ICreateUserService createUserService, IAuthService authService)
+        public CreateUserController(ICreateUserService createUserService, ILoginService loginService)
         {
             _createUserService = createUserService;
-            _authService = authService;
+            _loginService = loginService;
         }
 
         [HttpPost]
-        public ActionResult<UserSession> Post([FromBody] CreateUserModel userData)
+        public ActionResult<UserSession> Post([FromBody] UserModel userData)
          {
             try
             {
                 var newUserId = _createUserService.User(userData.Username, userData.Password);
 
-                var user = _authService.GetUserById(newUserId);
+                var user = _loginService.GetUserById(newUserId);
 
                 return Ok(user);
             }

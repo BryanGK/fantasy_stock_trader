@@ -12,13 +12,13 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
 
-    public class AuthController : Controller
+    public class LoginController : Controller
     {
-        private readonly IAuthService _authService;
+        private readonly ILoginService _loginService;
 
-        public AuthController(IAuthService authService)
+        public LoginController(ILoginService loginService)
         {
-            _authService = authService;
+            _loginService = loginService;
         }
 
         [HttpPost]
@@ -27,7 +27,7 @@ namespace API.Controllers
             try
             {
                 Console.WriteLine($"THIS IS USERDATA: {userData.Username} {userData.Password}");
-                return Ok(_authService.GetUserByName(userData.Username, userData.Password));
+                return Ok(_loginService.GetUserByName(userData.Username, userData.Password));
             }
             catch (Exception e)
             {
