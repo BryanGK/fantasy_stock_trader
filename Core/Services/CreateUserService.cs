@@ -42,7 +42,7 @@ namespace Core.Services
                 }
             }
 
-            throw new Exception("Error creating user account");
+            throw new Exception("ERROR - That user already exists");
         }
 
         public void Wallet(string userId)
@@ -62,8 +62,6 @@ namespace Core.Services
                     session.Save(wallet);
                 }
             }
-
-            throw new Exception("Error creating user account");
         }
     }
 }

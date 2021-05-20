@@ -27,20 +27,22 @@ namespace API.Controllers
         [HttpPost]
         public ActionResult<UserSession> Post([FromBody] UserModel userData)
          {
+            UserEntity newUserId;
+
             try
             {
-                var newUserId = _createUserService.Create(userData.Username, userData.Password);
-
-                _createUserService.Wallet(newUserId.UserId.ToString());
-
-                var user = _loginService.GetUserById(newUserId.UserId.ToString());
-
-                return Ok(user);
+                newUserId = _createUserService.Create(userData.Username, userData.Password);
             }
             catch (Exception e)
             {
                 return StatusCode(500, $"{e.Message} {e.StackTrace} - Something's not right.");
             }
+
+            _createUserService.Wallet(newUserId.UserId.ToString());
+
+            var user = _loginService.GetUserById(newUserId.UserId.ToString());
+
+            return Ok(user);
         }
     }
 }
