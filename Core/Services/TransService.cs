@@ -8,7 +8,7 @@ namespace Core.Services
 
     public interface ITransService
     {
-        WalletEntity Buy(TransactionModel transModel);
+        WalletEntity Buy(string userId, string stock, decimal price, int quantity);
     }
 
     public class TransService : ITransService
@@ -21,21 +21,35 @@ namespace Core.Services
             _sessionFactory = sessionFactory;
         }
 
-        public WalletEntity Buy(TransactionModel transModel)
+        public WalletEntity Buy(string userId, string stock, decimal price, int quantity)
         {
+            decimal totalPrice = price * quantity;
+
             using (var session = _sessionFactory.OpenSession())
             {
-                var transaction = new TransactionModel()
+                var wallet = session.Query<WalletEntity>().FirstOrDefault(x => x.UserId == userId);
+
+                if (wallet.Cash >= totalPrice)
                 {
-                    UserId = transModel.UserId,
-                    Stock = transModel.Stock,
-                    Price = transModel.Price,
-                    Quantity = transModel.Quantity,
-                };
 
-                session.Save(transaction);
+                    var updatingWallet = session.Load<WalletEntity>(wallet.WalletId);
 
-                var wallet = session.Query<WalletEntity>().FirstOrDefault(x => x.User_Id == transModel.UserId);
+                    updatingWallet.Cash -= totalPrice;
+
+                    session.Update(updatingWallet);
+
+                    var transaction = new TransactionModel()
+                    {
+                        UserId = userId,
+                        Stock = stock,
+                        Price = price,
+                        Quantity = quantity,
+                    };
+
+                    session.Save(transaction);
+
+                    session.Flush();
+                }
 
                 return wallet;
             }

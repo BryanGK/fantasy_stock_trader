@@ -49,13 +49,13 @@ namespace Core.Services
         {
             var wallet = new WalletEntity()
             {
-                User_Id = userId,
+                UserId = userId,
                 Cash = 100000.00M
             };
 
             using (var session = _sessionFactory.OpenSession())
             {
-                var user = session.Query<WalletEntity>().FirstOrDefault(x => x.User_Id == userId);
+                var user = session.Query<WalletEntity>().FirstOrDefault(x => x.UserId == userId);
 
                 if (user == null)
                 {

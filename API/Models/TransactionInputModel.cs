@@ -1,7 +1,7 @@
 ﻿using System;
-namespace Core.Entities
+namespace API.Models
 {
-    public class TransactionModel
+    public class TransactionInputModel
     {
         public virtual Guid TransactionId { get; set; }
 
@@ -12,6 +12,5 @@ namespace Core.Entities
         public virtual decimal Price { get; set; }
 
         public virtual int Quantity { get; set; }
-
     }
 }

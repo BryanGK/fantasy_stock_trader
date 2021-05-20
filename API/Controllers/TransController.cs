@@ -25,11 +25,11 @@ namespace API.Controllers
 
         [Route("buy")]
         [HttpPost]
-        public ActionResult<WalletModel> Post([FromBody] TransactionModel userData)
+        public ActionResult<WalletModel> Post([FromBody] TransactionInputModel userData)
          {
             try
             {
-                return Ok(_transService.Buy(userData));
+                return Ok(_transService.Buy(userData.UserId, userData.Stock, userData.Price, userData.Quantity));
             }
             catch (Exception e)
             {
