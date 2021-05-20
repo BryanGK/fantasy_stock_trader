@@ -12,25 +12,24 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
 
-    public class TransController : Controller
+    public class HoldingsController : Controller
     {
         private readonly IHoldingsService _holdingsService;
         private readonly ITransService _transService;
 
-        public TransController(IHoldingsService holdingsService, ITransService transService)
+        public HoldingsController(IHoldingsService holdingsService, ITransService transService)
         {
             _holdingsService = holdingsService;
-            _transService = transService;
         }
 
-        [Route("buy")]
-        [HttpPost]
-        public ActionResult<WalletModel> Post([FromBody] TransactionInputModel userData)
-         {
+        [Route("get/{userId}")]
+        [HttpGet]
+        public ActionResult<List<HoldingsModel>> Get(string userId)
+        {
             try
             {
-
-                return Ok(_transService.Buy(userData.UserId, userData.Stock, userData.Price, userData.Quantity));
+                Console.WriteLine($"USER ID @ GET CONTROLLER: {userId}");
+                return Ok(_holdingsService.Get(userId));
 
             }
             catch (Exception e)

@@ -38,7 +38,7 @@ namespace Core.Services
 
                     session.Update(updatingWallet);
 
-                    var transaction = new TransactionModel()
+                    var transaction = new TransactionEntity()
                     {
                         UserId = userId,
                         Stock = stock,

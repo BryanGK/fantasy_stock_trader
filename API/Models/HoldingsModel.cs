@@ -1,17 +1,12 @@
 ﻿using System;
-namespace Core.Entities
+namespace API.Models
 {
-    public class TransactionEntity
+    public class HoldingsModel
     {
-        public virtual Guid TransactionId { get; set; }
-
-        public virtual string UserId { get; set; }
-
         public virtual string Stock { get; set; }
 
         public virtual decimal Price { get; set; }
 
         public virtual int Quantity { get; set; }
-
     }
 }
