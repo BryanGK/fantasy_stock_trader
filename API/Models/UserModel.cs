@@ -1,10 +1,9 @@
 ﻿using System;
-
-namespace Core.Entities
+namespace API.Models
 {
     public class UserModel
     {
-        public virtual Guid User_Id { get; set; }
+        public virtual Guid UserId { get; set; }
 
         public virtual string Username { get; set; }
 

@@ -7,8 +7,8 @@ namespace Core.Services
 {
     public interface ICreateUserService
     {
-        string User(string username, string password);
-        string Wallet(string userId);
+        UserEntity Create(string username, string password);
+        void Wallet(string userId);
     }
 
     public class CreateUserService : ICreateUserService
@@ -21,36 +21,33 @@ namespace Core.Services
             _sessionFactory = sessionFactory;
         }
 
-        public string User(string username, string password)
+        public UserEntity Create(string username, string password)
         {
 
-            var createUser = new UserModel()
+            var createdUser = new UserEntity()
             {
                 Username = username,
                 Password = password
             };
-            Console.WriteLine($"{username}, {password}");
+
             using (var session = _sessionFactory.OpenSession())
             {
-                var user = session.Query<UserModel>().FirstOrDefault(x => x.Username == username);
+                var user = session.Query<UserEntity>().FirstOrDefault(x => x.Username == username);
 
                 if (user == null)
                 {
-
-                    var createSuccess = session.Save(createUser);
-
-                    var userId = Wallet(createSuccess.ToString());
-
-                    return userId;
+                    var UserId = session.Save(createdUser);
+                    createdUser.UserId = (Guid)UserId;
+                    return createdUser;
                 }
             }
 
             throw new Exception("Error creating user account");
         }
 
-        public string Wallet(string userId)
+        public void Wallet(string userId)
         {
-            var wallet = new UserWalletModel()
+            var wallet = new WalletEntity()
             {
                 User_Id = userId,
                 Cash = 100000.00M
@@ -58,12 +55,11 @@ namespace Core.Services
 
             using (var session = _sessionFactory.OpenSession())
             {
-                var user = session.Query<UserWalletModel>().FirstOrDefault(x => x.User_Id == userId);
+                var user = session.Query<WalletEntity>().FirstOrDefault(x => x.User_Id == userId);
 
                 if (user == null)
                 {
                     session.Save(wallet);
-                    return userId;
                 }
             }
 

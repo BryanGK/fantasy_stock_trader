@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Core.Entities
 {
-    public class UserWalletModel
+    public class WalletEntity
     {
         public virtual Guid Wallet_Id { get; set; }
 

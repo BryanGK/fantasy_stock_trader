@@ -6,7 +6,7 @@
         xmlns="urn:nhibernate-mapping-2.2"
         namespace="Core.Entities"
         assembly="Core">
-    <class name="UserWalletModel" table="wallet">
+    <class name="WalletEntity" table="wallet">
         <id name="Wallet_Id" column="wallet_id" type="guid"><generator class="native" /></id>
         <property name="User_Id" column="user_id" type="string" />
         <property name="Cash" column="cash" type="decimal" />

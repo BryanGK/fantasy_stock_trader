@@ -8,7 +8,7 @@ namespace Core.Services
 
     public interface ITransService
     {
-        UserWalletModel Buy(TransactionModel transModel);
+        WalletEntity Buy(TransactionModel transModel);
     }
 
     public class TransService : ITransService
@@ -21,7 +21,7 @@ namespace Core.Services
             _sessionFactory = sessionFactory;
         }
 
-        public UserWalletModel Buy(TransactionModel transModel)
+        public WalletEntity Buy(TransactionModel transModel)
         {
             using (var session = _sessionFactory.OpenSession())
             {
@@ -35,7 +35,7 @@ namespace Core.Services
 
                 session.Save(transaction);
 
-                var wallet = session.Query<UserWalletModel>().FirstOrDefault(x => x.User_Id == transModel.UserId);
+                var wallet = session.Query<WalletEntity>().FirstOrDefault(x => x.User_Id == transModel.UserId);
 
                 return wallet;
             }
