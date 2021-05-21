@@ -30,6 +30,7 @@ namespace Core.Services
                     {
                         Stock = transaction.Stock,
                         Price = transaction.Price,
+                        TotalPrice = transaction.Price * transaction.Quantity,
                         Quantity = transaction.Quantity
                     };
 
@@ -40,6 +41,7 @@ namespace Core.Services
                     var existingHolding = combinedHoldings.Find(item => item.Stock == transaction.Stock);
 
                     existingHolding.Quantity += transaction.Quantity;
+                    existingHolding.TotalPrice += transaction.Price * transaction.Quantity;
                 }
 
             }

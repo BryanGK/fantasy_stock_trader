@@ -31,14 +31,25 @@ function Home() {
 
     const [stockHoldings, setStockHoldings] = useState([
         ['Stock', 'Value'],
-        ['APPL', 200],
-        ['V', 120],
-        ['TSLA', 800],
-        ['FB', 390],
-        ['NFLX', 576],
-        ['GME', 327],
-        ['GOOG', 20],
     ]);
+
+    const getHoldings = async () => {
+        axios.get(`api/holdings/get/${currentUser.userId}`)
+            .then(response => {
+                console.log(response.data);
+                response.data.forEach(element => {
+                    let temp = [];
+                    temp.push([element.stock, element.totalPrice])
+                    setStockHoldings(prevState =>
+                        [...prevState, temp]
+                    );
+                })
+                console.log(stockHoldings);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
 
     const buyStock = () => {
         axios.post('/api/trans/buy', {
@@ -49,11 +60,11 @@ function Home() {
         })
             .then(response => {
                 setWallet(response.data);
+                getHoldings();
             })
             .catch(error => {
                 console.log(error);
             })
-
     }
 
     // useEffect(() => {
@@ -93,15 +104,6 @@ function Home() {
         }
     }
 
-    const getHoldings = () => {
-        axios.get(`api/holdings/${currentUser.userId}`)
-            .then(response => {
-                console.log(response.data);
-            })
-            .catch(error => {
-                console.log(error);
-            })
-    }
 
     const getCompanyInfo = () => {
         axios.get(`/api/stocks/news/${company}`)

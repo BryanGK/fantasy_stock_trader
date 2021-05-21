@@ -1,5 +1,4 @@
 import React, { useState, useContext, createContext, useEffect } from 'react';
-import axios from 'axios';
 
 const AuthContext = createContext();
 const AuthUpdateContext = createContext();
@@ -30,18 +29,7 @@ export function AuthProvider({ children }) {
     useEffect(() => {
         setCurrentUser(JSON.parse(localStorage.getItem('userData')));
         console.log("USERDATA");
-        getHoldings();
     }, [isAuth]);
-
-    const getHoldings = () => {
-        axios.get(`api/holdings/${currentUser.userId}`)
-            .then(response => {
-                console.log(response.data);
-            })
-            .catch(error => {
-                console.log(error);
-            })
-    }
 
     return (
         <AuthContext.Provider value={isAuth}>
