@@ -21,34 +21,35 @@ function Home() {
     const [stockQuote, setStockQuote] = useState();
     const [displayCompanyInfo, setDisplayCompanyInfo] = useState(false);
     const [quantity, setQuantity] = useState();
+    const [stockHoldings, setStockHoldings] = useState([['Stock', 'Value']]);
 
     const [wallet, setWallet] = useState(
         {
-        holdings: 0,
-        cash: 100000
+            holdings: 0,
+            cash: 100000
         }
     );
 
-    const [stockHoldings, setStockHoldings] = useState([
-        ['Stock', 'Value'],
-    ]);
-
-    const getHoldings = async () => {
-        axios.get(`api/holdings/get/${currentUser.userId}`)
+    const getHoldings = () => {
+        const user = JSON.parse(localStorage.getItem('userData'));
+        console.log(user);
+        axios.get(`api/holdings/get/${user.userId}`)
             .then(response => {
-                console.log(response.data);
-                response.data.forEach(element => {
-                    let temp = [];
-                    temp.push([element.stock, element.totalPrice])
-                    setStockHoldings(prevState =>
-                        [...prevState, temp]
-                    );
-                })
-                console.log(stockHoldings);
+                const processedHoldings = processHoldings(response.data);
+                setStockHoldings(processedHoldings);
+                setStockHoldings(prevState => [['Stock', 'Value'], ...prevState])
             })
             .catch(error => {
                 console.log(error);
-            })
+            });
+    }
+
+    const processHoldings = (holdings) => {
+        let temp = [];
+        holdings.forEach(element => {
+            temp.push([element.stock, element.totalPrice])
+        })
+        return temp;
     }
 
     const buyStock = () => {
@@ -67,16 +68,9 @@ function Home() {
             })
     }
 
-    // useEffect(() => {
-    //     setStockHoldings(() => {
-
-    //     })
-    //     setWallet(() => {
-
-    //     })
-    // }, [])
-
-
+    useEffect(() => {
+        getHoldings();
+    }, [currentUser]);
 
     const handleChange = e => setCompany(e.target.value);
 
