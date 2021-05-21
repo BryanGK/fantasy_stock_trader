@@ -22,10 +22,10 @@ namespace Core.Services
 
         public List<TransactionEntity> Get(string userId)
         {
-            Console.WriteLine($"USER ID @ GET HOLDINGS: {userId}");
+
             using (var session = _sessionFactory.OpenSession())
             {
-                var holdings = session.Query<TransactionEntity>().Where(c => c.UserId == userId).ToList();
+                var holdings = session.Query<TransactionEntity>().Where(c => c.UserId == userId).OrderBy(holdings => holdings.Stock).ToList();
 
                 return holdings;
             }

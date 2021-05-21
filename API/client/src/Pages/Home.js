@@ -22,10 +22,12 @@ function Home() {
     const [displayCompanyInfo, setDisplayCompanyInfo] = useState(false);
     const [quantity, setQuantity] = useState();
 
-    const [wallet, setWallet] = useState({
+    const [wallet, setWallet] = useState(
+        {
         holdings: 0,
         cash: 100000
-    });
+        }
+    );
 
     const [stockHoldings, setStockHoldings] = useState([
         ['Stock', 'Value'],
@@ -89,6 +91,16 @@ function Home() {
         if (!companyInfo) {
             getCompanyInfo();
         }
+    }
+
+    const getHoldings = () => {
+        axios.get(`api/holdings/${currentUser.userId}`)
+            .then(response => {
+                console.log(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            })
     }
 
     const getCompanyInfo = () => {

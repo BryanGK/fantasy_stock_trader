@@ -26,7 +26,6 @@ namespace API.Controllers
          {
             try
             {
-                Console.WriteLine($"THIS IS USERDATA: {userData.Username} {userData.Password}");
                 return Ok(_loginService.GetUserByName(userData.Username, userData.Password));
             }
             catch (Exception e)

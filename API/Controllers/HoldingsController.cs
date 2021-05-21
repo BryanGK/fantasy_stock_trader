@@ -14,12 +14,16 @@ namespace API.Controllers
 
     public class HoldingsController : Controller
     {
-        private readonly IHoldingsService _holdingsService;
-        private readonly ITransService _transService;
 
-        public HoldingsController(IHoldingsService holdingsService, ITransService transService)
+        private readonly IHoldingsService _holdingsService;
+
+        private readonly IHoldingsProcessor _holdingsProcessor;
+
+        public HoldingsController(IHoldingsService holdingsService, IHoldingsProcessor holdingsProcessor)
         {
             _holdingsService = holdingsService;
+
+            _holdingsProcessor = holdingsProcessor;
         }
 
         [Route("get/{userId}")]
@@ -28,8 +32,11 @@ namespace API.Controllers
         {
             try
             {
-                Console.WriteLine($"USER ID @ GET CONTROLLER: {userId}");
-                return Ok(_holdingsService.Get(userId));
+                var holdings = _holdingsService.Get(userId);
+                Console.WriteLine($"HOLDINGS: {holdings}");
+                var processedHoldings = _holdingsProcessor.HoldingsCombiner(holdings);
+                Console.WriteLine($"HOLDINGS: {processedHoldings}");
+                return Ok(processedHoldings);
 
             }
             catch (Exception e)
