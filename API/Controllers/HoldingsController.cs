@@ -32,11 +32,25 @@ namespace API.Controllers
         {
             try
             {
-                var holdings = _holdingsService.Get(userId);
+                var transactions = _holdingsService.GetTransactions(userId);
 
-                var processedHoldings = _holdingsProcessor.HoldingsCombiner(holdings);
+                var processedHoldings = _holdingsProcessor.HoldingsCombiner(transactions);
 
-                return Ok(processedHoldings);
+                var holdingsValue = _holdingsProcessor.HoldingsValue(transactions);
+
+                var cash = _holdingsService.GetWallet(userId);
+
+                var holdings = new HoldingsModel()
+                {
+                    Cash = cash.Cash,
+                    Value = holdingsValue,
+                    Holdings = processedHoldings
+                };
+
+                // Get Value
+                // Get Cash
+
+                return Ok(holdings);
 
             }
             catch (Exception e)

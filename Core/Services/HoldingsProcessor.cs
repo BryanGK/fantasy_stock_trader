@@ -8,25 +8,27 @@ namespace Core.Services
     public interface IHoldingsProcessor
     {
 
-        public List<HoldingsModel> HoldingsCombiner(List<TransactionEntity> transactionEntity);
+        public List<Holding> HoldingsCombiner(List<TransactionEntity> transactions);
+
+        public decimal HoldingsValue(List<TransactionEntity> transactions); 
 
     }
 
     public class HoldingsProcessor : IHoldingsProcessor
     {
 
-        public List<HoldingsModel> HoldingsCombiner(List<TransactionEntity> transactionEntity)
+        public List<Holding> HoldingsCombiner(List<TransactionEntity> transactions)
         {
 
-            var combinedHoldings = new List<HoldingsModel>();
+            var combinedHoldings = new List<Holding>();
 
-            foreach (var transaction in transactionEntity)
+            foreach (var transaction in transactions)
             {
 
                 if (!combinedHoldings.Any(item => item.Stock == transaction.Stock))
                 {
 
-                    var holding = new HoldingsModel()
+                    var holding = new Holding()
                     {
                         Stock = transaction.Stock,
                         Price = transaction.Price,
@@ -48,7 +50,17 @@ namespace Core.Services
 
             return combinedHoldings;
         }
+
+        public decimal HoldingsValue(List<TransactionEntity> transactions)
+        {
+            var TotalValue = 0M;
+
+            foreach (var transaction in transactions)
+            {
+                TotalValue += transaction.Price * transaction.Quantity;
+            }
+
+            return TotalValue;
+        }
     }
-
-
 }

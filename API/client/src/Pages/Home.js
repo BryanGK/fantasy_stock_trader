@@ -21,7 +21,7 @@ function Home() {
     const [stockQuote, setStockQuote] = useState();
     const [displayCompanyInfo, setDisplayCompanyInfo] = useState(false);
     const [quantity, setQuantity] = useState();
-    const [stockHoldings, setStockHoldings] = useState([['Stock', 'Value']]);
+    const [stockHoldings, setStockHoldings] = useState([]);
 
     const [wallet, setWallet] = useState(
         {
@@ -68,7 +68,7 @@ function Home() {
 
     useEffect(() => {
         getHoldings();
-    }, [currentUser]);
+    }, []);
 
     const handleChange = e => setCompany(e.target.value);
 
