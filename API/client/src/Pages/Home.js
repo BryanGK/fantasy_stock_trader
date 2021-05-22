@@ -22,20 +22,23 @@ function Home() {
     const [displayCompanyInfo, setDisplayCompanyInfo] = useState(false);
     const [quantity, setQuantity] = useState();
     const [stockHoldings, setStockHoldings] = useState([]);
+    const [wallet, setWallet] = useState();
 
-    const [wallet, setWallet] = useState(
-        {
-            holdings: 0,
-            cash: 100000
-        }
-    );
+    useEffect(() => {
+        getHoldings();
+    }, []);
 
     const getHoldings = () => {
         const user = JSON.parse(localStorage.getItem('userData'));
         axios.get(`api/holdings/get/${user.userId}`)
             .then(response => {
-                const processedHoldings = processHoldings(response.data);
+                const processedHoldings = processHoldings(response.data.holdings);
                 setStockHoldings(() => [['Stock', 'Value'], ...processedHoldings]);
+                setWallet(
+                    {
+                        value: response.data.value,
+                        cash: response.data.cash
+                    })
             })
             .catch(error => {
                 console.log(error);
@@ -66,10 +69,6 @@ function Home() {
             })
     }
 
-    useEffect(() => {
-        getHoldings();
-    }, []);
-
     const handleChange = e => setCompany(e.target.value);
 
     const handleModalShow = () => setDisplayModal(true);
@@ -96,7 +95,6 @@ function Home() {
         }
     }
 
-
     const getCompanyInfo = () => {
         axios.get(`/api/stocks/news/${company}`)
             .then(response => {
@@ -116,7 +114,7 @@ function Home() {
             });
     }
 
-    const getCompanyQuote = async () => {
+    const getCompanyQuote = () => {
         axios.get(`/api/stocks/quote/${company}`)
             .then(response => {
                 console.log(response.data);
@@ -145,7 +143,6 @@ function Home() {
                     />
                     <UserWallet
                         wallet={wallet}
-
                     />
                 </div>
             </div>
@@ -168,7 +165,7 @@ function Home() {
                                 type="submit"
                                 onClick={handleSearch}>
                                 Search
-                    </Button>
+                            </Button>
                         </InputGroup.Append>
                     </InputGroup>
                 </div>

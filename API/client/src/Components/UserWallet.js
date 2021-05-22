@@ -3,13 +3,16 @@ import { Table } from 'react-bootstrap';
 import '../Styles/UserWallet.css';
 
 function UserWallet({ wallet }) {
+    if (!wallet)
+        return null;
+
     return (
         <div>
             <Table bordered>
                 <tbody>
                     <tr>
                         <td>Current Holdings</td>
-                        <td>${wallet.holdings}</td>
+                        <td>${wallet.value}</td>
                     </tr>
                     <tr>
                         <td>Current Wallet</td>
