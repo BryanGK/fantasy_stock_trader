@@ -33,9 +33,9 @@ namespace API.Controllers
             try
             {
                 var holdings = _holdingsService.Get(userId);
-                Console.WriteLine($"HOLDINGS: {holdings}");
+
                 var processedHoldings = _holdingsProcessor.HoldingsCombiner(holdings);
-                Console.WriteLine($"HOLDINGS: {processedHoldings}");
+
                 return Ok(processedHoldings);
 
             }

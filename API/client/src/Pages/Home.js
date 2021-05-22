@@ -32,12 +32,10 @@ function Home() {
 
     const getHoldings = () => {
         const user = JSON.parse(localStorage.getItem('userData'));
-        console.log(user);
         axios.get(`api/holdings/get/${user.userId}`)
             .then(response => {
                 const processedHoldings = processHoldings(response.data);
-                setStockHoldings(processedHoldings);
-                setStockHoldings(prevState => [['Stock', 'Value'], ...prevState])
+                setStockHoldings(() => [['Stock', 'Value'], ...processedHoldings]);
             })
             .catch(error => {
                 console.log(error);
