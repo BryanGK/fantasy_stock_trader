@@ -11,15 +11,42 @@
     justify-content: center;
 }
 
-.stock-search-container {
+.transactions {
     display: flex;
-    justify-content: center;
-    max-width: 800px;
-    margin: auto;
+    flex-direction: column;
+}
+
+.buy {
+    align-self: center;
+}
+
+.buy button {
+    font-size: x-large;
+    width: 200px;
+}
+
+.sell button {
+    font-size: x-large;
+    margin-top: 25px;
+    width: 200px;
+}
+
+.sell {
+    align-self: center;
+}
+
+.search-stock {
+    align-self: center;
+    margin-top: 25px;
+    min-width: 300px;
 }
 
 .search-stock {
     width: 50%;
+}
+
+.stock-list {
+    align-self: center;
 }
 
 .company-stock-quote {

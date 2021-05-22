@@ -3,6 +3,7 @@ import SummaryChart from '../Components/SummaryChart';
 import CompanyStockQuote from '../Components/CompanyStockQuote';
 import CompanyCard from '../Components/CompanyCard';
 import UserWallet from '../Components/UserWallet';
+import StockList from '../Components/StockList';
 import { Button, FormControl, InputGroup, Modal } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
@@ -21,8 +22,11 @@ function Home() {
     const [stockQuote, setStockQuote] = useState();
     const [displayCompanyInfo, setDisplayCompanyInfo] = useState(false);
     const [quantity, setQuantity] = useState();
-    const [stockHoldings, setStockHoldings] = useState([]);
+    const [holdings, setHoldings] = useState();
+    const [processedHoldings, setProcessedHoldings] = useState([]);
     const [wallet, setWallet] = useState();
+    const [buy, setBuy] = useState(false);
+    const [sell, setSell] = useState(false);
 
     useEffect(() => {
         getHoldings();
@@ -33,7 +37,8 @@ function Home() {
         axios.get(`api/holdings/get/${user.userId}`)
             .then(response => {
                 const processedHoldings = processHoldings(response.data.holdings);
-                setStockHoldings(() => [['Stock', 'Value'], ...processedHoldings]);
+                setProcessedHoldings(() => [['Stock', 'Value'], ...processedHoldings]);
+                setHoldings(response.data.holdings)
                 setWallet(
                     {
                         value: response.data.value,
@@ -139,35 +144,60 @@ function Home() {
             <div className="container chart-container">
                 <div className="row wallet-info">
                     <SummaryChart
-                        stockHoldings={stockHoldings}
+                        processedHoldings={processedHoldings}
                     />
                     <UserWallet
                         wallet={wallet}
                     />
                 </div>
             </div>
-            <div className="stock-search-container">
-                <div className="row search-stock">
-                    <InputGroup>
-                        <FormControl
-                            type="text"
-                            placeholder="Search Stocks"
-                            value={company}
-                            onChange={handleChange}
-                            onKeyPress={e => {
-                                if (e.key === "Enter") {
-                                    handleSearch();
-                                }
-                            }}
-                        />
-                        <InputGroup.Append>
-                            <Button
-                                type="submit"
-                                onClick={handleSearch}>
-                                Search
+            <div className="container transactions">
+                <div className="buy col-8">
+                    <Button
+                        variant="success"
+                        onClick={() => { setBuy(prevState => !prevState) }}
+                    >
+                        Buy
+                        </Button>
+                </div>
+                <div className="sell col-8">
+                    <Button
+                        variant="danger"
+                        onClick={() => { setSell(prevState => !prevState) }}
+                    >
+                        Sell
+                        </Button>
+                </div>
+                <div className="search-stock col-6">
+                    {buy ?
+                        <InputGroup>
+                            <FormControl
+                                type="text"
+                                placeholder="Search Stocks"
+                                value={company}
+                                onChange={handleChange}
+                                onKeyPress={e => {
+                                    if (e.key === "Enter") {
+                                        handleSearch();
+                                    }
+                                }}
+                            />
+                            <InputGroup.Append>
+                                <Button
+                                    type="submit"
+                                    onClick={handleSearch}>
+                                    Search
                             </Button>
-                        </InputGroup.Append>
-                    </InputGroup>
+                            </InputGroup.Append>
+                        </InputGroup>
+                        : null}
+                </div>
+                <div className="stock-list col-10">
+                    {sell ?
+                        <StockList
+                            holdings={holdings}
+                        />
+                        : null}
                 </div>
             </div>
             <div className="container company-stock-quote">

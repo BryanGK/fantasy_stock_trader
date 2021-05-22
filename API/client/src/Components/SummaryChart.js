@@ -1,7 +1,7 @@
 import React from 'react';
 import { Chart } from 'react-google-charts';
 
-function SummaryChart({ stockHoldings }) {
+function SummaryChart({ processedHoldings }) {
 
     return (
         <div className="summary-chart">
@@ -10,7 +10,7 @@ function SummaryChart({ stockHoldings }) {
                 height={'300px'}
                 chartType="PieChart"
                 loader={<div>Loading Chart</div>}
-                data={stockHoldings}
+                data={processedHoldings}
                 options={{
                     title: 'Current Holdings',
                     is3D: true,
