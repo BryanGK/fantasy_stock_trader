@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
 import '../Styles/BuyStockModal.css';
 
-function BuyStockModal({ handleModalClose, stockQuote, handleQuantity, buyStock }) {
+function BuyStockModal({ handleModalClose, stockQuote, handleQuantity, buyStock, quantity, cash }) {
     if (!stockQuote)
         return null;
 
@@ -22,7 +22,7 @@ function BuyStockModal({ handleModalClose, stockQuote, handleQuantity, buyStock 
                         >
                             Current Price:
                         </Form.Label>
-                        <Col sm={3} className="current-price">
+                        <Col sm={4} className="current-price">
                             <Form.Control
                                 id="current-price"
                                 placeholder={`$${stockQuote.latestPrice}`}
@@ -38,11 +38,12 @@ function BuyStockModal({ handleModalClose, stockQuote, handleQuantity, buyStock 
                         >
                             How Many:
                         </Form.Label>
-                        <Col sm={3} className="quantity">
+                        <Col sm={4} className="quantity">
                             <Form.Control
                                 onChange={handleQuantity}
                                 id="quantity"
                                 placeholder="0"
+                                type="number"
                             >
                             </Form.Control>
                         </Col>
@@ -54,10 +55,10 @@ function BuyStockModal({ handleModalClose, stockQuote, handleQuantity, buyStock 
                         >
                             Total Price:
                         </Form.Label>
-                        <Col sm={3} className="total-price">
+                        <Col sm={4} className="total-price">
                             <Form.Control
                                 id="total-price"
-                                placeholder={`${stockQuote.latestPrice}`}
+                                placeholder={`$${stockQuote.latestPrice * quantity}`}
                                 disabled
                             >
                             </Form.Control>
@@ -70,10 +71,10 @@ function BuyStockModal({ handleModalClose, stockQuote, handleQuantity, buyStock 
                         >
                             Available Funds:
                         </Form.Label>
-                        <Col sm={3} className="funds">
+                        <Col sm={4} className="funds">
                             <Form.Control
                                 id="funds"
-                                placeholder="0"
+                                placeholder={`$${cash}`}
                             >
                             </Form.Control>
                         </Col>

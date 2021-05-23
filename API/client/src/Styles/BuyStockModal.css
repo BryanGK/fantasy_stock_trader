@@ -3,7 +3,7 @@
     right: 0 !important;
 }
 
-#current-price, .quantity, .total-price, .funds {
-    text-align: end !important;
+#current-price, #quantity, #total-price, #funds {
+    text-align: end;
 }
 

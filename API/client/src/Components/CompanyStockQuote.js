@@ -18,14 +18,15 @@ function CompanyStockQuote({ stockQuote, companyLogo, toggleCompanyInfo, handleM
                     <Card.Text><b>52 Week High:</b> {stockQuote.week52High} <b>52 Week Low:</b> {stockQuote.week52Low}</Card.Text>
                     <div className="button-container">
                         <Button
-                            variant="info"
-                            onClick={toggleCompanyInfo}>
-                            Company Info</Button>
-                        <Button
                             variant="primary"
                             onClick={handleModalShow}>
                             Buy Stock
                             </Button>
+                        <Button
+                            variant="secondary"
+                            onClick={toggleCompanyInfo}>
+                            Company Info</Button>
+
                     </div>
                 </Card.Body>
             </Card>

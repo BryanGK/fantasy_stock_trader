@@ -76,7 +76,10 @@ function Home() {
 
     const handleChange = e => setCompany(e.target.value);
 
-    const handleModalShow = () => setDisplayModal(true);
+    const handleModalShow = () => {
+        setDisplayModal(true);
+        setQuantity(0);
+    }
 
     const handleModalClose = () => setDisplayModal(false);
 
@@ -155,7 +158,7 @@ function Home() {
             <div className="container transactions">
                 <div className="buy-sell col">
                     <Button
-                        variant="success"
+                        variant="info"
                         onClick={() => {
                             setBuy(prevState => !prevState)
                             setSell(false);
@@ -164,7 +167,7 @@ function Home() {
                         Buy
                         </Button>
                     <Button
-                        variant="danger"
+                        variant="info"
                         onClick={() => {
                             setSell(prevState => !prevState)
                             setBuy(false);
@@ -231,12 +234,16 @@ function Home() {
                     show={displayModal}
                     onHide={handleModalClose}
                     centered>
-                    <BuyStockModal
-                        handleModalClose={handleModalClose}
-                        handleQuantity={handleQuantity}
-                        stockQuote={stockQuote}
-                        buyStock={buyStock}
-                    />
+                    {stockQuote ?
+                        <BuyStockModal
+                            handleModalClose={handleModalClose}
+                            handleQuantity={handleQuantity}
+                            stockQuote={stockQuote}
+                            quantity={quantity}
+                            cash={wallet.cash}
+                            buyStock={buyStock}
+                        />
+                        : null}
                 </Modal>
             </div>
         </div>

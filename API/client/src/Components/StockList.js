@@ -13,7 +13,8 @@ function StockList({ holdings }) {
                     <td>{stock.stock}</td>
                     <td>${stock.totalPrice}</td>
                     <td>{stock.quantity}</td>
-                    <td><Button variant="success">Sell</Button></td>
+                    <td></td>
+                    <td><Button variant="danger">Sell</Button></td>
                 </tr>
             )
         })
@@ -27,6 +28,7 @@ function StockList({ holdings }) {
                         <th>Stock</th>
                         <th>Value</th>
                         <th>Quantity</th>
+                        <th>Latest Price</th>
                         <th></th>
                     </tr>
                 </thead>
