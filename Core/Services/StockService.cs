@@ -103,10 +103,13 @@ namespace Core.Services
 
             if (response.IsSuccessStatusCode)
             {
+
                 var iexResponse = await response.Content.ReadAsStringAsync();
 
                 return JsonConvert.DeserializeObject<Dictionary<string, LatestPriceModel>>(iexResponse);
+           
             }
+
 
             throw new Exception("Error in Stock Service");
         }

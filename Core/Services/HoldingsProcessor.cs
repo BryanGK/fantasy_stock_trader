@@ -35,7 +35,8 @@ namespace Core.Services
                         Stock = transaction.Stock,
                         Price = transaction.Price,
                         TotalPrice = transaction.Price * transaction.Quantity,
-                        Quantity = transaction.Quantity
+                        Quantity = transaction.Quantity,
+                        LatestPrice = quote[transaction.Stock].Quote.latestPrice
                     };
 
                     combinedHoldings.Add(holding);
@@ -47,7 +48,7 @@ namespace Core.Services
 
                     existingHolding.Quantity += transaction.Quantity;
                     existingHolding.TotalPrice += transaction.Price * transaction.Quantity;
-                    existingHolding.LatestPrice = quote[transaction.Stock].LatestPrice;
+
                 }
             }
 
