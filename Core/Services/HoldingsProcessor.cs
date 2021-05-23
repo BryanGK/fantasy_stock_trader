@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
+using Core.Entities.IEXModels;
 
 namespace Core.Services
 {
     public interface IHoldingsProcessor
     {
 
-        public List<Holding> HoldingsCombiner(List<TransactionEntity> transactions);
+        public List<Holding> HoldingsCombiner(List<TransactionEntity> transactions, List<LatestPriceModel> quote);
 
         public decimal HoldingsValue(List<TransactionEntity> transactions); 
 
@@ -17,7 +18,7 @@ namespace Core.Services
     public class HoldingsProcessor : IHoldingsProcessor
     {
 
-        public List<Holding> HoldingsCombiner(List<TransactionEntity> transactions)
+        public List<Holding> HoldingsCombiner(List<TransactionEntity> transactions, List<LatestPriceModel> quote)
         {
 
             var combinedHoldings = new List<Holding>();
@@ -44,8 +45,8 @@ namespace Core.Services
 
                     existingHolding.Quantity += transaction.Quantity;
                     existingHolding.TotalPrice += transaction.Price * transaction.Quantity;
+                    //existingHolding.LatestPrice = quote.Find(item => item.Company. == transaction.Stock).Company.LatestPrice;
                 }
-
             }
 
             return combinedHoldings;

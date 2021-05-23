@@ -19,6 +19,8 @@ namespace Core.Entities
 
         public virtual decimal Price { get; set; }
 
+        public virtual decimal LatestPrice { get; set; }
+
         public virtual decimal TotalPrice { get; set; }
 
         public virtual int Quantity { get; set; }

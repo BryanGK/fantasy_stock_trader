@@ -6,6 +6,7 @@ using Core.Entities;
 using Core.Entities.IEXModels;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace Core.Services
 {
@@ -18,6 +19,8 @@ namespace Core.Services
         Task<List<NewsModel>> GetCompanyNews(string symbol);
 
         Task<LogoModel> GetCompanyLogo(string symbol);
+
+        Task<List<LatestPriceModel>> LatestPrice(List<TransactionEntity> holdings);
     }
 
     public class StockService : IStockService
@@ -82,6 +85,31 @@ namespace Core.Services
                 var iexResponse = await response.Content.ReadAsStringAsync();
 
                 return JsonConvert.DeserializeObject<LogoModel>(iexResponse);
+            }
+
+            throw new Exception("Error in Stock Service");
+        }
+
+        public async Task<List<LatestPriceModel>> LatestPrice(List<TransactionEntity> holdings)
+        {
+            var query = "";
+
+            foreach (var holding in holdings)
+            {
+                query += $"{holding.Stock},";
+            }
+
+            Console.WriteLine($"QUERY: {query}");
+
+            var response = await _client.GetAsync($"https://cloud.iexapis.com/stable/stock/market/batch?symbols={query}&types=quote&range=1m&last=5&token=" + _configuration["IEX:ApiKey"]);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var iexResponse = await response.Content.ReadAsStringAsync();
+
+                Console.WriteLine($"IEXRESPONSE: {iexResponse}");
+
+                return JsonConvert.DeserializeObject<List<LatestPriceModel>>(iexResponse);
             }
 
             throw new Exception("Error in Stock Service");

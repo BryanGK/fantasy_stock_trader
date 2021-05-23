@@ -19,22 +19,30 @@ namespace API.Controllers
 
         private readonly IHoldingsProcessor _holdingsProcessor;
 
-        public HoldingsController(IHoldingsService holdingsService, IHoldingsProcessor holdingsProcessor)
+        private readonly IStockService _stockService;
+
+        public HoldingsController(IHoldingsService holdingsService, IHoldingsProcessor holdingsProcessor, IStockService stockService)
         {
+
             _holdingsService = holdingsService;
 
             _holdingsProcessor = holdingsProcessor;
+
+            _stockService = stockService;
+
         }
 
         [Route("get/{userId}")]
         [HttpGet]
-        public ActionResult<List<HoldingsModel>> Get(string userId)
+        public async Task<ActionResult<List<HoldingsModel>>> Get(string userId)
         {
             try
             {
                 var transactions = _holdingsService.GetTransactions(userId);
 
-                var processedHoldings = _holdingsProcessor.HoldingsCombiner(transactions);
+                var latestPrice = await _stockService.LatestPrice(transactions);
+
+                var processedHoldings = _holdingsProcessor.HoldingsCombiner(transactions, latestPrice);
 
                 var holdingsValue = _holdingsProcessor.HoldingsValue(transactions);
 

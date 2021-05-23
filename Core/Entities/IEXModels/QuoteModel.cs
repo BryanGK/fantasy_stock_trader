@@ -9,16 +9,16 @@ namespace Core.Entities.IEXModels
 
         public string primaryExchange { get; set; }
 
-        public double latestPrice { get; set; }
+        public decimal latestPrice { get; set; }
 
-        public double previousClose { get; set; }
+        public decimal previousClose { get; set; }
 
-        public double change { get; set; }
+        public decimal change { get; set; }
 
-        public double changePercent { get; set; }
+        public decimal changePercent { get; set; }
 
-        public double week52High { get; set; }
+        public decimal week52High { get; set; }
 
-        public double week52Low { get; set; }
+        public decimal week52Low { get; set; }
     }
 }
