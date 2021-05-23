@@ -16,28 +16,19 @@
     flex-direction: column;
 }
 
-.buy {
-    align-self: center;
+.buy-sell {
+    display: flex;
+    justify-content: space-evenly;
 }
 
-.buy button {
+.buy-sell button {
     font-size: x-large;
     width: 200px;
-}
-
-.sell button {
-    font-size: x-large;
-    margin-top: 25px;
-    width: 200px;
-}
-
-.sell {
-    align-self: center;
 }
 
 .search-stock {
     align-self: center;
-    margin-top: 25px;
+    margin: 25px auto;
     min-width: 300px;
 }
 
@@ -47,6 +38,7 @@
 
 .stock-list {
     align-self: center;
+    margin-top: 25px;
 }
 
 .company-stock-quote {

@@ -151,46 +151,27 @@ function Home() {
                     />
                 </div>
             </div>
+
             <div className="container transactions">
-                <div className="buy col-8">
+                <div className="buy-sell col">
                     <Button
                         variant="success"
-                        onClick={() => { setBuy(prevState => !prevState) }}
+                        onClick={() => {
+                            setBuy(prevState => !prevState)
+                            setSell(false);
+                        }}
                     >
                         Buy
                         </Button>
-                </div>
-                <div className="sell col-8">
                     <Button
                         variant="danger"
-                        onClick={() => { setSell(prevState => !prevState) }}
+                        onClick={() => {
+                            setSell(prevState => !prevState)
+                            setBuy(false);
+                        }}
                     >
                         Sell
                         </Button>
-                </div>
-                <div className="search-stock col-6">
-                    {buy ?
-                        <InputGroup>
-                            <FormControl
-                                type="text"
-                                placeholder="Search Stocks"
-                                value={company}
-                                onChange={handleChange}
-                                onKeyPress={e => {
-                                    if (e.key === "Enter") {
-                                        handleSearch();
-                                    }
-                                }}
-                            />
-                            <InputGroup.Append>
-                                <Button
-                                    type="submit"
-                                    onClick={handleSearch}>
-                                    Search
-                            </Button>
-                            </InputGroup.Append>
-                        </InputGroup>
-                        : null}
                 </div>
                 <div className="stock-list col-10">
                     {sell ?
@@ -199,22 +180,50 @@ function Home() {
                         />
                         : null}
                 </div>
-            </div>
-            <div className="container company-stock-quote">
-                <CompanyStockQuote
-                    stockQuote={stockQuote}
-                    companyLogo={companyLogo}
-                    toggleCompanyInfo={toggleCompanyInfo}
-                    handleModalShow={handleModalShow}
-                />
-            </div>
-            <div className="container company-card-container">
-                {displayCompanyInfo ?
-                    <CompanyCard
-                        companyInfo={companyInfo}
-                        companyLogo={companyLogo}
-                        companyNews={companyNews}
-                    />
+                {buy ?
+                    <div>
+                        <div className="container search-bar">
+                            <div className="search-stock col-6">
+                                <InputGroup>
+                                    <FormControl
+                                        type="text"
+                                        placeholder="Search Stocks"
+                                        value={company}
+                                        onChange={handleChange}
+                                        onKeyPress={e => {
+                                            if (e.key === "Enter") {
+                                                handleSearch();
+                                            }
+                                        }}
+                                    />
+                                    <InputGroup.Append>
+                                        <Button
+                                            type="submit"
+                                            onClick={handleSearch}>
+                                            Search
+                            </Button>
+                                    </InputGroup.Append>
+                                </InputGroup>
+                            </div>
+                        </div>
+                        <div className="container company-stock-quote">
+                            <CompanyStockQuote
+                                stockQuote={stockQuote}
+                                companyLogo={companyLogo}
+                                toggleCompanyInfo={toggleCompanyInfo}
+                                handleModalShow={handleModalShow}
+                            />
+                        </div>
+                        <div className="container company-card-container">
+                            {displayCompanyInfo ?
+                                <CompanyCard
+                                    companyInfo={companyInfo}
+                                    companyLogo={companyLogo}
+                                    companyNews={companyNews}
+                                />
+                                : null}
+                        </div>
+                    </div>
                     : null}
             </div>
             <div className="constainer buy-stock-modal">
