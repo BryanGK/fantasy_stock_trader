@@ -42,6 +42,8 @@ namespace API.Controllers
 
                 var latestPrice = await _stockService.LatestPrice(transactions);
 
+                Console.WriteLine($"LATEST PRICES: {latestPrice.Values}");
+
                 var processedHoldings = _holdingsProcessor.HoldingsCombiner(transactions, latestPrice);
 
                 var holdingsValue = _holdingsProcessor.HoldingsValue(transactions);
