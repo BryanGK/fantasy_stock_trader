@@ -65,10 +65,7 @@ function Home() {
             price: stockQuote.latestPrice,
             quantity: quantity,
         })
-            .then(response => {
-                setWallet(response.data);
-                getHoldings();
-            })
+            .then(getHoldings())
             .catch(error => {
                 console.log(error);
             })
@@ -82,10 +79,8 @@ function Home() {
     }
 
     const sellModal = company => {
-
-        getCompanyQuote(() => {
-            setCompany(company);
-        });
+        setCompany(company);
+        getCompanyQuote(company);
         handleModalShow();
     }
 
@@ -95,7 +90,7 @@ function Home() {
 
     const handleSearch = () => {
         setInitialState();
-        getCompanyQuote();
+        getCompanyQuote(company);
     }
 
     const setInitialState = () => {
@@ -130,7 +125,7 @@ function Home() {
             });
     }
 
-    const getCompanyQuote = () => {
+    const getCompanyQuote = company => {
         axios.get(`/api/stocks/quote/${company}`)
             .then(response => {
                 console.log(response.data);
