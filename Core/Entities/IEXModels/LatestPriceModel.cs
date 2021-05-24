@@ -5,8 +5,6 @@ namespace Core.Entities.IEXModels
 {
     public class LatestPriceModel
     {
-
         public QuoteModel Quote { get; set; }
-
     }
 }

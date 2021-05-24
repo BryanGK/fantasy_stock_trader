@@ -6,8 +6,10 @@ function StockList({ holdings, sellModal }) {
     const tableRows = () => {
         if (!holdings)
             return null;
-        console.log(holdings)
+
         return holdings.map(holding => {
+            if (holding.quantity <= 0)
+                return null;
             return (
                 <tr key={Math.random()}>
                     <td>{holding.stock}</td>

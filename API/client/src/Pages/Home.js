@@ -8,7 +8,7 @@ import { Button, FormControl, InputGroup, Modal } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import '../Styles/Home.css';
-import BuyStockModal from '../Components/BuyStockModal';
+import TransactionModal from '../Components/TransactionModal';
 import { useCurrentUser } from '../Context/AuthContext';
 
 function Home() {
@@ -21,7 +21,7 @@ function Home() {
     const [companyNews, setCompanyNews] = useState([]);
     const [stockQuote, setStockQuote] = useState();
     const [displayCompanyInfo, setDisplayCompanyInfo] = useState(false);
-    const [quantity, setQuantity] = useState();
+    const [quantity, setQuantity] = useState(0);
     const [holdings, setHoldings] = useState();
     const [processedHoldings, setProcessedHoldings] = useState([]);
     const [wallet, setWallet] = useState();
@@ -58,8 +58,14 @@ function Home() {
         return temp;
     }
 
-    const buyStock = () => {
-        axios.post('/api/trans/buy', {
+    const transaction = () => {
+        let transactionType;
+        if (buy)
+            transactionType = 'buy';
+        if (sell)
+            transactionType = 'sell';
+
+        axios.post(`/api/trans/${transactionType}`, {
             userId: currentUser.userId,
             stock: stockQuote.symbol,
             price: stockQuote.latestPrice,
@@ -128,7 +134,6 @@ function Home() {
     const getCompanyQuote = company => {
         axios.get(`/api/stocks/quote/${company}`)
             .then(response => {
-                console.log(response.data);
                 setStockQuote(response.data);
             })
             .catch(error => {
@@ -136,7 +141,6 @@ function Home() {
             });
         axios.get(`api/stocks/logo/${company}`)
             .then(response => {
-                console.log(response.data);
                 setCompanyLogo(response.data);
             })
             .catch(error => {
@@ -165,6 +169,8 @@ function Home() {
                         onClick={() => {
                             setBuy(prevState => !prevState)
                             setSell(false);
+                            setStockQuote();
+                            setCompany('');
                         }}
                     >
                         Buy
@@ -239,13 +245,15 @@ function Home() {
                     onHide={handleModalClose}
                     centered>
                     {stockQuote ?
-                        <BuyStockModal
+                        <TransactionModal
                             handleModalClose={handleModalClose}
                             handleQuantity={handleQuantity}
                             stockQuote={stockQuote}
                             quantity={quantity}
                             cash={wallet.cash}
-                            buyStock={buyStock}
+                            holdings={holdings}
+                            transaction={transaction}
+                            buy={buy}
                         />
                         : null}
                 </Modal>

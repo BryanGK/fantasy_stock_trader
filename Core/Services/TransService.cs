@@ -69,6 +69,16 @@ namespace Core.Services
 
                 session.Update(wallet);
 
+                var transaction = new TransactionEntity()
+                {
+                    UserId = userId,
+                    Stock = stock,
+                    Price = price,
+                    Quantity = -(quantity),
+                };
+
+                session.Save(transaction);
+
                 session.Flush();
 
                 return wallet;

@@ -49,6 +49,9 @@ namespace Core.Services
                     existingHolding.Quantity += transaction.Quantity;
                     existingHolding.TotalPrice += transaction.Price * transaction.Quantity;
 
+                    if (existingHolding.Quantity <= 0)
+                        combinedHoldings.Remove(existingHolding);
+
                 }
             }
 
