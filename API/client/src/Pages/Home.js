@@ -81,13 +81,21 @@ function Home() {
         setQuantity(0);
     }
 
+    const sellModal = company => {
+
+        getCompanyQuote(() => {
+            setCompany(company);
+        });
+        handleModalShow();
+    }
+
     const handleModalClose = () => setDisplayModal(false);
 
     const handleQuantity = e => setQuantity(e.target.value);
 
     const handleSearch = () => {
         setInitialState();
-        getCompanyQuote(company);
+        getCompanyQuote();
     }
 
     const setInitialState = () => {
@@ -180,6 +188,7 @@ function Home() {
                     {sell ?
                         <StockList
                             holdings={holdings}
+                            sellModal={sellModal}
                         />
                         : null}
                 </div>

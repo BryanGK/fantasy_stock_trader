@@ -1,20 +1,25 @@
 import React from 'react';
 import { Table, Button } from 'react-bootstrap';
 
-function StockList({ holdings }) {
+function StockList({ holdings, sellModal }) {
 
     const tableRows = () => {
         if (!holdings)
             return null;
         console.log(holdings)
-        return holdings.map(stock => {
+        return holdings.map(holding => {
             return (
-                <tr>
-                    <td>{stock.stock}</td>
-                    <td>${stock.totalPrice}</td>
-                    <td>{stock.quantity}</td>
-                    <td></td>
-                    <td><Button variant="danger">Sell</Button></td>
+                <tr key={Math.random()}>
+                    <td>{holding.stock}</td>
+                    <td>${holding.totalPrice}</td>
+                    <td>{holding.quantity}</td>
+                    <td>${holding.latestPrice}</td>
+                    <td><Button
+                        variant="danger"
+                        onClick={() => {
+                            sellModal(holding.stock);
+                        }}
+                    >Sell</Button></td>
                 </tr>
             )
         })

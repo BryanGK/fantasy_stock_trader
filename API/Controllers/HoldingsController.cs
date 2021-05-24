@@ -55,9 +55,6 @@ namespace API.Controllers
                     Holdings = processedHoldings
                 };
 
-                // Get Value
-                // Get Cash
-
                 return Ok(holdings);
 
             }

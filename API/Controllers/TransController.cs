@@ -25,12 +25,30 @@ namespace API.Controllers
 
         [Route("buy")]
         [HttpPost]
-        public ActionResult<WalletModel> Post([FromBody] TransactionInputModel userData)
+        public ActionResult<WalletModel> Buy([FromBody] TransactionInputModel userData)
          {
             try
             {
 
                 return Ok(_transService.Buy(userData.UserId, userData.Stock, userData.Price, userData.Quantity));
+
+            }
+            catch (Exception e)
+            {
+
+                return StatusCode(500, $"{e.Message} {e.StackTrace} - Something's not right.");
+
+            }
+        }
+
+        [Route("sell")]
+        [HttpPost]
+        public ActionResult<WalletModel> Sell([FromBody] TransactionInputModel userData)
+         {
+            try
+            {
+
+                return Ok(_transService.Sell(userData.UserId, userData.Stock, userData.Price, userData.Quantity));
 
             }
             catch (Exception e)
