@@ -52,6 +52,8 @@ function Home() {
 
     const processHoldings = (holdings) => {
         let temp = [];
+        if (holdings == null)
+            return temp;
         holdings.forEach(element => {
             temp.push([element.stock, element.totalPrice])
         })

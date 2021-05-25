@@ -27,7 +27,7 @@ namespace Core.Services
             using (var session = _sessionFactory.OpenSession())
             {
                 var holdings = session.Query<TransactionEntity>().Where(x => x.UserId == userId).OrderBy(holdings => holdings.Stock).ToList();
-
+                Console.WriteLine($"{holdings.Count}");
                 return holdings;
             }
 

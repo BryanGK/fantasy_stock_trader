@@ -36,26 +36,44 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<List<HoldingsModel>>> Get(string userId)
         {
+
             try
             {
                 var transactions = _holdingsService.GetTransactions(userId);
 
-                var latestPrice = await _stockService.LatestPrice(transactions);
-
-                var processedHoldings = _holdingsProcessor.HoldingsCombiner(transactions, latestPrice);
-
-                var holdingsValue = _holdingsProcessor.HoldingsValue(transactions);
-
-                var cash = _holdingsService.GetWallet(userId);
-
-                var holdings = new HoldingsModel()
+                if (transactions.Count > 0)
                 {
-                    Cash = cash.Cash,
-                    Value = holdingsValue,
-                    Holdings = processedHoldings
-                };
 
-                return Ok(holdings);
+                    var latestPrice = await _stockService.LatestPrice(transactions);
+
+                    var processedHoldings = _holdingsProcessor.HoldingsCombiner(transactions, latestPrice);
+
+                    var holdingsValue = _holdingsProcessor.HoldingsValue(transactions);
+
+
+
+                    var cash = _holdingsService.GetWallet(userId);
+
+                    var holdings = new HoldingsModel()
+                    {
+                        Cash = cash.Cash,
+                        Value = holdingsValue,
+                        Holdings = processedHoldings
+                    };
+
+                    return Ok(holdings);
+                }
+                else
+                {
+                    var cash = _holdingsService.GetWallet(userId);
+
+                    var holdings = new HoldingsModel()
+                    {
+                        Cash = cash.Cash,
+                    };
+
+                    return Ok(holdings);
+                }
 
             }
             catch (Exception e)
