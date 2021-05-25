@@ -73,7 +73,10 @@ function Home() {
             price: stockQuote.latestPrice,
             quantity: quantity,
         })
-            .then(getHoldings())
+            .then(response => {
+                setWallet(response.data);
+                getHoldings()
+            })
             .catch(error => {
                 console.log(error);
             })
@@ -172,6 +175,8 @@ function Home() {
                             setBuy(prevState => !prevState)
                             setSell(false);
                             setStockQuote();
+                            setCompanyInfo();
+                            setCompanyLogo('');
                             setCompany('');
                         }}
                     >
