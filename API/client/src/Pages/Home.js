@@ -34,7 +34,11 @@ function Home() {
 
     const getHoldings = () => {
         const user = JSON.parse(localStorage.getItem('userData'));
-        axios.get(`api/holdings/get/${user.userId}`)
+        axios.get(`api/holdings/get`, {
+            headers: {
+                userId: user.userId
+            }
+        })
             .then(response => {
                 const processedHoldings = processHoldings(response.data.holdings);
                 setProcessedHoldings(() => [['Stock', 'Value'], ...processedHoldings]);
@@ -120,7 +124,6 @@ function Home() {
     const getCompanyInfo = () => {
         axios.get(`/api/stocks/news/${company}`)
             .then(response => {
-                console.log(response.data);
                 setCompanyNews(response.data);
             })
             .catch(error => {
@@ -128,7 +131,6 @@ function Home() {
             });
         axios.get(`api/stocks/company/${company}`)
             .then(response => {
-                console.log(response.data);
                 setCompanyInfo(response.data);
             })
             .catch(error => {
@@ -251,18 +253,16 @@ function Home() {
                     show={displayModal}
                     onHide={handleModalClose}
                     centered>
-                    {stockQuote ?
-                        <TransactionModal
-                            handleModalClose={handleModalClose}
-                            handleQuantity={handleQuantity}
-                            stockQuote={stockQuote}
-                            quantity={quantity}
-                            cash={wallet.cash}
-                            holdings={holdings}
-                            transaction={transaction}
-                            buy={buy}
-                        />
-                        : null}
+                    <TransactionModal
+                        handleModalClose={handleModalClose}
+                        handleQuantity={handleQuantity}
+                        stockQuote={stockQuote}
+                        quantity={quantity}
+                        wallet={wallet}
+                        holdings={holdings}
+                        transaction={transaction}
+                        buy={buy}
+                    />
                 </Modal>
             </div>
         </div>

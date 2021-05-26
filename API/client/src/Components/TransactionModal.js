@@ -2,14 +2,11 @@ import React from 'react';
 import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
 import '../Styles/TransactionModal.css';
 
-function TransactionModal({ handleModalClose, stockQuote, handleQuantity, holdings, transaction, quantity, cash, buy }) {
+function TransactionModal({ handleModalClose, stockQuote, handleQuantity, holdings, transaction, quantity, wallet, buy }) {
 
     const formatValues = value => {
         return parseFloat(value).toFixed(2);
     }
-
-    if (!stockQuote)
-        return null;
 
     const maxQuantity = () => {
         for (let i = 0; i < holdings.length; i++) {
@@ -18,6 +15,9 @@ function TransactionModal({ handleModalClose, stockQuote, handleQuantity, holdin
             }
         }
     }
+
+    if (!stockQuote)
+        return null;
 
     return (
         <div>
@@ -57,7 +57,7 @@ function TransactionModal({ handleModalClose, stockQuote, handleQuantity, holdin
                                     onChange={handleQuantity}
                                     id="quantity"
                                     type="range"
-                                    max={Math.round(cash / stockQuote.latestPrice)}
+                                    max={Math.floor(wallet.cash / stockQuote.latestPrice)}
                                 >
                                 </Form.Control>
                             </Col>
@@ -101,7 +101,7 @@ function TransactionModal({ handleModalClose, stockQuote, handleQuantity, holdin
                             <Col sm={4} className="funds">
                                 <Form.Control
                                     id="funds"
-                                    placeholder={`$${formatValues(cash - stockQuote.latestPrice * quantity)}`}
+                                    placeholder={`$${formatValues(wallet.cash - stockQuote.latestPrice * quantity)}`}
                                 >
                                 </Form.Control>
                             </Col>
@@ -117,7 +117,7 @@ function TransactionModal({ handleModalClose, stockQuote, handleQuantity, holdin
                             <Col sm={4} className="funds">
                                 <Form.Control
                                     id="funds"
-                                    placeholder={`$${formatValues(cash + stockQuote.latestPrice * quantity)}`}
+                                    placeholder={`$${formatValues(wallet.cash + stockQuote.latestPrice * quantity)}`}
                                 >
                                 </Form.Control>
                             </Col>

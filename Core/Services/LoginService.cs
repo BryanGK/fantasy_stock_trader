@@ -52,6 +52,7 @@ namespace Core.Services
             using (var session = _factory.OpenSession())
             {
                 var user = session.Get<UserEntity>(userIdGuid);
+
                 var userSession = new UserSession()
                 {
                     UserId = user.UserId.ToString(),
