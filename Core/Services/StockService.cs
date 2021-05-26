@@ -110,7 +110,6 @@ namespace Core.Services
            
             }
 
-
             throw new Exception("Error in Stock Service");
         }
     }

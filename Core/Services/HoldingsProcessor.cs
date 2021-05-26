@@ -12,7 +12,7 @@ namespace Core.Services
 
         public List<Holding> HoldingsCombiner(List<TransactionEntity> transactions, Dictionary<string, LatestPriceModel> quote);
 
-        public decimal HoldingsValue(List<TransactionEntity> transactions); 
+        public decimal HoldingsValue(List<Holding> holdings);
 
     }
 
@@ -26,6 +26,7 @@ namespace Core.Services
 
             foreach (var transaction in transactions)
             {
+                var latestPrice = quote[transaction.Stock].Quote.latestPrice;
 
                 if (!combinedHoldings.Any(item => item.Stock == transaction.Stock))
                 {
@@ -34,37 +35,36 @@ namespace Core.Services
                     {
                         Stock = transaction.Stock,
                         Price = transaction.Price,
-                        TotalPrice = transaction.Price * transaction.Quantity,
+                        TotalPrice = latestPrice * transaction.Quantity,
                         Quantity = transaction.Quantity,
-                        LatestPrice = quote[transaction.Stock].Quote.latestPrice
+                        LatestPrice = latestPrice
                     };
 
                     combinedHoldings.Add(holding);
                 }
                 else
                 {
-                
+
                     var existingHolding = combinedHoldings.Find(item => item.Stock == transaction.Stock);
 
                     existingHolding.Quantity += transaction.Quantity;
-                    existingHolding.TotalPrice += transaction.Price * transaction.Quantity;
-
-                    if (existingHolding.Quantity <= 0)
-                        combinedHoldings.Remove(existingHolding);
+                    existingHolding.TotalPrice += latestPrice * transaction.Quantity;
 
                 }
             }
 
+            combinedHoldings.RemoveAll(item => item.Quantity <= 0);
+
             return combinedHoldings;
         }
 
-        public decimal HoldingsValue(List<TransactionEntity> transactions)
+        public decimal HoldingsValue(List<Holding> holdings)
         {
             var TotalValue = 0M;
 
-            foreach (var transaction in transactions)
+            foreach (var holding in holdings)
             {
-                TotalValue += transaction.Price * transaction.Quantity;
+                TotalValue += holding.LatestPrice * holding.Quantity;
             }
 
             return TotalValue;

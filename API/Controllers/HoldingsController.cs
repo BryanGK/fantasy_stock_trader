@@ -48,7 +48,7 @@ namespace API.Controllers
 
                     var processedHoldings = _holdingsProcessor.HoldingsCombiner(transactions, latestPrice);
 
-                    var holdingsValue = _holdingsProcessor.HoldingsValue(transactions);
+                    var holdingsValue = _holdingsProcessor.HoldingsValue(processedHoldings);
 
 
 

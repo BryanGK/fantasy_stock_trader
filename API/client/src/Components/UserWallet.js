@@ -3,6 +3,11 @@ import { Table } from 'react-bootstrap';
 import '../Styles/UserWallet.css';
 
 function UserWallet({ wallet }) {
+
+    const formatValues = value => {
+        return parseFloat(value).toFixed(2);
+    }
+
     if (!wallet)
         return null;
 
@@ -12,11 +17,11 @@ function UserWallet({ wallet }) {
                 <tbody>
                     <tr>
                         <td>Current Holdings</td>
-                        <td>${wallet.value}</td>
+                        <td>${formatValues(wallet.value)}</td>
                     </tr>
                     <tr>
                         <td>Current Wallet</td>
-                        <td>${wallet.cash}</td>
+                        <td>${formatValues(wallet.cash)}</td>
                     </tr>
                 </tbody>
             </Table>

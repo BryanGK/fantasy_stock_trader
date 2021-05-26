@@ -3,6 +3,10 @@ import { Table, Button } from 'react-bootstrap';
 
 function StockList({ holdings, sellModal }) {
 
+    const formatValues = value => {
+        return parseFloat(value).toFixed(2);
+    }
+
     const tableRows = () => {
         if (!holdings)
             return null;
@@ -13,9 +17,9 @@ function StockList({ holdings, sellModal }) {
             return (
                 <tr key={Math.random()}>
                     <td>{holding.stock}</td>
-                    <td>${holding.totalPrice}</td>
+                    <td>${formatValues(holding.totalPrice)}</td>
                     <td>{holding.quantity}</td>
-                    <td>${holding.latestPrice}</td>
+                    <td>${formatValues(holding.latestPrice)}</td>
                     <td><Button
                         variant="danger"
                         onClick={() => {
