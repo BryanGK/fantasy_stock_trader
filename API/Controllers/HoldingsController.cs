@@ -32,14 +32,13 @@ namespace API.Controllers
 
         }
 
-        [Route("get/{userId}")]
+        [Route("get")]
         [HttpGet]
-        public async Task<ActionResult<List<HoldingsModel>>> Get(string userId)
+        public async Task<ActionResult<List<HoldingsModel>>> Get([FromHeader] HoldingsInputModel userData)
         {
-
             try
             {
-                var transactions = _holdingsService.GetTransactions(userId);
+                var transactions = _holdingsService.GetTransactions(userData.userId);
 
                 if (transactions.Count > 0)
                 {
@@ -52,7 +51,7 @@ namespace API.Controllers
 
 
 
-                    var cash = _holdingsService.GetWallet(userId);
+                    var cash = _holdingsService.GetWallet(userData.userId);
 
                     var holdings = new HoldingsModel()
                     {
@@ -65,7 +64,7 @@ namespace API.Controllers
                 }
                 else
                 {
-                    var cash = _holdingsService.GetWallet(userId);
+                    var cash = _holdingsService.GetWallet(userData.userId);
 
                     var holdings = new HoldingsModel()
                     {
@@ -82,6 +81,12 @@ namespace API.Controllers
                 return StatusCode(500, $"{e.Message} {e.StackTrace} - Something's not right.");
 
             }
+        }
+
+        public class HoldingsInputModel
+        {
+            [FromHeader]
+            public string userId { get; set; }
         }
     }
 }
