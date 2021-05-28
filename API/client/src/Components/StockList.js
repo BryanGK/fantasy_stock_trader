@@ -3,9 +3,10 @@ import { Table, Button } from 'react-bootstrap';
 
 function StockList({ holdings, sellModal }) {
 
-    const formatValues = value => {
-        return parseFloat(value).toFixed(2);
-    }
+    const formatter = new Intl.NumberFormat('en-us', {
+        style: 'currency',
+        currency: 'USD',
+    })
 
     const tableRows = () => {
         if (!holdings)
@@ -17,9 +18,9 @@ function StockList({ holdings, sellModal }) {
             return (
                 <tr key={Math.random()}>
                     <td>{holding.stock}</td>
-                    <td>${formatValues(holding.totalPrice)}</td>
+                    <td>{formatter.format(holding.totalPrice)}</td>
                     <td>{holding.quantity}</td>
-                    <td>${formatValues(holding.latestPrice)}</td>
+                    <td>{formatter.format(holding.latestPrice)}</td>
                     <td><Button
                         variant="danger"
                         onClick={() => {

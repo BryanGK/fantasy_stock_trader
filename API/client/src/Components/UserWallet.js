@@ -4,9 +4,10 @@ import '../Styles/UserWallet.css';
 
 function UserWallet({ wallet }) {
 
-    const formatValues = value => {
-        return parseFloat(value).toFixed(2);
-    }
+    const formatter = new Intl.NumberFormat('en-us', {
+        style: 'currency',
+        currency: 'USD',
+    })
 
     if (!wallet)
         return null;
@@ -17,11 +18,11 @@ function UserWallet({ wallet }) {
                 <tbody>
                     <tr>
                         <td>Current Holdings</td>
-                        <td>${formatValues(wallet.value)}</td>
+                        <td>{formatter.format(wallet.value)}</td>
                     </tr>
                     <tr>
                         <td>Current Wallet</td>
-                        <td>${formatValues(wallet.cash)}</td>
+                        <td>{formatter.format(wallet.cash)}</td>
                     </tr>
                 </tbody>
             </Table>

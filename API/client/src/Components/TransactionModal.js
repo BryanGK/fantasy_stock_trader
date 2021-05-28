@@ -4,9 +4,10 @@ import '../Styles/TransactionModal.css';
 
 function TransactionModal({ handleModalClose, stockQuote, handleQuantity, holdings, transaction, quantity, wallet, buy }) {
 
-    const formatValues = value => {
-        return parseFloat(value).toFixed(2);
-    }
+    const formatter = new Intl.NumberFormat('en-us', {
+        style: 'currency',
+        currency: 'USD',
+    })
 
     const maxQuantity = () => {
         for (let i = 0; i < holdings.length; i++) {
@@ -38,7 +39,7 @@ function TransactionModal({ handleModalClose, stockQuote, handleQuantity, holdin
                         <Col sm={4} className="current-price">
                             <Form.Control
                                 id="current-price"
-                                placeholder={`$${formatValues(stockQuote.latestPrice)}`}
+                                placeholder={`${formatter.format(stockQuote.latestPrice)}`}
                                 disabled
                             >
                             </Form.Control>
@@ -84,7 +85,7 @@ function TransactionModal({ handleModalClose, stockQuote, handleQuantity, holdin
                         <Col sm={4} className="total-price">
                             <Form.Control
                                 id="total-price"
-                                placeholder={`$${formatValues(stockQuote.latestPrice * quantity)}`}
+                                placeholder={`${formatter.format(stockQuote.latestPrice * quantity)}`}
                                 disabled
                             >
                             </Form.Control>
@@ -101,7 +102,7 @@ function TransactionModal({ handleModalClose, stockQuote, handleQuantity, holdin
                             <Col sm={4} className="funds">
                                 <Form.Control
                                     id="funds"
-                                    placeholder={`$${formatValues(wallet.cash - stockQuote.latestPrice * quantity)}`}
+                                    placeholder={`${formatter.format(wallet.cash - stockQuote.latestPrice * quantity)}`}
                                 >
                                 </Form.Control>
                             </Col>
@@ -117,7 +118,7 @@ function TransactionModal({ handleModalClose, stockQuote, handleQuantity, holdin
                             <Col sm={4} className="funds">
                                 <Form.Control
                                     id="funds"
-                                    placeholder={`$${formatValues(wallet.cash + stockQuote.latestPrice * quantity)}`}
+                                    placeholder={`${formatter.format(wallet.cash + stockQuote.latestPrice * quantity)}`}
                                 >
                                 </Form.Control>
                             </Col>
