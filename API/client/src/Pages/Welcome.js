@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import '../Styles/Welcome.css';
 
@@ -16,4 +16,4 @@ function Welcome() {
     )
 }
 
-export default withRouter(Welcome);
+export default Welcome;

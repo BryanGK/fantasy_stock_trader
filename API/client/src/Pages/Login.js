@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useHistory, Redirect, withRouter } from 'react-router-dom';
+import { Link, useHistory, Redirect } from 'react-router-dom';
 import { Form, Button, Card, Modal } from 'react-bootstrap';
 import CreateAccountModal from '../Components/CreateAccountModal';
 import { useLogin, useLoginUpdate, useUserUpdate } from '../Context/AuthContext';
@@ -118,4 +118,4 @@ function Login() {
     )
 }
 
-export default withRouter(Login);
+export default Login;

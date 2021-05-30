@@ -5,7 +5,6 @@ import CompanyCard from '../Components/CompanyCard';
 import UserWallet from '../Components/UserWallet';
 import StockList from '../Components/StockList';
 import { Button, FormControl, InputGroup, Modal } from 'react-bootstrap';
-import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import '../Styles/Home.css';
 import TransactionModal from '../Components/TransactionModal';
@@ -269,4 +268,4 @@ function Home() {
     )
 }
 
-export default withRouter(Home);
+export default Home;
