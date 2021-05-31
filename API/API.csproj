@@ -20,6 +20,7 @@
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Controllers\" />
+    <Folder Include="Middleware\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">

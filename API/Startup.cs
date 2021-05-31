@@ -11,6 +11,7 @@ using NHibernate.NetCore;
 using NHibernate;
 using Microsoft.Extensions.Configuration;
 using Core.Services;
+using API.Middleware;
 
 namespace API
 {
@@ -72,6 +73,8 @@ namespace API
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
