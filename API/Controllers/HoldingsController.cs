@@ -32,9 +32,9 @@ namespace API.Controllers
 
         }
 
-        [Route("get")]
+        [Route("get/holdings")]
         [HttpGet]
-        public async Task<ActionResult<List<HoldingsModel>>> Get([FromHeader] HoldingsInputModel userData)
+        public async Task<ActionResult<List<HoldingsModel>>> Holdings([FromHeader] HoldingsInputModel userData)
         {
             try
             {
@@ -75,10 +75,32 @@ namespace API.Controllers
                 }
 
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
 
-                return StatusCode(500, $"{e.Message} {e.StackTrace} - Something's not right.");
+                return StatusCode(500, $"{ex.Message} {ex.StackTrace} - Something's not right.");
+
+            }
+        }
+
+        [Route("get/transactions")]
+        [HttpGet]
+        public async Task<ActionResult<List<TransactionModel>>> Transactions([FromHeader] HoldingsInputModel userData)
+        {
+            try
+            {
+
+                var transactions = _holdingsService.GetTransactions(userData.userId);
+
+                var transactionList = _holdingsProcessor.Transactions(transactions);
+
+                return transactionList;
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(500, $"{ex.Message} {ex.StackTrace} - Something's not right.");
 
             }
         }

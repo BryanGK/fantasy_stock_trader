@@ -12,6 +12,8 @@ namespace Core.Services
 
         public List<Holding> HoldingsCombiner(List<TransactionEntity> transactions, Dictionary<string, LatestPriceModel> quote);
 
+        public List<TransactionModel> Transactions(List<TransactionEntity> transactions);
+
         public decimal HoldingsValue(List<Holding> holdings);
 
     }
@@ -56,6 +58,27 @@ namespace Core.Services
             combinedHoldings.RemoveAll(item => item.Quantity <= 0);
 
             return combinedHoldings;
+        }
+
+        public List<TransactionModel> Transactions(List<TransactionEntity> transactions)
+        {
+            var transactionList = new List<TransactionModel>();
+
+            foreach (var trans in transactions)
+            {
+                var transaction = new TransactionModel()
+                {
+                    TransactionId = trans.TransactionId,
+                    UserId = trans.UserId,
+                    Stock = trans.Stock,
+                    Price = trans.Price,
+                    Quantity = trans.Quantity
+                };
+
+                transactionList.Add(transaction);
+            }
+
+            return transactionList;
         }
 
         public decimal HoldingsValue(List<Holding> holdings)

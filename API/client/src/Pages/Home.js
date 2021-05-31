@@ -33,7 +33,7 @@ function Home() {
 
     const getHoldings = () => {
         const user = JSON.parse(localStorage.getItem('userData'));
-        axios.get(`api/holdings/get`, {
+        axios.get(`api/holdings/get/holdings`, {
             headers: {
                 userId: user.userId
             }
