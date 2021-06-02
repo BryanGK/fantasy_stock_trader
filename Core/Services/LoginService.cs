@@ -41,8 +41,6 @@ namespace Core.Services
 
                 return userSession;
             }
-
-            throw new Exception();
         }
 
         public UserSession GetUserById(string userId)

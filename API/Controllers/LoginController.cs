@@ -23,15 +23,10 @@ namespace API.Controllers
 
         [HttpPost]
         public ActionResult<UserSession> Post([FromBody] UserModel userData)
-         {
-            try
-            {
-                return Ok(_loginService.GetUserByName(userData.Username, userData.Password));
-            }
-            catch (Exception e)
-            {
-                return StatusCode(500, $"{e.Message} {e.StackTrace} - Something's not right.");
-            }
+        {
+
+            return Ok(_loginService.GetUserByName(userData.Username, userData.Password));
+
         }
     }
 }
