@@ -13,5 +13,7 @@ namespace Core.Entities
 
         public virtual int Quantity { get; set; }
 
+        public virtual DateTime Date { get; set; }
+
     }
 }

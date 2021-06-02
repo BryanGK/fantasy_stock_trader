@@ -12,5 +12,7 @@ namespace Core.Entities
         public virtual decimal Price { get; set; }
 
         public virtual int Quantity { get; set; }
+
+        public virtual DateTime Date { get; set; }
     }
 }

@@ -46,6 +46,7 @@ namespace Core.Services
                         Stock = stock,
                         Price = price,
                         Quantity = quantity,
+                        Date = DateTime.Now
                     };
 
                     session.Save(transaction);

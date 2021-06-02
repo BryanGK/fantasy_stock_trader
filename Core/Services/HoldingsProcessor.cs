@@ -72,7 +72,8 @@ namespace Core.Services
                     UserId = trans.UserId,
                     Stock = trans.Stock,
                     Price = trans.Price,
-                    Quantity = trans.Quantity
+                    Quantity = trans.Quantity,
+                    Date = trans.Date
                 };
 
                 transactionList.Add(transaction);

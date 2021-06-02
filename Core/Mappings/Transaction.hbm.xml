@@ -12,5 +12,6 @@
         <property name="Stock" column="stock" type="string" />
         <property name="Price" column="price" type="decimal" />
         <property name="Quantity" column="quantity" type="int" />
+        <property name="Date" column="date" type="date" />
     </class>
 </hibernate-mapping>
