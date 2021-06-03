@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Core.Entities;
-using Core.Entities.IEXModels;
+using Core.IEXModels;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System.Linq;

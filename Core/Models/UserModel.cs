@@ -1,5 +1,5 @@
 ﻿using System;
-namespace API.Models
+namespace Core.Models
 {
     public class UserModel
     {

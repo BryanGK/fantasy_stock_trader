@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Entities;
-using Core.Entities.IEXModels;
+using Core.IEXModels;
+using Core.Models;
 
 namespace Core.Services
 {
@@ -28,7 +29,7 @@ namespace Core.Services
 
             foreach (var transaction in transactions)
             {
-                var latestPrice = quote[transaction.Stock].Quote.latestPrice;
+                var latestPrice = quote[transaction.Stock].Quote.LatestPrice;
 
                 if (!combinedHoldings.Any(item => item.Stock == transaction.Stock))
                 {

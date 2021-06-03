@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Core.Entities.IEXModels
+namespace Core.IEXModels
 {
     public class CompanyModel
     {

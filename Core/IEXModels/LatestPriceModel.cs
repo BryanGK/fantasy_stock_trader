@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Core.Entities.IEXModels
+namespace Core.IEXModels
 {
     public class LatestPriceModel
     {

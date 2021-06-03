@@ -1,7 +1,7 @@
 ﻿using System;
-namespace API.Models
+namespace Core.Models
 {
-    public class TransactionInputModel
+    public class TransactionModel
     {
         public virtual Guid TransactionId { get; set; }
 
@@ -12,5 +12,7 @@ namespace API.Models
         public virtual decimal Price { get; set; }
 
         public virtual int Quantity { get; set; }
+
+        public virtual DateTime Date { get; set; }
     }
 }

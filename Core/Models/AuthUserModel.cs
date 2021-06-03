@@ -1,7 +1,7 @@
 ﻿using System;
-namespace Core.Entities
+namespace Core.Models
 {
-    public class UserSession
+    public class AuthUserModel
     {
         public virtual string UserId { get; set; }
 
