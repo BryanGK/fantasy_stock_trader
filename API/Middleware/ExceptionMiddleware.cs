@@ -24,6 +24,9 @@ namespace API.Middleware
                 Console.WriteLine("An exception ({0}) occured.", e.GetType().Name);
                 Console.WriteLine("Message:\n {0}\n", e.Message);
                 Console.WriteLine("Stack Trace:\n {0}\n", e.StackTrace);
+                context.Response.StatusCode = 500;
+                context.Response.Headers.Add("content-type", "application/json");
+                await context.Response.WriteAsync(e.Message);
             }
         }
     }
