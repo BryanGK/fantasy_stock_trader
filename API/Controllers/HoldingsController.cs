@@ -34,73 +34,53 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<List<HoldingsModel>>> Holdings([FromHeader] HoldingsInputModel userData)
         {
-            try
+
+            var transactions = _holdingsService.GetTransactions(userData.userId);
+
+            if (transactions.Count > 0)
             {
-                var transactions = _holdingsService.GetTransactions(userData.userId);
 
-                if (transactions.Count > 0)
+                var latestPrice = await _stockService.LatestPrice(transactions);
+
+                var processedHoldings = _holdingsProcessor.HoldingsCombiner(transactions, latestPrice);
+
+                var holdingsValue = _holdingsProcessor.HoldingsValue(processedHoldings);
+
+                var cash = _holdingsService.GetWallet(userData.userId);
+
+                var holdings = new HoldingsModel()
                 {
+                    Cash = cash.Cash,
+                    Value = holdingsValue,
+                    Holdings = processedHoldings
+                };
 
-                    var latestPrice = await _stockService.LatestPrice(transactions);
-
-                    var processedHoldings = _holdingsProcessor.HoldingsCombiner(transactions, latestPrice);
-
-                    var holdingsValue = _holdingsProcessor.HoldingsValue(processedHoldings);
-
-
-
-                    var cash = _holdingsService.GetWallet(userData.userId);
-
-                    var holdings = new HoldingsModel()
-                    {
-                        Cash = cash.Cash,
-                        Value = holdingsValue,
-                        Holdings = processedHoldings
-                    };
-
-                    return Ok(holdings);
-                }
-                else
-                {
-                    var cash = _holdingsService.GetWallet(userData.userId);
-
-                    var holdings = new HoldingsModel()
-                    {
-                        Cash = cash.Cash,
-                    };
-
-                    return Ok(holdings);
-                }
-
+                return Ok(holdings);
             }
-            catch (Exception ex)
+            else
             {
+                var cash = _holdingsService.GetWallet(userData.userId);
 
-                return StatusCode(500, $"{ex.Message} {ex.StackTrace} - Something's not right.");
+                var holdings = new HoldingsModel()
+                {
+                    Cash = cash.Cash,
+                };
 
+                return Ok(holdings);
             }
         }
 
         [Route("get/transactions")]
         [HttpGet]
-        public async Task<ActionResult<List<TransactionModel>>> Transactions([FromHeader] HoldingsInputModel userData)
+        public ActionResult<List<TransactionModel>> Transactions([FromHeader] HoldingsInputModel userData)
         {
-            try
-            {
 
-                var transactions = _holdingsService.GetTransactions(userData.userId);
+            var transactions = _holdingsService.GetTransactions(userData.userId);
 
-                var transactionList = _holdingsProcessor.Transactions(transactions);
+            var transactionList = _holdingsProcessor.Transactions(transactions);
 
-                return transactionList;
+            return Ok(transactionList);
 
-            }
-            catch (Exception ex)
-            {
-
-                return StatusCode(500, $"{ex.Message} {ex.StackTrace} - Something's not right.");
-
-            }
         }
 
         public class HoldingsInputModel

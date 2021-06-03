@@ -10,49 +10,29 @@ namespace API.Controllers
 
     public class TransController : Controller
     {
-        private readonly IHoldingsService _holdingsService;
         private readonly ITransService _transService;
 
         public TransController(IHoldingsService holdingsService, ITransService transService)
         {
-            _holdingsService = holdingsService;
             _transService = transService;
         }
 
         [Route("buy")]
         [HttpPost]
         public ActionResult<WalletModel> Buy([FromBody] TransactionInputModel userData)
-         {
-            try
-            {
+        {
 
-                return Ok(_transService.Buy(userData.UserId, userData.Stock, userData.Price, userData.Quantity));
+            return Ok(_transService.Buy(userData.UserId, userData.Stock, userData.Price, userData.Quantity));
 
-            }
-            catch (Exception e)
-            {
-
-                return StatusCode(500, $"{e.Message} {e.StackTrace} - Something's not right.");
-
-            }
         }
 
         [Route("sell")]
         [HttpPost]
         public ActionResult<WalletModel> Sell([FromBody] TransactionInputModel userData)
-         {
-            try
-            {
+        {
 
-                return Ok(_transService.Sell(userData.UserId, userData.Stock, userData.Price, userData.Quantity));
+            return Ok(_transService.Sell(userData.UserId, userData.Stock, userData.Price, userData.Quantity));
 
-            }
-            catch (Exception e)
-            {
-
-                return StatusCode(500, $"{e.Message} {e.StackTrace} - Something's not right.");
-
-            }
         }
     }
 }

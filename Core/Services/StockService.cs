@@ -6,7 +6,6 @@ using Core.Entities;
 using Core.IEXModels;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using System.Linq;
 
 namespace Core.Services
 {
@@ -45,7 +44,7 @@ namespace Core.Services
                 return JsonConvert.DeserializeObject<QuoteModel>(iexResponse);
             }
 
-            throw new Exception("Error in Stock Service");
+            throw new Exception($"Error - The Stock symbol '{symbol}' was not found.");
         }
 
         public async Task<CompanyModel> GetCompanyData(string symbol)
@@ -59,7 +58,7 @@ namespace Core.Services
                 return JsonConvert.DeserializeObject<CompanyModel>(iexResponse);
             }
 
-            throw new Exception("Error in Stock Service");
+            throw new Exception($"Error - The Stock symbol '{symbol}' was not found.");
         }
 
         public async Task<List<NewsModel>> GetCompanyNews(string symbol)
@@ -73,7 +72,8 @@ namespace Core.Services
                 return JsonConvert.DeserializeObject<List<NewsModel>>(iexResponse);
             }
 
-            throw new Exception("Error in Stock Service");
+            throw new Exception($"Error - The Stock symbol '{symbol}' was not found.");
+
         }
 
         public async Task<LogoModel> GetCompanyLogo(string symbol)
@@ -87,7 +87,8 @@ namespace Core.Services
                 return JsonConvert.DeserializeObject<LogoModel>(iexResponse);
             }
 
-            throw new Exception("Error in Stock Service");
+            throw new Exception($"Error - The Stock symbol '{symbol}' was not found.");
+
         }
 
         public async Task<Dictionary<string, LatestPriceModel>> LatestPrice(List<TransactionEntity> holdings)
@@ -110,7 +111,7 @@ namespace Core.Services
            
             }
 
-            throw new Exception("Error in Stock Service");
+            throw new Exception("Error in Stock Service - Error getting latest price.");
         }
     }
 }
