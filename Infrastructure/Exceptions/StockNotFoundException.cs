@@ -1,10 +1,12 @@
 ﻿using System;
 namespace Infrastructure.Exceptions
 {
-    public class StockNotFoundException
+    [Serializable]
+    public class StockNotFoundException : Exception
     {
-        public StockNotFoundException()
-        {
-        }
+        public string Stock { get; }
+
+        public StockNotFoundException(string message)
+            :base(message) { }
     }
 }
