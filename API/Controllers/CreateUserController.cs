@@ -24,15 +24,15 @@ namespace API.Controllers
         [HttpPost]
         public ActionResult<UserSession> Post([FromBody] UserModel userData)
         {
-            UserEntity newUserId;
 
-            newUserId = _createUserService.Create(userData.Username, userData.Password);
+            var newUserId = _createUserService.Create(userData.Username, userData.Password);
 
             _createUserService.Wallet(newUserId.UserId.ToString());
 
             var user = _loginService.GetUserById(newUserId.UserId.ToString());
 
             return Ok(user);
+
         }
     }
 }
