@@ -23,17 +23,10 @@ namespace API.Controllers
 
         [HttpPost]
         public ActionResult<UserSession> Post([FromBody] UserModel userData)
-         {
+        {
             UserEntity newUserId;
 
-            try
-            {
-                newUserId = _createUserService.Create(userData.Username, userData.Password);
-            }
-            catch (Exception e)
-            {
-                return StatusCode(500, $"{e.Message} {e.StackTrace} - Something's not right.");
-            }
+            newUserId = _createUserService.Create(userData.Username, userData.Password);
 
             _createUserService.Wallet(newUserId.UserId.ToString());
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Core.Entities;
+using Infrastructure.Exceptions;
 using NHibernate;
 
 namespace Core.Services
@@ -42,7 +43,7 @@ namespace Core.Services
                 }
             }
 
-            throw new Exception("ERROR - That user already exists");
+            throw new UserAlreadyExistsException($"The username '{username}' is not available, please try again.");
         }
 
         public void Wallet(string userId)
@@ -62,6 +63,9 @@ namespace Core.Services
                     session.Save(wallet);
                 }
             }
+
+            throw new UserAlreadyExistsException($"Error in creating wallet");
+
         }
     }
 }

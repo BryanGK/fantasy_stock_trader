@@ -1,10 +1,12 @@
 ﻿using System;
 namespace Infrastructure.Exceptions
 {
-    public class UserAlreadyExistsException
+    [Serializable]
+    public class UserAlreadyExistsException : Exception
     {
-        public UserAlreadyExistsException()
-        {
-        }
+
+        public UserAlreadyExistsException(string message)
+            : base(message) { }
+        
     }
 }
