@@ -12,7 +12,7 @@ namespace API.Controllers
     {
         private readonly ITransService _transService;
 
-        public TransController(IHoldingsService holdingsService, ITransService transService)
+        public TransController(ITransService transService)
         {
             _transService = transService;
         }

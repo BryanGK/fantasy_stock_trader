@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Http;
 
 namespace API.Middleware
@@ -19,14 +20,24 @@ namespace API.Middleware
             {
                 await _next(context);
             }
-            catch (Exception e)
+            catch (UserNotFoundException ex)
             {
-                Console.WriteLine("An exception ({0}) occured.", e.GetType().Name);
-                Console.WriteLine("Message:\n {0}\n", e.Message);
-                Console.WriteLine("Stack Trace:\n {0}\n", e.StackTrace);
+
+                context.Response.StatusCode = 404;
+                context.Response.Headers.Add("content-type", "application/json");
+                await context.Response.WriteAsync(ex.Message);
+
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine("An exception ({0}) occured.", ex.GetType().Name);
+                Console.WriteLine("Message:\n {0}\n", ex.Message);
+                Console.WriteLine("Stack Trace:\n {0}\n", ex.StackTrace);
                 context.Response.StatusCode = 500;
                 context.Response.Headers.Add("content-type", "application/json");
-                await context.Response.WriteAsync(e.Message);
+                await context.Response.WriteAsync(ex.Message);
+
             }
         }
     }

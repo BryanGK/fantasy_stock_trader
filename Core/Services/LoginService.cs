@@ -3,6 +3,7 @@ using System.Linq;
 using Core.Entities;
 using Core.Models;
 using NHibernate;
+using Infrastructure.Exceptions;
 
 namespace Core.Services
 {
@@ -29,7 +30,7 @@ namespace Core.Services
                 var user = session.Query<UserEntity>().FirstOrDefault(x => x.Username == username);
 
                 if (user == null || user.Password != password)
-                    throw new Exception("Incorrect username or password, please try again.");
+                    throw new UserNotFoundException("Incorrect username or password, please try again.");
 
                 var userSession = new UserSession()
                 {
@@ -53,7 +54,8 @@ namespace Core.Services
                 var userSession = new UserSession()
                 {
                     UserId = user.UserId.ToString(),
-                    SessionId = Guid.NewGuid()
+                    SessionId = Guid.NewGuid(),
+                    Username = user.Username
                 };
 
                 return userSession;
