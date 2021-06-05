@@ -8,6 +8,5 @@ namespace Core.Models
         public virtual string UserId { get; set; }
 
         public virtual decimal Cash { get; set; }
-
     }
 }
