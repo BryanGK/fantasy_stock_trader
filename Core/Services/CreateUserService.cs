@@ -62,10 +62,11 @@ namespace Core.Services
                 {
                     session.Save(wallet);
                 }
+                else
+                {
+                    throw new UserAlreadyExistsException($"Error in creating wallet");
+                }
             }
-
-            throw new UserAlreadyExistsException($"Error in creating wallet");
-
         }
     }
 }

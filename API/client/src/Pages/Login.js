@@ -33,7 +33,8 @@ function Login() {
                 checkReturnData(response.data);
             })
             .catch(err => {
-                console.log(err);
+                alert(err.response.data);
+                console.log(err.response);
             })
     }
 
@@ -46,7 +47,8 @@ function Login() {
                 checkReturnData(response.data);
             })
             .catch(err => {
-                console.log(err);
+                alert(err.response.data);
+                console.log(err.response);
             })
     }
 
