@@ -4,7 +4,7 @@ import CompanyStockQuote from '../Components/CompanyStockQuote';
 import CompanyCard from '../Components/CompanyCard';
 import UserWallet from '../Components/UserWallet';
 import StockList from '../Components/StockList';
-import { Button, FormControl, InputGroup, Modal } from 'react-bootstrap';
+import { Button, Form, FormControl, InputGroup, Modal, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import '../Styles/Home.css';
 import TransactionModal from '../Components/TransactionModal';
@@ -26,6 +26,8 @@ function Home() {
     const [wallet, setWallet] = useState();
     const [buy, setBuy] = useState(false);
     const [sell, setSell] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [displayError, setDisplayError] = useState(false);
 
     useEffect(() => {
         getHoldings();
@@ -105,10 +107,13 @@ function Home() {
 
     const handleSearch = () => {
         setInitialState();
+        setDisplayError(false);
         getCompanyQuote(company);
     }
 
     const setInitialState = () => {
+        setStockQuote();
+        setCompanyLogo('');
         setCompanyNews([]);
         setCompanyInfo();
         setDisplayCompanyInfo(false);
@@ -144,6 +149,8 @@ function Home() {
                 setStockQuote(response.data);
             })
             .catch(error => {
+                setErrorMessage(error.response.data);
+                setDisplayError(true);
                 console.log(error);
             });
         axios.get(`api/stocks/logo/${company}`)
@@ -207,9 +214,10 @@ function Home() {
                         <div className="container search-bar">
                             <div className="search-stock col-6">
                                 <InputGroup>
+                                    <Form.Label>Search:</Form.Label>
                                     <FormControl
                                         type="text"
-                                        placeholder="Search Stocks"
+                                        placeholder="Stock Symbol"
                                         value={company}
                                         onChange={handleChange}
                                         onKeyPress={e => {
@@ -226,6 +234,13 @@ function Home() {
                             </Button>
                                     </InputGroup.Append>
                                 </InputGroup>
+                                {displayError ?
+                                    <div className="search-alerts">
+                                        <Alert variant="danger" onClose={() => setDisplayError(false)} dismissible>
+                                            <p>{errorMessage}</p>
+                                        </Alert>
+                                    </div>
+                                    : null}
                             </div>
                         </div>
                         <div className="container company-stock-quote">

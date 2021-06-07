@@ -32,8 +32,17 @@
     min-width: 300px;
 }
 
+.search-stock .form-label {
+    margin: auto;
+    padding-right: 10px;
+}
+
 .search-stock {
     width: 50%;
+}
+
+.search-alerts {
+    margin-top: 10px;
 }
 
 .stock-list {
