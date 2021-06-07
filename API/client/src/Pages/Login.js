@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useHistory, Redirect } from 'react-router-dom';
-import { Form, Button, Card, Modal } from 'react-bootstrap';
+import { Form, Button, Card, Modal, Alert } from 'react-bootstrap';
 import CreateAccountModal from '../Components/CreateAccountModal';
 import { useLogin, useLoginUpdate, useUserUpdate } from '../Context/AuthContext';
 import '../Styles/Login.css';
@@ -12,6 +12,8 @@ function Login() {
     const userLogin = useLoginUpdate();
     const currentUser = useUserUpdate();
 
+    const [displayError, setDisplayError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [displayModal, setDisplayModal] = useState(false);
@@ -24,7 +26,8 @@ function Login() {
 
     const handlePassword = e => setPassword(e.target.value)
 
-    const postLogin = () => {
+    const postLogin = (e) => {
+        e.preventDefault();
         axios.post('/api/login', {
             username: username,
             password: password
@@ -33,8 +36,9 @@ function Login() {
                 checkReturnData(response.data);
             })
             .catch(err => {
-                alert(err.response.data);
-                console.log(err.response);
+                setErrorMessage(err.response.data);
+                setDisplayError(true);
+                console.log(err.response.data);
             })
     }
 
@@ -67,6 +71,13 @@ function Login() {
 
     return (
         <div>
+            {displayError ?
+                <div className="login-alerts">
+                    <Alert variant="danger" onClose={() => setDisplayError(false)} dismissible>
+                        <p>{errorMessage}</p>
+                    </Alert>
+                </div>
+                : null}
             <h1 className="login-header">Login</h1>
             <div className="container login-form-container">
                 <Card className="login-form-card">
