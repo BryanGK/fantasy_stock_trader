@@ -1,14 +1,21 @@
 import React from 'react';
-import { Modal, Button, Form, Col, Row } from 'react-bootstrap';
+import { Modal, Button, Form, Col, Row, Alert } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
-function CreateAccountModal({ handleModalClose, handleUsername, handlePassword, handleEmail, postCreateAccount }) {
+function CreateAccountModal({ handleModalClose, handleUsername, handlePassword, handleEmail, postCreateAccount, displayModalError, errorMessage, setDisplayModalError }) {
     return (
         <div>
             <Form>
                 <Modal.Header closeButton>
                     <Modal.Title>Create New Account</Modal.Title>
                 </Modal.Header>
+                {displayModalError ?
+                    <div className="login-alerts">
+                        <Alert variant="danger" onClose={() => setDisplayModalError(false)} dismissible>
+                            <p>{errorMessage}</p>
+                        </Alert>
+                    </div>
+                    : null}
                 <Modal.Body>
                     <Form.Group as={Row} controlid="formUsername">
                         <Form.Label column sm={2}>
@@ -39,6 +46,7 @@ function CreateAccountModal({ handleModalClose, handleUsername, handlePassword, 
                 </Button>
                     <LinkContainer to="/home">
                         <Button
+                            type="submit"
                             variant="primary"
                             onClick={postCreateAccount}>
                             Create Account

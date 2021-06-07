@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useHistory, Redirect } from 'react-router-dom';
 import { Form, Button, Card, Modal, Alert } from 'react-bootstrap';
 import CreateAccountModal from '../Components/CreateAccountModal';
-import { useLogin, useLoginUpdate, useUserUpdate } from '../Context/AuthContext';
+import { useLogin, useLoginUpdate } from '../Context/AuthContext';
 import '../Styles/Login.css';
 import axios from 'axios';
 
@@ -10,13 +10,13 @@ function Login() {
     const isAuth = useLogin();
     const history = useHistory();
     const userLogin = useLoginUpdate();
-    const currentUser = useUserUpdate();
 
     const [displayError, setDisplayError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [displayModal, setDisplayModal] = useState(false);
+    const [displayModalError, setDisplayModalError] = useState(false);
 
     const handleModalShow = () => setDisplayModal(true);
 
@@ -42,7 +42,8 @@ function Login() {
             })
     }
 
-    const postCreateAccount = () => {
+    const postCreateAccount = (e) => {
+        e.preventDefault();
         axios.post('api/createuser', {
             username: username,
             password: password
@@ -51,7 +52,8 @@ function Login() {
                 checkReturnData(response.data);
             })
             .catch(err => {
-                alert(err.response.data);
+                setErrorMessage(err.response.data);
+                setDisplayModalError(true);
                 console.log(err.response);
             })
     }
@@ -121,6 +123,9 @@ function Login() {
                     onHide={handleModalClose}
                     centered>
                     <CreateAccountModal
+                        setDisplayModalError={setDisplayModalError}
+                        displayModalError={displayModalError}
+                        errorMessage={errorMessage}
                         postCreateAccount={postCreateAccount}
                         handleUsername={handleUsername}
                         handlePassword={handlePassword}
