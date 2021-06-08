@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{5C66D84B-8AF3-4E9B-BE39-EED3B8F8453F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fantasy_stock_trader.Tests", "fantasy_stock_trader.Tests\fantasy_stock_trader.Tests.csproj", "{7B30EE86-66DC-4759-9442-1D56607C2595}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,5 +60,17 @@ Global
 		{5C66D84B-8AF3-4E9B-BE39-EED3B8F8453F}.Release|x64.Build.0 = Release|Any CPU
 		{5C66D84B-8AF3-4E9B-BE39-EED3B8F8453F}.Release|x86.ActiveCfg = Release|Any CPU
 		{5C66D84B-8AF3-4E9B-BE39-EED3B8F8453F}.Release|x86.Build.0 = Release|Any CPU
+		{7B30EE86-66DC-4759-9442-1D56607C2595}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B30EE86-66DC-4759-9442-1D56607C2595}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B30EE86-66DC-4759-9442-1D56607C2595}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7B30EE86-66DC-4759-9442-1D56607C2595}.Debug|x64.Build.0 = Debug|Any CPU
+		{7B30EE86-66DC-4759-9442-1D56607C2595}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7B30EE86-66DC-4759-9442-1D56607C2595}.Debug|x86.Build.0 = Debug|Any CPU
+		{7B30EE86-66DC-4759-9442-1D56607C2595}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B30EE86-66DC-4759-9442-1D56607C2595}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B30EE86-66DC-4759-9442-1D56607C2595}.Release|x64.ActiveCfg = Release|Any CPU
+		{7B30EE86-66DC-4759-9442-1D56607C2595}.Release|x64.Build.0 = Release|Any CPU
+		{7B30EE86-66DC-4759-9442-1D56607C2595}.Release|x86.ActiveCfg = Release|Any CPU
+		{7B30EE86-66DC-4759-9442-1D56607C2595}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
