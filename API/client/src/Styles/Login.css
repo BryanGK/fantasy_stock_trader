@@ -21,3 +21,13 @@
     width: 80%;
     max-width: 300px;
 }
+
+.username-error {
+    font-size: 12px;
+    color: red;
+}
+
+.password-error {
+    font-size: 12px;
+    color: red;
+}

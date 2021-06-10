@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, Button, Form, Col, Row, Alert } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
-function CreateAccountModal({ handleModalClose, handleUsername, handlePassword, handleEmail, postCreateAccount, displayModalError, errorMessage, setDisplayModalError }) {
+function CreateAccountModal({ handleModalClose, handleUsername, handlePassword, handleEmail, postCreateAccount, displayModalError, errorMessage, setDisplayModalError, usernameError, passwordError }) {
     return (
         <div>
             <Form>
@@ -28,6 +28,9 @@ function CreateAccountModal({ handleModalClose, handleUsername, handlePassword, 
                                 placeholder="Select a username" />
                         </Col>
                     </Form.Group>
+                    {usernameError ?
+                        <p className="username-error">Username must be at least 4 characters long</p>
+                        : null}
                     <Form.Group as={Row} controlid="formPassword">
                         <Form.Label column sm={2}>
                             Password
@@ -39,18 +42,21 @@ function CreateAccountModal({ handleModalClose, handleUsername, handlePassword, 
                                 placeholder="Password" />
                         </Col>
                     </Form.Group>
+                    {passwordError ?
+                        <p className="password-error">Password must be at least 8 characters long</p>
+                        : null}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleModalClose}>
                         Close
-                </Button>
+                    </Button>
                     <LinkContainer to="/home">
                         <Button
                             type="submit"
                             variant="primary"
                             onClick={postCreateAccount}>
                             Create Account
-                    </Button>
+                        </Button>
                     </LinkContainer>
                 </Modal.Footer>
             </Form>

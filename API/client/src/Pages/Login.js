@@ -14,6 +14,8 @@ function Login() {
     const [displayError, setDisplayError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [username, setUsername] = useState('');
+    const [usernameError, setUsernameError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
     const [password, setPassword] = useState('');
     const [displayModal, setDisplayModal] = useState(false);
     const [displayModalError, setDisplayModalError] = useState(false);
@@ -22,12 +24,27 @@ function Login() {
 
     const handleModalClose = () => setDisplayModal(false);
 
-    const handleUsername = e => setUsername(e.target.value)
+    const handleUsername = e => setUsername(e.target.value);
 
     const handlePassword = e => setPassword(e.target.value)
 
+
+    const checkInputLength = () => {
+        if (username.length < 4) {
+            setUsernameError(true);
+            return false;
+        }
+        if (password.length < 8) {
+            setPasswordError(true);
+            return false;
+        }
+        return true;
+    }
+
     const postLogin = (e) => {
         e.preventDefault();
+        if (!checkInputLength())
+            return;
         axios.post('/api/login', {
             username: username,
             password: password
@@ -44,6 +61,8 @@ function Login() {
 
     const postCreateAccount = (e) => {
         e.preventDefault();
+        if (!checkInputLength())
+            return;
         axios.post('api/createuser', {
             username: username,
             password: password
@@ -93,6 +112,9 @@ function Login() {
                                     type="text"
                                     placeholder="Enter Username" />
                             </Form.Group>
+                            {usernameError ?
+                                <p className="username-error">Username must be at least 4 characters long</p>
+                                : null}
                             <Form.Group controlId="formBasicPassword">
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control
@@ -101,6 +123,9 @@ function Login() {
                                     type="password"
                                     placeholder="Password" />
                             </Form.Group>
+                            {passwordError ?
+                                <p className="password-error">Password must be at least 8 characters long</p>
+                                : null}
                             <Link to="/home">
                                 <Button
                                     onClick={postLogin}
@@ -129,7 +154,10 @@ function Login() {
                         postCreateAccount={postCreateAccount}
                         handleUsername={handleUsername}
                         handlePassword={handlePassword}
-                        handleModalClose={handleModalClose} />
+                        handleModalClose={handleModalClose}
+                        passwordError={passwordError}
+                        usernameError={usernameError}
+                    />
                 </Modal>
             </div>
         </div>
