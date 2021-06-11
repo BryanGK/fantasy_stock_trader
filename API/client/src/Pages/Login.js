@@ -36,6 +36,7 @@ function Login() {
         }
         if (password.length < 8) {
             setPasswordError(true);
+            setUsernameError(false);
             return false;
         }
         return true;
