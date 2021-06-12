@@ -11,14 +11,17 @@ function Login() {
     const history = useHistory();
     const userLogin = useLoginUpdate();
 
-    const [displayError, setDisplayError] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
     const [username, setUsername] = useState('');
-    const [usernameError, setUsernameError] = useState(false);
-    const [passwordError, setPasswordError] = useState(false);
     const [password, setPassword] = useState('');
     const [displayModal, setDisplayModal] = useState(false);
     const [displayModalError, setDisplayModalError] = useState(false);
+    const [error, setError] = useState({
+        diplay: false,
+        message: '',
+        usernameLength: false,
+        passwordLength: false,
+        inputLength: false,
+    })
 
     const handleModalShow = () => setDisplayModal(true);
 
@@ -31,12 +34,11 @@ function Login() {
 
     const checkInputLength = () => {
         if (username.length < 4) {
-            setUsernameError(true);
+            setError({ usernameLength: true });
             return false;
         }
         if (password.length < 8) {
-            setPasswordError(true);
-            setUsernameError(false);
+            setError({ passwordLength: true });
             return false;
         }
         return true;
@@ -54,8 +56,10 @@ function Login() {
                 checkReturnData(response.data);
             })
             .catch(err => {
-                setErrorMessage(err.response.data);
-                setDisplayError(true);
+                setError({
+                    message: err.response.data,
+                    display: true
+                });
                 console.log(err.response.data);
             })
     }
@@ -72,7 +76,7 @@ function Login() {
                 checkReturnData(response.data);
             })
             .catch(err => {
-                setErrorMessage(err.response.data);
+                setError({ message: err.response.data });
                 setDisplayModalError(true);
                 console.log(err.response);
             })
@@ -93,10 +97,10 @@ function Login() {
 
     return (
         <div>
-            {displayError ?
+            {error.display ?
                 <div className="login-alerts">
-                    <Alert variant="danger" onClose={() => setDisplayError(false)} dismissible>
-                        <p>{errorMessage}</p>
+                    <Alert variant="danger" onClose={() => setError({ display: false })} dismissible>
+                        <p>{error.message}</p>
                     </Alert>
                 </div>
                 : null}
@@ -113,7 +117,7 @@ function Login() {
                                     type="text"
                                     placeholder="Enter Username" />
                             </Form.Group>
-                            {usernameError ?
+                            {error.usernameLength ?
                                 <p className="username-error">Username must be at least 4 characters long</p>
                                 : null}
                             <Form.Group controlId="formBasicPassword">
@@ -124,7 +128,7 @@ function Login() {
                                     type="password"
                                     placeholder="Password" />
                             </Form.Group>
-                            {passwordError ?
+                            {error.passwordLength ?
                                 <p className="password-error">Password must be at least 8 characters long</p>
                                 : null}
                             <Link to="/home">
@@ -150,14 +154,14 @@ function Login() {
                     centered>
                     <CreateAccountModal
                         setDisplayModalError={setDisplayModalError}
-                        displayModalError={displayModalError}
-                        errorMessage={errorMessage}
                         postCreateAccount={postCreateAccount}
                         handleUsername={handleUsername}
                         handlePassword={handlePassword}
                         handleModalClose={handleModalClose}
-                        passwordError={passwordError}
-                        usernameError={usernameError}
+                        displayModalError={displayModalError}
+                        errorMessage={error.message}
+                        passwordError={error.passwordLength}
+                        usernameError={error.usernameLength}
                     />
                 </Modal>
             </div>
