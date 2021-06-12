@@ -59,7 +59,7 @@ function Report() {
                             <th>Company</th>
                             <th>Price</th>
                             <th>Quantity</th>
-                            <th>Purchase Date</th>
+                            <th>Transaction Date</th>
                         </tr>
                     </thead>
                     <tbody>

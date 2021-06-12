@@ -41,10 +41,9 @@ namespace Core.Services
                     createdUser.UserId = (Guid)UserId;
                     return createdUser;
                 }
-                else
-                {
-                    throw new UserAlreadyExistsException($"The username '{username}' is not available, please try again.");
-                }
+
+                throw new UserAlreadyExistsException($"The username '{username}' is not available, please try again.");
+
             }
         }
 
