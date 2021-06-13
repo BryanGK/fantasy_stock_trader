@@ -14,14 +14,7 @@ function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [displayModal, setDisplayModal] = useState(false);
-    const [displayModalError, setDisplayModalError] = useState(false);
-    const [error, setError] = useState({
-        diplay: false,
-        message: '',
-        usernameLength: false,
-        passwordLength: false,
-        inputLength: false,
-    })
+    const [error, setError] = useState({});
 
     const handleModalShow = () => setDisplayModal(true);
 
@@ -76,8 +69,10 @@ function Login() {
                 checkReturnData(response.data);
             })
             .catch(err => {
-                setError({ message: err.response.data });
-                setDisplayModalError(true);
+                setError({
+                    message: err.response.data,
+                    displayModalError: true
+                });
                 console.log(err.response);
             })
     }
@@ -153,15 +148,12 @@ function Login() {
                     onHide={handleModalClose}
                     centered>
                     <CreateAccountModal
-                        setDisplayModalError={setDisplayModalError}
                         postCreateAccount={postCreateAccount}
                         handleUsername={handleUsername}
                         handlePassword={handlePassword}
                         handleModalClose={handleModalClose}
-                        displayModalError={displayModalError}
-                        errorMessage={error.message}
-                        passwordError={error.passwordLength}
-                        usernameError={error.usernameLength}
+                        setError={setError}
+                        error={error}
                     />
                 </Modal>
             </div>

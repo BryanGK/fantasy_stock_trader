@@ -2,17 +2,17 @@ import React from 'react';
 import { Modal, Button, Form, Col, Row, Alert } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
-function CreateAccountModal({ handleModalClose, handleUsername, handlePassword, handleEmail, postCreateAccount, displayModalError, errorMessage, setDisplayModalError, usernameError, passwordError }) {
+function CreateAccountModal({ handleModalClose, handleUsername, handlePassword, postCreateAccount, error, setError }) {
     return (
         <div>
             <Form>
                 <Modal.Header closeButton>
                     <Modal.Title>Create New Account</Modal.Title>
                 </Modal.Header>
-                {displayModalError ?
+                {error.displayModalError ?
                     <div className="login-alerts">
-                        <Alert variant="danger" onClose={() => setDisplayModalError(false)} dismissible>
-                            <p>{errorMessage}</p>
+                        <Alert variant="danger" onClose={() => setError({ displayModalError: false })} dismissible>
+                            <p>{error.message}</p>
                         </Alert>
                     </div>
                     : null}
@@ -28,7 +28,7 @@ function CreateAccountModal({ handleModalClose, handleUsername, handlePassword, 
                                 placeholder="Select a username" />
                         </Col>
                     </Form.Group>
-                    {usernameError ?
+                    {error.usernameLength ?
                         <p className="username-error">Username must be at least 4 characters long</p>
                         : null}
                     <Form.Group as={Row} controlid="formPassword">
@@ -42,7 +42,7 @@ function CreateAccountModal({ handleModalClose, handleUsername, handlePassword, 
                                 placeholder="Password" />
                         </Col>
                     </Form.Group>
-                    {passwordError ?
+                    {error.passwordLength ?
                         <p className="password-error">Password must be at least 8 characters long</p>
                         : null}
                 </Modal.Body>
