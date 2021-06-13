@@ -16,50 +16,42 @@ namespace Core.Services
 
     public class LoginService : ILoginService
     {
-        private readonly ISessionFactory _factory;
+        private readonly IUserQueryService _queryService;
 
-        public LoginService(ISessionFactory factory)
+        public LoginService(IUserQueryService queryService)
         {
-            _factory = factory;
+            _queryService = queryService;
         }
 
         public UserSession GetUserByName(string username, string password)
         {
-            using (var session = _factory.OpenSession())
+            var user = _queryService.GetUser(username);
+
+            if (user == null || user.Password != password)
+                throw new UserNotFoundException("Incorrect username or password, please try again.");
+
+            var userSession = new UserSession()
             {
-                var user = session.Query<UserEntity>().FirstOrDefault(x => x.Username == username);
+                UserId = user.UserId.ToString(),
+                SessionId = Guid.NewGuid(),
+                Username = user.Username
+            };
 
-                if (user == null || user.Password != password)
-                    throw new UserNotFoundException("Incorrect username or password, please try again.");
-
-                var userSession = new UserSession()
-                {
-                    UserId = user.UserId.ToString(),
-                    SessionId = Guid.NewGuid(),
-                    Username = user.Username
-                };
-
-                return userSession;
-            }
+            return userSession;
         }
 
         public UserSession GetUserById(string userId)
         {
-            Guid userIdGuid = Guid.Parse(userId);
+            var user = _queryService.GetUser(Guid.Parse(userId));
 
-            using (var session = _factory.OpenSession())
+            var userSession = new UserSession()
             {
-                var user = session.Get<UserEntity>(userIdGuid);
+                UserId = user.UserId.ToString(),
+                SessionId = Guid.NewGuid(),
+                Username = user.Username
+            };
 
-                var userSession = new UserSession()
-                {
-                    UserId = user.UserId.ToString(),
-                    SessionId = Guid.NewGuid(),
-                    Username = user.Username
-                };
-
-                return userSession;
-            }
+            return userSession;
         }
     }
 }
