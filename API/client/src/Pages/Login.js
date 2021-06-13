@@ -24,13 +24,19 @@ function Login() {
 
     const handlePassword = e => setPassword(e.target.value)
 
-
     const checkInputLength = () => {
-        if (username.length < 4) {
+        if (username.length < 4 && password.length < 8) {
+            setError({
+                usernameLength: true,
+                passwordLength: true
+            });
+            return false;
+
+        } else if (username.length < 4) {
             setError({ usernameLength: true });
             return false;
-        }
-        if (password.length < 8) {
+
+        } else if (password.length < 8) {
             setError({ passwordLength: true });
             return false;
         }
