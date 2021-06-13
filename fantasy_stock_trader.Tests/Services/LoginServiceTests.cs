@@ -27,13 +27,13 @@ namespace fantasy_stock_trader.Tests.Services
        [Test]
        public void GetUserByName_UserIsNull_ThrowsUserNotFoundException()
         {
-            
+          
         }
 
         [Test]
-        public void GetUserByName_NotValidPassword_ThrowsUserNotFoundException()
+        public void GetUserName_NotValidPassword_ThrowsUserNotFoundException()
         {
-            var user = new UserEntity
+            var user = new UserEntity()
             {
                 Password = "pwd"
             };
