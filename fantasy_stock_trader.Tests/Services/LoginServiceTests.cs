@@ -13,38 +13,32 @@ namespace fantasy_stock_trader.Tests.Services
     [TestFixture]
     public class LoginServiceTests
     {
-        private ISessionFactory _sessionFactory;
+        private IUserQueryService _userQueryService;
         private LoginService _sut;
 
         [SetUp]
         public void Setup()
         {
-            _sessionFactory = Substitute.For<ISessionFactory>();
+            _userQueryService = Substitute.For<IUserQueryService>();
 
-            _sut = new LoginService(_sessionFactory);
+            _sut = new LoginService(_userQueryService);
         }
 
        [Test]
        public void GetUserByName_UserIsNull_ThrowsUserNotFoundException()
         {
-
+            
         }
 
         [Test]
         public void GetUserByName_NotValidPassword_ThrowsUserNotFoundException()
         {
-            var session = Substitute.For<ISession>();
-
-            _sessionFactory.OpenSession().Returns(session);
-
-            var user = new UserEntity()
+            var user = new UserEntity
             {
-                Password = "pw"
+                Password = "pwd"
             };
 
-            var queryable = Substitute.For<IQueryable<UserEntity>>();
-            queryable.FirstOrDefault(Arg.Any<Expression<Func<UserEntity, bool>>>()).Returns(user);
-            session.Query<UserEntity>().Returns(queryable);
+            _userQueryService.GetUser(Arg.Any<string>()).Returns(user);
 
             Assert.Throws<UserNotFoundException>(() => _sut.GetUserByName("bryan", "pwd123"));
         }
