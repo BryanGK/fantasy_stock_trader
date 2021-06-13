@@ -1,10 +1,7 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
-using Core.Entities;
+﻿using Core.Entities;
+using Core.Models;
 using Core.Services;
 using Infrastructure.Exceptions;
-using NHibernate;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -27,7 +24,11 @@ namespace fantasy_stock_trader.Tests.Services
        [Test]
        public void GetUserByName_UserIsNull_ThrowsUserNotFoundException()
         {
-          
+            var user = new UserEntity();
+
+            _userQueryService.GetUser(Arg.Any<string>()).Returns(user);
+
+            Assert.Throws<UserNotFoundException>(() => _sut.GetUserByName("bryan", "pwd123"));
         }
 
         [Test]
@@ -46,7 +47,17 @@ namespace fantasy_stock_trader.Tests.Services
         [Test]
         public void GetUserByName_ValidUsernameAndPassword_ReturnsUserSession()
         {
+            var user = new UserEntity()
+            {
+                Username = "bryan",
+                Password = "pwd123"
+            };
 
+            _userQueryService.GetUser(Arg.Any<string>()).Returns(user);
+
+            var result = _sut.GetUserByName("bryan", "pwd123");
+
+            Assert.That(result, Is.TypeOf<UserSession>());
         }
     }
 }
