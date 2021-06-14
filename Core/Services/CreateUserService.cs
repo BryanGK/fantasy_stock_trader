@@ -9,17 +9,20 @@ namespace Core.Services
     public interface ICreateUserService
     {
         UserEntity Create(string username, string password);
+
         void Wallet(string userId);
     }
 
     public class CreateUserService : ICreateUserService
     {
 
-        private readonly ISessionFactory _sessionFactory;
+        private readonly IWalletQueryService _walletQueryService;
+        private readonly IUserQueryService _userQueryService;
 
-        public CreateUserService(ISessionFactory sessionFactory)
+        public CreateUserService(IWalletQueryService walletQueryService, IUserQueryService dbQueryService)
         {
-            _sessionFactory = sessionFactory;
+            _walletQueryService = walletQueryService;
+            _userQueryService = dbQueryService;
         }
 
         public UserEntity Create(string username, string password)
@@ -31,20 +34,14 @@ namespace Core.Services
                 Password = password
             };
 
-            using (var session = _sessionFactory.OpenSession())
+            var user = _userQueryService.GetUser(username);
+
+            if (user == null)
             {
-                var user = session.Query<UserEntity>().FirstOrDefault(x => x.Username == username);
-
-                if (user == null)
-                {
-                    var UserId = session.Save(createdUser);
-                    createdUser.UserId = (Guid)UserId;
-                    return createdUser;
-                }
-
-                throw new UserAlreadyExistsException($"The username '{username}' is not available, please try again.");
-
+                return _userQueryService.Save(createdUser);
             }
+
+            throw new UserAlreadyExistsException($"The username '{username}' is not available, please try again.");
         }
 
         public void Wallet(string userId)
@@ -55,19 +52,17 @@ namespace Core.Services
                 Cash = 100000.00M
             };
 
-            using (var session = _sessionFactory.OpenSession())
-            {
-                var user = session.Query<WalletEntity>().FirstOrDefault(x => x.UserId == userId);
+            var user = _walletQueryService.GetWallet(userId);
 
-                if (user == null)
-                {
-                    session.Save(wallet);
-                }
-                else
-                {
-                    throw new UserAlreadyExistsException($"Error in creating wallet");
-                }
+            if (user == null)
+            {
+                _walletQueryService.Save(wallet);
+            }
+            else
+            {
+                throw new UserAlreadyExistsException($"Error in creating wallet");
             }
         }
     }
 }
+

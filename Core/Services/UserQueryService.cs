@@ -5,17 +5,20 @@ using NHibernate;
 
 namespace Core.Services
 {
-    public interface IDbQueryService
+    public interface IUserQueryService
     {
         UserEntity GetUser(string username);
 
         UserEntity GetUser(Guid id);
+
+        UserEntity Save(UserEntity user);
     }
-    public class DbQueryService : IDbQueryService
+
+    public class UserQueryService : IUserQueryService
     {
         private readonly ISessionFactory _factory;
 
-        public DbQueryService(ISessionFactory factory)
+        public UserQueryService(ISessionFactory factory)
         {
             _factory = factory;
         }
@@ -24,7 +27,7 @@ namespace Core.Services
         {
             using (var session = _factory.OpenSession())
             {
-                return session.Query<UserEntity>().FirstOrDefault(u => u.Username == username);
+                return session.Query<UserEntity>().FirstOrDefault(x => x.Username == username);
             }
         }
 
@@ -33,6 +36,16 @@ namespace Core.Services
             using (var session = _factory.OpenSession())
             {
                 return session.Get<UserEntity>(id);
+            }
+        }
+
+        public UserEntity Save(UserEntity user)
+        {
+            using (var session = _factory.OpenSession())
+            {
+                var UserId = session.Save(user);
+                user.UserId = (Guid)UserId;
+                return user;
             }
         }
     }

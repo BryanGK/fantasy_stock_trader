@@ -48,7 +48,9 @@ namespace API
 
             services.AddScoped<IHoldingsProcessor, HoldingsProcessor>();
 
-            services.AddScoped<IDbQueryService, DbQueryService>();
+            services.AddScoped<IUserQueryService, UserQueryService>();
+
+            services.AddScoped<IWalletQueryService, WalletQueryService>();
 
             var config = new NHibernate.Cfg.Configuration().Configure();
             var server = _configuration["Database:Server"];
