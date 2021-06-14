@@ -20,7 +20,7 @@ namespace API.Controllers
         public ActionResult<UserSession> Post([FromBody] UserModel userData)
         {
 
-            return Ok(_loginService.GetUserByName(userData.Username, userData.Password));
+            return Ok(_loginService.CreateSessionByUsername(userData.Username, userData.Password));
 
         }
     }

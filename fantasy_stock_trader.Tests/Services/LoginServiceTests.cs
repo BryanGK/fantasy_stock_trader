@@ -22,17 +22,17 @@ namespace fantasy_stock_trader.Tests.Services
         }
 
        [Test]
-       public void GetUserByName_UserIsNull_ThrowsUserNotFoundException()
+       public void CreateSessionByUsername_UserIsNull_ThrowsUserNotFoundException()
         {
             var user = new UserEntity();
 
             _userQueryService.GetUser(Arg.Any<string>()).Returns(user);
 
-            Assert.Throws<UserNotFoundException>(() => _sut.GetUserByName("bryan", "pwd123"));
+            Assert.Throws<UserNotFoundException>(() => _sut.CreateSessionByUsername("bryan", "pwd123"));
         }
 
         [Test]
-        public void GetUserName_NotValidPassword_ThrowsUserNotFoundException()
+        public void CreateSessionByUsername_NotValidPassword_ThrowsUserNotFoundException()
         {
             var user = new UserEntity()
             {
@@ -41,11 +41,11 @@ namespace fantasy_stock_trader.Tests.Services
 
             _userQueryService.GetUser(Arg.Any<string>()).Returns(user);
 
-            Assert.Throws<UserNotFoundException>(() => _sut.GetUserByName("bryan", "pwd123"));
+            Assert.Throws<UserNotFoundException>(() => _sut.CreateSessionByUsername("bryan", "pwd123"));
         }
 
         [Test]
-        public void GetUserByName_ValidUsernameAndPassword_ReturnsUserSession()
+        public void CreateSessionByUsername_ValidUsernameAndPassword_ReturnsUserSession()
         {
             var user = new UserEntity()
             {
@@ -55,7 +55,7 @@ namespace fantasy_stock_trader.Tests.Services
 
             _userQueryService.GetUser(Arg.Any<string>()).Returns(user);
 
-            var result = _sut.GetUserByName("bryan", "pwd123");
+            var result = _sut.CreateSessionByUsername("bryan", "pwd123");
 
             Assert.That(result, Is.TypeOf<UserSession>());
         }

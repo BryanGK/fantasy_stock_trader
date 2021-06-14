@@ -9,9 +9,9 @@ namespace Core.Services
 {
     public interface ILoginService
     {
-        UserSession GetUserByName(string username, string password);
+        UserSession CreateSessionByUsername(string username, string password);
 
-        UserSession GetUserById(string userId);
+        UserSession CreateSessionByUserId(string userId);
     }
 
     public class LoginService : ILoginService
@@ -23,7 +23,7 @@ namespace Core.Services
             _userQueryService = queryService;
         }
 
-        public UserSession GetUserByName(string username, string password)
+        public UserSession CreateSessionByUsername(string username, string password)
         {
             var user = _userQueryService.GetUser(username);
 
@@ -40,7 +40,7 @@ namespace Core.Services
             return userSession;
         }
 
-        public UserSession GetUserById(string userId)
+        public UserSession CreateSessionByUserId(string userId)
         {
             var user = _userQueryService.GetUser(Guid.Parse(userId));
 

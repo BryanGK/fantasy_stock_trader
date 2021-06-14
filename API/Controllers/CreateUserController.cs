@@ -29,7 +29,7 @@ namespace API.Controllers
 
             _createUserService.Wallet(newUserId.UserId.ToString());
 
-            var user = _loginService.GetUserById(newUserId.UserId.ToString());
+            var user = _loginService.CreateSessionByUserId(newUserId.UserId.ToString());
 
             return Ok(user);
 

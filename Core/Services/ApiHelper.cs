@@ -12,13 +12,12 @@ namespace Core.Services
 
     public class ApiHelper : IApiHelper
     {
+        private readonly IConfiguration _configuration;
 
         public ApiHelper(IConfiguration configuration)
         {
             _configuration = configuration;
         }
-
-        private readonly IConfiguration _configuration;
 
         public HttpClient InitializeClient()
         {
