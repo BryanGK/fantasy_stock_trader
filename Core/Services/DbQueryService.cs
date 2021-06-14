@@ -5,17 +5,17 @@ using NHibernate;
 
 namespace Core.Services
 {
-    public interface IUserQueryService
+    public interface IDbQueryService
     {
         UserEntity GetUser(string username);
 
         UserEntity GetUser(Guid id);
     }
-    public class UserQueryService : IUserQueryService
+    public class DbQueryService : IDbQueryService
     {
         private readonly ISessionFactory _factory;
 
-        public UserQueryService(ISessionFactory factory)
+        public DbQueryService(ISessionFactory factory)
         {
             _factory = factory;
         }

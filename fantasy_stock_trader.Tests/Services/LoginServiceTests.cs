@@ -1,4 +1,5 @@
-﻿using Core.Entities;
+﻿using System;
+using Core.Entities;
 using Core.Models;
 using Core.Services;
 using Infrastructure.Exceptions;
@@ -10,15 +11,15 @@ namespace fantasy_stock_trader.Tests.Services
     [TestFixture]
     public class LoginServiceTests
     {
-        private IUserQueryService _userQueryService;
+        private IDbQueryService _dbQueryService;
         private LoginService _sut;
 
         [SetUp]
         public void Setup()
         {
-            _userQueryService = Substitute.For<IUserQueryService>();
+            _dbQueryService = Substitute.For<IDbQueryService>();
 
-            _sut = new LoginService(_userQueryService);
+            _sut = new LoginService(_dbQueryService);
         }
 
        [Test]
@@ -26,7 +27,7 @@ namespace fantasy_stock_trader.Tests.Services
         {
             var user = new UserEntity();
 
-            _userQueryService.GetUser(Arg.Any<string>()).Returns(user);
+            _dbQueryService.GetUser(Arg.Any<string>()).Returns(user);
 
             Assert.Throws<UserNotFoundException>(() => _sut.CreateSessionByUsername("bryan", "pwd123"));
         }
@@ -39,7 +40,7 @@ namespace fantasy_stock_trader.Tests.Services
                 Password = "pwd"
             };
 
-            _userQueryService.GetUser(Arg.Any<string>()).Returns(user);
+            _dbQueryService.GetUser(Arg.Any<string>()).Returns(user);
 
             Assert.Throws<UserNotFoundException>(() => _sut.CreateSessionByUsername("bryan", "pwd123"));
         }
@@ -53,9 +54,21 @@ namespace fantasy_stock_trader.Tests.Services
                 Password = "pwd123"
             };
 
-            _userQueryService.GetUser(Arg.Any<string>()).Returns(user);
+            _dbQueryService.GetUser(Arg.Any<string>()).Returns(user);
 
             var result = _sut.CreateSessionByUsername("bryan", "pwd123");
+
+            Assert.That(result, Is.TypeOf<UserSession>());
+        }
+
+        [Test]
+        public void CreateSessionByUserId_WhenCalled_ReturnsUserSession()
+        {
+            var user = new UserEntity();
+
+            _dbQueryService.GetUser(Arg.Any<string>()).Returns(user);
+
+            var result = _sut.CreateSessionByUserId(Guid.NewGuid().ToString());
 
             Assert.That(result, Is.TypeOf<UserSession>());
         }

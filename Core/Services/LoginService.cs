@@ -16,16 +16,16 @@ namespace Core.Services
 
     public class LoginService : ILoginService
     {
-        private readonly IUserQueryService _userQueryService;
+        private readonly IDbQueryService _dbQueryService;
 
-        public LoginService(IUserQueryService queryService)
+        public LoginService(IDbQueryService dbQueryService)
         {
-            _userQueryService = queryService;
+            _dbQueryService = dbQueryService;
         }
 
         public UserSession CreateSessionByUsername(string username, string password)
         {
-            var user = _userQueryService.GetUser(username);
+            var user = _dbQueryService.GetUser(username);
 
             if (user == null || user.Password != password)
                 throw new UserNotFoundException("Incorrect username or password, please try again.");
@@ -42,7 +42,7 @@ namespace Core.Services
 
         public UserSession CreateSessionByUserId(string userId)
         {
-            var user = _userQueryService.GetUser(Guid.Parse(userId));
+            var user = _dbQueryService.GetUser(Guid.Parse(userId));
 
             var userSession = new UserSession()
             {
