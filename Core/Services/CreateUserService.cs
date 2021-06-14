@@ -8,9 +8,9 @@ namespace Core.Services
 {
     public interface ICreateUserService
     {
-        UserEntity Create(string username, string password);
+        UserEntity CreateUser(string username, string password);
 
-        void Wallet(string userId);
+        string CreateWallet(string userId);
     }
 
     public class CreateUserService : ICreateUserService
@@ -25,7 +25,7 @@ namespace Core.Services
             _userQueryService = dbQueryService;
         }
 
-        public UserEntity Create(string username, string password)
+        public UserEntity CreateUser(string username, string password)
         {
 
             var createdUser = new UserEntity()
@@ -44,7 +44,7 @@ namespace Core.Services
             throw new UserAlreadyExistsException($"The username '{username}' is not available, please try again.");
         }
 
-        public void Wallet(string userId)
+        public string CreateWallet(string userId)
         {
             var wallet = new WalletEntity()
             {
@@ -57,6 +57,7 @@ namespace Core.Services
             if (user == null)
             {
                 _walletQueryService.Save(wallet);
+                return userId;
             }
             else
             {

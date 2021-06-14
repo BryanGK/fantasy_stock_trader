@@ -24,14 +24,14 @@ namespace API.Controllers
         [HttpPost]
         public ActionResult<UserSession> Post([FromBody] UserModel userData)
         {
+            var newUser = _createUserService.CreateUser(userData.Username, userData.Password);
+            var newUserId = newUser.UserId.ToString();
+            var walletUserId = _createUserService.CreateWallet(newUserId);
 
-            var newUserId = _createUserService.Create(userData.Username, userData.Password);
+            if (walletUserId != newUserId)
+                return StatusCode(500, "Server Error");
 
-            _createUserService.Wallet(newUserId.UserId.ToString());
-
-            var user = _loginService.CreateSessionByUserId(newUserId.UserId.ToString());
-
-            return Ok(user);
+            return Ok(_loginService.CreateSessionByUserId(newUserId));
 
         }
     }

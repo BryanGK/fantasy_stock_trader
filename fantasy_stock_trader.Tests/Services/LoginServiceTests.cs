@@ -11,15 +11,15 @@ namespace fantasy_stock_trader.Tests.Services
     [TestFixture]
     public class LoginServiceTests
     {
-        private IDbQueryService _dbQueryService;
+        private IUserQueryService _userQueryService;
         private LoginService _sut;
 
         [SetUp]
         public void Setup()
         {
-            _dbQueryService = Substitute.For<IDbQueryService>();
+            _userQueryService = Substitute.For<IUserQueryService>();
 
-            _sut = new LoginService(_dbQueryService);
+            _sut = new LoginService(_userQueryService);
         }
 
        [Test]
@@ -27,7 +27,7 @@ namespace fantasy_stock_trader.Tests.Services
         {
             var user = new UserEntity();
 
-            _dbQueryService.GetUser(Arg.Any<string>()).Returns(user);
+            _userQueryService.GetUser(Arg.Any<string>()).Returns(user);
 
             Assert.Throws<UserNotFoundException>(() => _sut.CreateSessionByUsername("bryan", "pwd123"));
         }
@@ -40,7 +40,7 @@ namespace fantasy_stock_trader.Tests.Services
                 Password = "pwd"
             };
 
-            _dbQueryService.GetUser(Arg.Any<string>()).Returns(user);
+            _userQueryService.GetUser(Arg.Any<string>()).Returns(user);
 
             Assert.Throws<UserNotFoundException>(() => _sut.CreateSessionByUsername("bryan", "pwd123"));
         }
@@ -54,7 +54,7 @@ namespace fantasy_stock_trader.Tests.Services
                 Password = "pwd123"
             };
 
-            _dbQueryService.GetUser(Arg.Any<string>()).Returns(user);
+            _userQueryService.GetUser(Arg.Any<string>()).Returns(user);
 
             var result = _sut.CreateSessionByUsername("bryan", "pwd123");
 
@@ -66,7 +66,7 @@ namespace fantasy_stock_trader.Tests.Services
         {
             var user = new UserEntity();
 
-            _dbQueryService.GetUser(Arg.Any<string>()).Returns(user);
+            _userQueryService.GetUser(Arg.Any<string>()).Returns(user);
 
             var result = _sut.CreateSessionByUserId(Guid.NewGuid().ToString());
 
