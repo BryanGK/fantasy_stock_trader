@@ -35,7 +35,7 @@ namespace API.Controllers
         public async Task<ActionResult<List<HoldingsModel>>> Holdings([FromHeader] HoldingsInputModel userData)
         {
 
-            var transactions = _holdingsService.GetTransactions(userData.userId);
+            var transactions = _holdingsService.GetHoldings(userData.userId);
 
             if (transactions.Count > 0)
             {
@@ -75,7 +75,7 @@ namespace API.Controllers
         public ActionResult<List<TransactionModel>> Transactions([FromHeader] HoldingsInputModel userData)
         {
 
-            var transactions = _holdingsService.GetTransactions(userData.userId);
+            var transactions = _holdingsService.GetHoldings(userData.userId);
 
             var transactionList = _holdingsProcessor.Transactions(transactions);
 

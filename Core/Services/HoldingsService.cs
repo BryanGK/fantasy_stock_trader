@@ -8,7 +8,7 @@ namespace Core.Services
 {
     public interface IHoldingsService
     {
-        List<TransactionEntity> GetTransactions(string userId);
+        List<TransactionEntity> GetHoldings(string userId);
 
         WalletEntity GetWallet(string userId);
     }
@@ -16,21 +16,17 @@ namespace Core.Services
     public class HoldingsService : IHoldingsService
     {
         private readonly ISessionFactory _sessionFactory;
+        private readonly ITransactionQueryService _transactionQueryService;
 
-        public HoldingsService(ISessionFactory sessionFactory)
+        public HoldingsService(ISessionFactory sessionFactory, ITransactionQueryService transactionQueryService)
         {
             _sessionFactory = sessionFactory;
+            _transactionQueryService = transactionQueryService;
         }
 
-        public List<TransactionEntity> GetTransactions(string userId)
+        public List<TransactionEntity> GetHoldings(string userId)
         {
-            using (var session = _sessionFactory.OpenSession())
-            {
-                var holdings = session.Query<TransactionEntity>().Where(x => x.UserId == userId).OrderBy(holdings => holdings.Stock).ToList();
-
-                return holdings;
-            }
-
+            return _transactionQueryService.GetTransactions(userId);
         }
 
         public WalletEntity GetWallet(string userId)
