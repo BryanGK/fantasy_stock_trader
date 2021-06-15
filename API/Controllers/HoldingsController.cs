@@ -17,57 +17,28 @@ namespace API.Controllers
 
         private readonly IHoldingsProcessor _holdingsProcessor;
 
-        private readonly IStockService _stockService;
+        private readonly ITransactionQueryService _transactionQueryService;
 
-        public HoldingsController(IHoldingsService holdingsService, IHoldingsProcessor holdingsProcessor, IStockService stockService)
+        public HoldingsController(IHoldingsService holdingsService,
+            IHoldingsProcessor holdingsProcessor,
+            ITransactionQueryService transactionQueryService)
         {
 
             _holdingsService = holdingsService;
 
             _holdingsProcessor = holdingsProcessor;
 
-            _stockService = stockService;
+            _transactionQueryService = transactionQueryService;
 
         }
 
         [Route("get/holdings")]
         [HttpGet]
-        public async Task<ActionResult<List<HoldingsModel>>> Holdings([FromHeader] HoldingsInputModel userData)
+        public ActionResult<List<HoldingsModel>> Holdings([FromHeader] HoldingsInputModel userData)
         {
 
-            var transactions = _holdingsService.GetHoldings(userData.userId);
+            return Ok(_holdingsService.GetHoldings(userData.userId));
 
-            if (transactions.Count > 0)
-            {
-
-                var latestPrice = await _stockService.LatestPrice(transactions);
-
-                var processedHoldings = _holdingsProcessor.HoldingsCombiner(transactions, latestPrice);
-
-                var holdingsValue = _holdingsProcessor.HoldingsValue(processedHoldings);
-
-                var cash = _holdingsService.GetWallet(userData.userId);
-
-                var holdings = new HoldingsModel()
-                {
-                    Cash = cash.Cash,
-                    Value = holdingsValue,
-                    Holdings = processedHoldings
-                };
-
-                return Ok(holdings);
-            }
-            else
-            {
-                var cash = _holdingsService.GetWallet(userData.userId);
-
-                var holdings = new HoldingsModel()
-                {
-                    Cash = cash.Cash,
-                };
-
-                return Ok(holdings);
-            }
         }
 
         [Route("get/transactions")]
@@ -75,11 +46,9 @@ namespace API.Controllers
         public ActionResult<List<TransactionModel>> Transactions([FromHeader] HoldingsInputModel userData)
         {
 
-            var transactions = _holdingsService.GetHoldings(userData.userId);
+            var transactions = _transactionQueryService.GetTransactions(userData.userId);
 
-            var transactionList = _holdingsProcessor.Transactions(transactions);
-
-            return Ok(transactionList);
+            return Ok(_holdingsProcessor.Transactions(transactions));
 
         }
 
