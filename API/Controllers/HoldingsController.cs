@@ -34,10 +34,10 @@ namespace API.Controllers
 
         [Route("get/holdings")]
         [HttpGet]
-        public Task<HoldingsModel> Holdings([FromHeader] HoldingsInputModel userData)
+        public async Task<ActionResult<HoldingsModel>> Holdings([FromHeader] HoldingsInputModel userData)
         {
 
-            return _holdingsService.GetHoldings(userData.userId);
+            return Ok(await _holdingsService.GetHoldings(userData.userId));
 
         }
 
