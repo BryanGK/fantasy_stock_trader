@@ -54,13 +54,28 @@ namespace fantasy_stock_trader.Tests.Services
         [Test]
         public void CreateWallet_UserDoesNotExist_ReturnsUserId()
         {
+            WalletEntity user = null;
 
+            _walletQueryService.GetWallet(Arg.Any<string>()).Returns(user);
+
+            _walletQueryService.Save(Arg.Any<WalletEntity>());
+
+            var result = _sut.CreateWallet("9fefa208-5c52-4435-a3ca-70d1e9cee692");
+
+            Assert.That(result, Is.EqualTo("9fefa208-5c52-4435-a3ca-70d1e9cee692"));
         }
 
         [Test]
         public void CreateWallet_UserDoesExist_ThrowsUserAlreadyExistsException()
         {
+            var user = new WalletEntity()
+            {
+                UserId = "9fefa208-5c52-4435-a3ca-70d1e9cee692"
+            };
 
+            _walletQueryService.GetWallet(Arg.Any<string>()).Returns(user);
+
+            Assert.Throws<UserAlreadyExistsException>(() => _sut.CreateWallet("9fefa208-5c52-4435-a3ca-70d1e9cee692"));
         }
     }
 }
