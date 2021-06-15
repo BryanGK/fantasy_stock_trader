@@ -34,7 +34,7 @@ namespace API.Controllers
 
         [Route("get/holdings")]
         [HttpGet]
-        public ActionResult<List<HoldingsModel>> Holdings([FromHeader] HoldingsInputModel userData)
+        public ActionResult<HoldingsModel> Holdings([FromHeader] HoldingsInputModel userData)
         {
 
             return Ok(_holdingsService.GetHoldings(userData.userId));

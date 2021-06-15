@@ -100,7 +100,7 @@ namespace Core.Services
             {
                 query += $"{holding.Stock},";
             }
-            var response = await _client.GetAsync($"https://cloud.iexapis.com/stable/stock/market/batch?symbols={query}&types=quote&range=1m&last=5&token=" + _configuration["IEX:ApiKey"]);
+            var response = await _client.GetAsync($"https://cloud.iexapis.com/stable/stock/market/batch?symbols={query}&types=quote&format=json&range=1m&last=5&token=" + _configuration["IEX:ApiKey"]);
 
             if (response.IsSuccessStatusCode)
             {
