@@ -67,15 +67,13 @@ function Home() {
 
 
     const transaction = () => {
-        console.log(currentUser.username);
-
         let transactionType;
         if (buy)
             transactionType = 'buy';
         if (sell)
             transactionType = 'sell';
 
-        axios.post(`/api/trans/${transactionType}`, {
+        axios.post(`/api/transaction/${transactionType}`, {
             userId: currentUser.userId,
             stock: stockQuote.symbol,
             price: stockQuote.latestPrice,

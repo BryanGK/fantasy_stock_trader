@@ -28,7 +28,6 @@ export function AuthProvider({ children }) {
 
     useEffect(() => {
         setCurrentUser(JSON.parse(localStorage.getItem('userData')));
-        console.log("USERDATA");
     }, [isAuth]);
 
     return (

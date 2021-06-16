@@ -11,12 +11,12 @@ namespace API.Controllers
 
     public class TransactionController : Controller
     {
-        private readonly ITransService _transService;
+        private readonly ITransactionService _transactionService;
         private readonly IMapper _mapper;
 
-        public TransactionController(ITransService transService, IMapper mapper)
+        public TransactionController(ITransactionService transService, IMapper mapper)
         {
-            _transService = transService;
+            _transactionService = transService;
             _mapper = mapper;
         }
 
@@ -24,7 +24,7 @@ namespace API.Controllers
         [HttpPost]
         public ActionResult<WalletModel> Buy([FromBody] TransactionInputModel userData)
         {
-            var wallet = _transService.Buy(userData.UserId, userData.Stock, userData.Price, userData.Quantity);
+            var wallet = _transactionService.Buy(userData.UserId, userData.Stock, userData.Price, userData.Quantity);
 
             var mappedWallet = _mapper.Map<WalletModel>(wallet);
 
@@ -36,7 +36,7 @@ namespace API.Controllers
         [HttpPost]
         public ActionResult<WalletModel> Sell([FromBody] TransactionInputModel userData)
         {
-            var wallet = _transService.Sell(userData.UserId, userData.Stock, userData.Price, userData.Quantity);
+            var wallet = _transactionService.Sell(userData.UserId, userData.Stock, userData.Price, userData.Quantity);
 
             var mappedWallet = _mapper.Map<WalletModel>(wallet);
 

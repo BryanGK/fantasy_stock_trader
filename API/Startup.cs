@@ -38,7 +38,7 @@ namespace API
 
             services.AddScoped<ICreateUserService, CreateUserService>();
 
-            services.AddScoped<ITransService, TransService>();
+            services.AddScoped<ITransactionService, TransactionService>();
 
             services.AddScoped<IHoldingsService, HoldingsService>();
 

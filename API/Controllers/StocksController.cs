@@ -21,35 +21,35 @@ namespace API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetStockQuote(string symbol)
         {
-           
-                return Ok(await _stockService.GetStockQuote(symbol));
+
+            return Ok(await _stockService.GetStockQuote(symbol));
         }
 
         [Route("company/{symbol}")]
         [HttpGet]
         public async Task<IActionResult> GetCompanyData(string symbol)
         {
-          
-                return Ok(await _stockService.GetCompanyData(symbol));
-          
+
+            return Ok(await _stockService.GetCompanyData(symbol));
+
         }
 
         [Route("news/{symbol}")]
         [HttpGet]
         public async Task<IActionResult> GetCompanyNews(string symbol)
         {
-         
-                return Ok(await _stockService.GetCompanyNews(symbol));
-          
+
+            return Ok(await _stockService.GetCompanyNews(symbol));
+
         }
 
         [Route("logo/{symbol}")]
         [HttpGet]
         public async Task<IActionResult> GetCompanyLogo(string symbol)
         {
-            
-                return Ok(await _stockService.GetCompanyLogo(symbol));
-          
+
+            return Ok(await _stockService.GetCompanyLogo(symbol));
+
         }
     }
 }
