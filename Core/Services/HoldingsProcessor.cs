@@ -13,7 +13,7 @@ namespace Core.Services
 
         public List<Holding> HoldingsCombiner(List<TransactionEntity> transactions, Dictionary<string, LatestPriceModel> quote);
 
-        public List<TransactionModel> Transactions(List<TransactionEntity> transactions);
+        public List<Transaction> Transactions(List<TransactionEntity> transactions);
 
         public decimal HoldingsValue(List<Holding> holdings);
 
@@ -61,13 +61,13 @@ namespace Core.Services
             return combinedHoldings;
         }
 
-        public List<TransactionModel> Transactions(List<TransactionEntity> transactions)
+        public List<Transaction> Transactions(List<TransactionEntity> transactions)
         {
-            var transactionList = new List<TransactionModel>();
+            var transactionList = new List<Transaction>();
 
             foreach (var trans in transactions)
             {
-                var transaction = new TransactionModel()
+                var transaction = new Transaction()
                 {
                     TransactionId = trans.TransactionId,
                     UserId = trans.UserId,

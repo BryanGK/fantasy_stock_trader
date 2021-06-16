@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Core.Models
 {
-    public class TransactionModel
+    public class Transaction
     {
         public virtual Guid TransactionId { get; set; }
 

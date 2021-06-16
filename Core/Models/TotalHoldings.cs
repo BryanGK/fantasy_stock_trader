@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Core.Models
 {
-    public class HoldingsModel
+    public class TotalHoldings
     {
         public virtual decimal Value { get; set; }
 
@@ -11,7 +10,6 @@ namespace Core.Models
 
         public List<Holding> Holdings { get; set; }
     }
-
 
     public class Holding
     {

@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using API.Models;
+using AutoMapper;
 using Core.Entities;
 using Core.Models;
 using Core.Services;
@@ -12,18 +15,22 @@ namespace API.Controllers
     public class CreateUserController : Controller
     {
         private readonly ICreateUserService _createUserService;
-
         private readonly ILoginService _loginService;
+        private readonly IMapper _mapper;
 
-        public CreateUserController(ICreateUserService createUserService, ILoginService loginService)
+        public CreateUserController(ICreateUserService createUserService,
+            ILoginService loginService,
+            IMapper mapper)
         {
             _createUserService = createUserService;
             _loginService = loginService;
+            _mapper = mapper;
         }
 
         [HttpPost]
-        public ActionResult<UserSession> Post([FromBody] UserModel userData)
+        public ActionResult<UserSessionModel> Post([FromBody] UserInputModel userData)
         {
+
             var newUser = _createUserService.CreateUser(userData.Username, userData.Password);
             var newUserId = newUser.UserId.ToString();
             var walletUserId = _createUserService.CreateWallet(newUserId);
@@ -31,7 +38,11 @@ namespace API.Controllers
             if (walletUserId != newUserId)
                 return StatusCode(500, "Server Error");
 
-            return Ok(_loginService.CreateSessionByUserId(newUserId));
+            var userSession = _loginService.CreateSessionByUserId(newUserId);
+
+            var mappedUserSession = _mapper.Map<UserSessionModel>(userSession);
+
+            return Ok(mappedUserSession);
 
         }
     }

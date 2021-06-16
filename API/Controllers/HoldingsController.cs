@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using API.Models;
+using AutoMapper;
 using Core.Models;
 using Core.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -19,9 +21,12 @@ namespace API.Controllers
 
         private readonly ITransactionQueryService _transactionQueryService;
 
+        private readonly IMapper _mapper;
+
         public HoldingsController(IHoldingsService holdingsService,
             IHoldingsProcessor holdingsProcessor,
-            ITransactionQueryService transactionQueryService)
+            ITransactionQueryService transactionQueryService,
+            IMapper mapper)
         {
 
             _holdingsService = holdingsService;
@@ -30,14 +35,19 @@ namespace API.Controllers
 
             _transactionQueryService = transactionQueryService;
 
+            _mapper = mapper;
+
         }
 
         [Route("get/holdings")]
         [HttpGet]
-        public async Task<ActionResult<HoldingsModel>> Holdings([FromHeader] HoldingsInputModel userData)
+        public async Task<ActionResult<TotalHoldingsModel>> Holdings([FromHeader] HoldingsInputModel userData)
         {
+            var holdings = await _holdingsService.GetHoldings(userData.userId);
 
-            return Ok(await _holdingsService.GetHoldings(userData.userId));
+            var mappedHoldings = _mapper.Map<TotalHoldingsModel>(holdings);
+
+            return Ok(mappedHoldings);
 
         }
 
@@ -48,7 +58,9 @@ namespace API.Controllers
 
             var transactions = _transactionQueryService.GetTransactions(userData.userId);
 
-            return Ok(_holdingsProcessor.Transactions(transactions));
+            var mappedTransactions = _mapper.Map<List<TransactionModel>>(transactions);
+
+            return Ok(mappedTransactions);
 
         }
 

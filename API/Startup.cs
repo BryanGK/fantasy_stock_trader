@@ -1,14 +1,9 @@
-using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
-using System.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using NHibernate.NetCore;
-using NHibernate;
 using Microsoft.Extensions.Configuration;
 using Core.Services;
 using API.Middleware;
@@ -26,8 +21,9 @@ namespace API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(Startup));
 
-            services.AddControllers();
+            services.AddControllersWithViews();
 
             services.AddSpaStaticFiles(config =>
             {

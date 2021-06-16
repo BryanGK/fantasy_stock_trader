@@ -1,5 +1,4 @@
-﻿using System;
-namespace Core.IEXModels
+﻿namespace Core.IEXModels
 {
     public class QuoteModel
     {

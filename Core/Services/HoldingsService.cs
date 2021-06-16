@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Core.Entities;
+﻿using System.Threading.Tasks;
 using Core.Models;
-using NHibernate;
 
 namespace Core.Services
 {
     public interface IHoldingsService
     {
-        Task<HoldingsModel> GetHoldings(string userId);
+        Task<TotalHoldings> GetHoldings(string userId);
     }
 
     public class HoldingsService : IHoldingsService
@@ -31,7 +26,7 @@ namespace Core.Services
             _walletQueryService = walletQueryService;
         }
 
-        public async Task<HoldingsModel> GetHoldings(string userId)
+        public async Task<TotalHoldings> GetHoldings(string userId)
         {
             var transactions = _transactionQueryService.GetTransactions(userId);
 
@@ -46,7 +41,7 @@ namespace Core.Services
 
                 var cash = _walletQueryService.GetWallet(userId);
 
-                var holdings = new HoldingsModel()
+                var holdings = new TotalHoldings()
                 {
                     Cash = cash.Cash,
                     Value = holdingsValue,
@@ -59,7 +54,7 @@ namespace Core.Services
             {
                 var cash = _walletQueryService.GetWallet(userId);
 
-                var holdings = new HoldingsModel()
+                var holdings = new TotalHoldings()
                 {
                     Cash = cash.Cash,
                 };

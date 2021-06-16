@@ -1,7 +1,7 @@
 ﻿using System;
-namespace Core.Models
+namespace API.Models
 {
-    public class UserModel
+    public class UserInputModel
     {
         public virtual Guid UserId { get; set; }
 
