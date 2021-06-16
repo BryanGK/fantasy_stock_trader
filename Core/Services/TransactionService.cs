@@ -6,19 +6,19 @@ using NHibernate;
 namespace Core.Services
 {
 
-    public interface ITransService
+    public interface ITransactionService
     {
         WalletEntity Buy(string userId, string stock, decimal price, int quantity);
 
         WalletEntity Sell(string userId, string stock, decimal price, int quantity);
     }
 
-    public class TransService : ITransService
+    public class TransactionService : ITransactionService
     {
 
         private readonly ISessionFactory _sessionFactory;
 
-        public TransService(ISessionFactory sessionFactory)
+        public TransactionService(ISessionFactory sessionFactory)
         {
             _sessionFactory = sessionFactory;
         }

@@ -16,25 +16,16 @@ namespace API.Controllers
     {
 
         private readonly IHoldingsService _holdingsService;
-
-        private readonly IHoldingsProcessor _holdingsProcessor;
-
         private readonly ITransactionQueryService _transactionQueryService;
-
         private readonly IMapper _mapper;
 
         public HoldingsController(IHoldingsService holdingsService,
-            IHoldingsProcessor holdingsProcessor,
             ITransactionQueryService transactionQueryService,
             IMapper mapper)
         {
 
             _holdingsService = holdingsService;
-
-            _holdingsProcessor = holdingsProcessor;
-
             _transactionQueryService = transactionQueryService;
-
             _mapper = mapper;
 
         }
