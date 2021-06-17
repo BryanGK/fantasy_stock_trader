@@ -77,7 +77,13 @@ namespace fantasy_stock_trader.Tests.Services
         [Test]
         public void GetHoldings_TransactionCountIsZeroOrLess_ReturnsHoldings()
         {
+            var transactions = new List<TransactionEntity>();
 
+            _transactionQueryService.GetTransactions(Arg.Any<string>()).Returns(transactions);
+
+            var result = _sut.GetHoldings("9fefa208-5c52-4435-a3ca-70d1e9cee692");
+
+            Assert.That(result, Is.TypeOf<Task<TotalHoldings>>());
         }
     }
 }
