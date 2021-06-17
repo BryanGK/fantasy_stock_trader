@@ -164,7 +164,7 @@ function Home() {
 
     return (
         <div className="home">
-            <h1 className="home-header">Hello, {currentUser.username}</h1>
+            <h1 className="home-header">Hello, {currentUser?.username}</h1>
             <h3 className="home-header">Welcome to Fantasy Stock Trader</h3>
             <div className="container chart-container">
                 <div className="row wallet-info">

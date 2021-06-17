@@ -28,7 +28,7 @@ export function AuthProvider({ children }) {
 
     useEffect(() => {
         setCurrentUser(JSON.parse(localStorage.getItem('userData')));
-    }, [isAuth]);
+    }, []);
 
     return (
         <AuthContext.Provider value={isAuth}>
