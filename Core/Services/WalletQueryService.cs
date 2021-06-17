@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Core.Entities;
 using NHibernate;
 
@@ -8,6 +9,7 @@ namespace Core.Services
     {
         WalletEntity GetWallet(string userId);
         void Save(WalletEntity wallet);
+        void UpdateBuy(Guid guid, decimal totalPrice);
     }
     public class WalletQueryService : IWalletQueryService
     {
@@ -31,6 +33,18 @@ namespace Core.Services
             using (var session = _factory.OpenSession())
             {
                 session.Save(wallet);
+            }
+        }
+
+        public void UpdateBuy(Guid walletId, decimal totalPrice)
+        {
+            using (var session = _factory.OpenSession())
+            {
+                var updatingWallet = session.Load<WalletEntity>(walletId);
+
+                updatingWallet.Cash -= totalPrice;
+
+                session.Update(updatingWallet);
             }
         }
     }
