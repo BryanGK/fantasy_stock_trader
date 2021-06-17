@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,6 +22,7 @@ namespace API.Controllers
         {
 
             return Ok(await _stockService.GetStockQuote(symbol));
+
         }
 
         [Route("company/{symbol}")]

@@ -56,7 +56,7 @@ function Home() {
     }
 
     const processHoldings = (holdings) => {
-        let temp = [];
+        const temp = [];
         if (holdings == null)
             return temp;
         holdings.forEach(element => {
