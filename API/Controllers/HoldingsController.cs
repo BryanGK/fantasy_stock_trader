@@ -33,6 +33,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<TotalHoldingsModel>> Holdings([FromHeader] HoldingsInputModel userData)
         {
+
             var holdings = await _holdingsService.GetHoldings(userData.userId);
 
             var mappedHoldings = _mapper.Map<TotalHoldingsModel>(holdings);

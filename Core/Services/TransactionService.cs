@@ -1,8 +1,6 @@
-﻿using System;
-using System.Linq;
-using Core.DbServices;
+﻿using Core.DbServices;
 using Core.Entities;
-using NHibernate;
+using Infrastructure.Exceptions;
 
 namespace Core.Services
 {
@@ -39,6 +37,8 @@ namespace Core.Services
 
                 _transactionQueryService.AddTransaction(userId, stock, price, quantity);
             }
+            else
+                throw new InsufficientAvailableFundsException("There are insufficient funds to complete this transaction.");
 
             return wallet;
 

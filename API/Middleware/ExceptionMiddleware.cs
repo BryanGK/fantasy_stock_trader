@@ -44,6 +44,14 @@ namespace API.Middleware
                 await context.Response.WriteAsync(ex.Message);
 
             }
+            catch (InsufficientAvailableFundsException ex)
+            {
+
+                context.Response.StatusCode = 403;
+                context.Response.Headers.Add("content-type", "application/json");
+                await context.Response.WriteAsync(ex.Message);
+
+            }
             catch (Exception ex)
             {
 
