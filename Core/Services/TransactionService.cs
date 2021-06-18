@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Core.DbServices;
 using Core.Entities;
 using NHibernate;
 
@@ -15,33 +16,28 @@ namespace Core.Services
 
     public class TransactionService : ITransactionService
     {
-
-        private readonly ISessionFactory _sessionFactory;
         private readonly IWalletQueryService _walletQueryService;
         private readonly ITransactionQueryService _transactionQueryService;
 
-        public TransactionService(ISessionFactory sessionFactory,
-            IWalletQueryService walletQueryService,
-            ITransactionQueryService transactionQueryService)
+        public TransactionService(IWalletQueryService walletQueryService, ITransactionQueryService transactionQueryService)
         {
-            _sessionFactory = sessionFactory;
             _walletQueryService = walletQueryService;
             _transactionQueryService = transactionQueryService;
         }
 
         public WalletEntity Buy(string userId, string stock, decimal price, int quantity)
         {
+            var isPurchase = true;
+
             decimal totalPrice = price * quantity;
 
             var wallet = _walletQueryService.GetWallet(userId);
 
             if (wallet.Cash >= totalPrice)
             {
-
-                _walletQueryService.UpdateBuy(wallet.WalletId, totalPrice);
+                _walletQueryService.Update(wallet.WalletId, totalPrice, isPurchase);
 
                 _transactionQueryService.AddTransaction(userId, stock, price, quantity);
-
             }
 
             return wallet;
@@ -50,31 +46,19 @@ namespace Core.Services
 
         public WalletEntity Sell(string userId, string stock, decimal price, int quantity)
         {
+            var isPurchase = false;
+
             decimal totalPrice = price * quantity;
 
-            using (var session = _sessionFactory.OpenSession())
-            {
-                var wallet = session.Query<WalletEntity>().FirstOrDefault(x => x.UserId == userId);
+            quantity = -quantity;
 
-                wallet.Cash += totalPrice;
+            var wallet = _walletQueryService.GetWallet(userId);
 
-                session.Update(wallet);
+            _walletQueryService.Update(wallet.WalletId, totalPrice, isPurchase);
 
-                var transaction = new TransactionEntity()
-                {
-                    UserId = userId,
-                    Stock = stock,
-                    Price = price,
-                    Quantity = -(quantity),
-                    Date = DateTime.Now
-                };
+            _transactionQueryService.AddTransaction(userId, stock, price, quantity);
 
-                session.Save(transaction);
-
-                session.Flush();
-
-                return wallet;
-            }
+            return wallet;
         }
     }
 }

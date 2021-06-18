@@ -24,11 +24,11 @@ export function useUserUpdate() {
 export function AuthProvider({ children }) {
     const userData = JSON.parse(localStorage.getItem('userData'));
     const [isAuth, setIsAuth] = useState(userData ? true : false);
-    const [currentUser, setCurrentUser] = useState();
+    const [currentUser, setCurrentUser] = useState("");
 
     useEffect(() => {
         setCurrentUser(JSON.parse(localStorage.getItem('userData')));
-    }, []);
+    }, [isAuth]);
 
     return (
         <AuthContext.Provider value={isAuth}>

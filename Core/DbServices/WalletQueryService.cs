@@ -3,13 +3,13 @@ using System.Linq;
 using Core.Entities;
 using NHibernate;
 
-namespace Core.Services
+namespace Core.DbServices
 {
     public interface IWalletQueryService
     {
         WalletEntity GetWallet(string userId);
         void Save(WalletEntity wallet);
-        void UpdateBuy(Guid guid, decimal totalPrice);
+        void Update(Guid guid, decimal totalPrice, bool isPurchase);
     }
     public class WalletQueryService : IWalletQueryService
     {
@@ -36,15 +36,19 @@ namespace Core.Services
             }
         }
 
-        public void UpdateBuy(Guid walletId, decimal totalPrice)
+        public void Update(Guid walletId, decimal totalPrice, bool isPurchase)
         {
             using (var session = _factory.OpenSession())
             {
                 var updatingWallet = session.Load<WalletEntity>(walletId);
 
-                updatingWallet.Cash -= totalPrice;
+                if (isPurchase)
+                    updatingWallet.Cash -= totalPrice;
 
-                session.Update(updatingWallet);
+                if (!isPurchase)
+                    updatingWallet.Cash += totalPrice;
+
+                session.Flush();
             }
         }
     }

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Models;
 using AutoMapper;
-using Core.Models;
+using Core.DbServices;
 using Core.Services;
 using Microsoft.AspNetCore.Mvc;
 

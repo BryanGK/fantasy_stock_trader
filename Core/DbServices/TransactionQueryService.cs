@@ -4,7 +4,7 @@ using System.Linq;
 using Core.Entities;
 using NHibernate;
 
-namespace Core.Services
+namespace Core.DbServices
 {
     public interface ITransactionQueryService
     {

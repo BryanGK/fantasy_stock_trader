@@ -7,6 +7,7 @@ using NHibernate.NetCore;
 using Microsoft.Extensions.Configuration;
 using Core.Services;
 using API.Middleware;
+using Core.DbServices;
 
 namespace API
 {
