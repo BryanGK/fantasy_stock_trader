@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Core.DbServices;
 using Core.Entities;
-using Core.IEXModels;
 using Core.Models;
 using Core.Services;
 using NSubstitute;
