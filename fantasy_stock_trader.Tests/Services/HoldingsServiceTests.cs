@@ -77,15 +77,21 @@ namespace fantasy_stock_trader.Tests.Services
         }
 
         [Test]
-        public void GetHoldings_TransactionCountIsZeroOrLess_ReturnsHoldings()
+        public async Task GetHoldings_TransactionCountIsZeroOrLess_ReturnsHoldings()
         {
             var transactions = new List<TransactionEntity>();
 
+            var cash = new WalletEntity() { Cash = 100M };
+
             _transactionQueryService.GetTransactions(Arg.Any<string>()).Returns(transactions);
 
-            var result = _sut.GetHoldings("9fefa208-5c52-4435-a3ca-70d1e9cee692");
+            _walletQueryService.GetWallet(Arg.Any<string>()).Returns(cash);
 
-            Assert.That(result, Is.TypeOf<Task<TotalHoldings>>());
+            var result = await _sut.GetHoldings("9fefa208-5c52-4435-a3ca-70d1e9cee692");
+
+            Assert.That(result.Holdings, Is.Null);
+            Assert.That(result.Cash, Is.EqualTo(100M));
+            Assert.That(result.Value, Is.EqualTo(0M));
         }
     }
 }
