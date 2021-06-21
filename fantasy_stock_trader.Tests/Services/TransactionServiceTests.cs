@@ -33,7 +33,7 @@ namespace fantasy_stock_trader.Tests.Services
 
             var result = _sut.Buy("9fefa208-5c52-4435-a3ca-70d1e9cee692", "V", 10.00M, 1);
 
-            Assert.That(result, Is.TypeOf<WalletEntity>());
+            Assert.That(result.Cash, Is.EqualTo(100.00M));
         }
 
         [Test]
@@ -49,7 +49,13 @@ namespace fantasy_stock_trader.Tests.Services
         [Test]
         public void Sell_WhenCalled_ReturnsWallet()
         {
+            var wallet = new WalletEntity() { Cash = 100.00M };
 
+            _walletQueryService.GetWallet(Arg.Any<string>()).Returns(wallet);
+
+            var result = _sut.Sell("9fefa208-5c52-4435-a3ca-70d1e9cee692", "V", 10.00M, 1);
+
+            Assert.That(result.Cash, Is.EqualTo(100.00M));
         }
     }
 }
