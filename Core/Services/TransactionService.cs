@@ -31,14 +31,14 @@ namespace Core.Services
 
             var wallet = _walletQueryService.GetWallet(userId);
 
-            if (wallet.Cash >= totalPrice)
+            if (wallet.Cash < totalPrice)
             {
-                _walletQueryService.Update(wallet.WalletId, totalPrice, isPurchase);
-
-                _transactionQueryService.AddTransaction(userId, stock, price, quantity);
-            }
-            else
                 throw new InsufficientAvailableFundsException("There are insufficient funds to complete this transaction.");
+            }
+
+            _walletQueryService.Update(wallet.WalletId, totalPrice, isPurchase);
+
+            _transactionQueryService.AddTransaction(userId, stock, price, quantity);
 
             return wallet;
 
