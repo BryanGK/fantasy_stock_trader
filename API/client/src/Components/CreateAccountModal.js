@@ -28,7 +28,7 @@ function CreateAccountModal({ handleModalClose, handleUsername, handlePassword, 
                                 placeholder="Select a username" />
                         </Col>
                     </Form.Group>
-                    {error.usernameLength ?
+                    {error.usernameLengthError ?
                         <p className="username-error">Username must be at least 4 characters long</p>
                         : null}
                     <Form.Group as={Row} controlid="formPassword">
@@ -42,7 +42,7 @@ function CreateAccountModal({ handleModalClose, handleUsername, handlePassword, 
                                 placeholder="Password" />
                         </Col>
                     </Form.Group>
-                    {error.passwordLength ?
+                    {error.passwordLengthError ?
                         <p className="password-error">Password must be at least 8 characters long</p>
                         : null}
                 </Modal.Body>

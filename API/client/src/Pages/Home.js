@@ -222,17 +222,14 @@ function Home() {
                                         value={company}
                                         onChange={handleChange}
                                         onKeyPress={e => {
-                                            if (e.key === "Enter") {
-                                                handleSearch();
-                                            }
-                                        }}
-                                    />
+                                            if (e.key === "Enter") { handleSearch(); }
+                                        }} />
                                     <InputGroup.Append>
                                         <Button
                                             type="submit"
                                             onClick={handleSearch}>
                                             Search
-                            </Button>
+                                        </Button>
                                     </InputGroup.Append>
                                 </InputGroup>
                                 {displayError ?

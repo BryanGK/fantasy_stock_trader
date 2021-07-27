@@ -27,17 +27,17 @@ function Login() {
     const checkInputLength = () => {
         if (username.length < 4 && password.length < 8) {
             setError({
-                usernameLength: true,
-                passwordLength: true
+                usernameLengthError: true,
+                passwordLengthError: true
             });
             return false;
 
         } else if (username.length < 4) {
-            setError({ usernameLength: true });
+            setError({ usernameLengthError: true });
             return false;
 
         } else if (password.length < 8) {
-            setError({ passwordLength: true });
+            setError({ passwordLengthError: true });
             return false;
         }
         return true;
@@ -118,7 +118,7 @@ function Login() {
                                     type="text"
                                     placeholder="Enter Username" />
                             </Form.Group>
-                            {error.usernameLength ?
+                            {error.usernameLengthError ?
                                 <p className="username-error">Username must be at least 4 characters long</p>
                                 : null}
                             <Form.Group controlId="formBasicPassword">
@@ -129,7 +129,7 @@ function Login() {
                                     type="password"
                                     placeholder="Password" />
                             </Form.Group>
-                            {error.passwordLength ?
+                            {error.passwordLengthError ?
                                 <p className="password-error">Password must be at least 8 characters long</p>
                                 : null}
                             <Link to="/home">
