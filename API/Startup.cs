@@ -76,6 +76,8 @@ namespace API
 
             app.UseAuthorization();
 
+            app.UseSpaStaticFiles();
+
             app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseEndpoints(endpoints =>
