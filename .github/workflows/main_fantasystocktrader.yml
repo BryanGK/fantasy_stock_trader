@@ -17,16 +17,16 @@ jobs:
     - name: 'Checkout Github Action'
       uses: actions/checkout@master
 
+    - name: Set up .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '5.0.x'
+        
     - name: npm install 
       run: npm i --prefix API/client
   
     - name: npm build 
       run: npm run build --prefix API/client
-
-    - name: Set up .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: '5.0.x'
       
     - name: Build with dotnet
       run: dotnet build --configuration Release
