@@ -36,7 +36,7 @@ namespace Core.Services
 
         public async Task<QuoteModel> GetStockQuote(string symbol)
         {
-            var response = await _client.GetAsync($"https://cloud.iexapis.com/stable/stock/{symbol}/quote?token=" + _configuration["IEX:ApiKey"]);
+            var response = await _client.GetAsync($"https://cloud.iexapis.com/stable/stock/{symbol}/quote?token=" + _configuration["IEXApiKey"]);
 
             if (response.IsSuccessStatusCode)
             {
@@ -50,7 +50,7 @@ namespace Core.Services
 
         public async Task<CompanyModel> GetCompanyData(string symbol)
         {
-            var response = await _client.GetAsync($"https://cloud.iexapis.com/stable/stock/{symbol}/company?token=" + _configuration["IEX:ApiKey"]);
+            var response = await _client.GetAsync($"https://cloud.iexapis.com/stable/stock/{symbol}/company?token=" + _configuration["IEXApiKey"]);
 
             if (response.IsSuccessStatusCode)
             {
@@ -64,7 +64,7 @@ namespace Core.Services
 
         public async Task<List<NewsModel>> GetCompanyNews(string symbol)
         {
-            var response = await _client.GetAsync($"https://cloud.iexapis.com/stable/stock/{symbol}/news?token=" + _configuration["IEX:ApiKey"]);
+            var response = await _client.GetAsync($"https://cloud.iexapis.com/stable/stock/{symbol}/news?token=" + _configuration["IEXApiKey"]);
 
             if (response.IsSuccessStatusCode)
             {
@@ -79,7 +79,7 @@ namespace Core.Services
 
         public async Task<LogoModel> GetCompanyLogo(string symbol)
         {
-            var response = await _client.GetAsync($"https://cloud.iexapis.com/stable/stock/{symbol}/logo?token=" + _configuration["IEX:ApiKey"]);
+            var response = await _client.GetAsync($"https://cloud.iexapis.com/stable/stock/{symbol}/logo?token=" + _configuration["IEXApiKey"]);
 
             if (response.IsSuccessStatusCode)
             {
@@ -100,7 +100,7 @@ namespace Core.Services
             {
                 query += $"{holding.Stock},";
             }
-            var response = await _client.GetAsync($"https://cloud.iexapis.com/stable/stock/market/batch?symbols={query}&types=quote&format=json&range=1m&last=5&token=" + _configuration["IEX:ApiKey"]);
+            var response = await _client.GetAsync($"https://cloud.iexapis.com/stable/stock/market/batch?symbols={query}&types=quote&format=json&range=1m&last=5&token=" + _configuration["IEXApiKey"]);
 
             if (response.IsSuccessStatusCode)
             {
